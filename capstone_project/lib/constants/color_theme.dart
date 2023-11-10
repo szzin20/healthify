@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeColor {
   Color primaryFrame = const Color(0XFF008772);
   Color status = const Color(0XFF199E50);
+  Color info = const Color(0XFF1766D6);
   Color searchBar = const Color(0XFFF5F5F5);
   Color filter = const Color(0XFF757575);
   Color primaryLabel = const Color(0XFF008772);
