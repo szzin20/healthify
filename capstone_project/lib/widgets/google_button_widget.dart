@@ -1,9 +1,10 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:flutter/material.dart';
 
-class googleButtonWidget extends StatelessWidget {
+class GoogleButtonWidget extends StatelessWidget {
   final VoidCallback onPressed;
   
-  const googleButtonWidget({
+  const GoogleButtonWidget({
     super.key, 
     required this.onPressed,
   });
@@ -22,9 +23,9 @@ class googleButtonWidget extends StatelessWidget {
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: const BorderSide(
+            side: BorderSide(
               width: 2,
-              color: Color(0xFF008772),
+              color: ThemeColor().primaryButtonActive
             ),
           ),
         ),

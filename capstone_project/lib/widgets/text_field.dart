@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.title ?? '',
             style: ThemeTextStyle()
                 .titleSmall
-                .copyWith(color: const Color(0xff202020)),
+                .copyWith(color: ThemeColor().textChangeProfil),
           ),
         ),
         TextField(
@@ -64,7 +65,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintText: widget.hintText,
             hintStyle: ThemeTextStyle()
                 .bodyMedium
-                .copyWith(color: const Color(0xff9C9C9C)),
+                .copyWith(color: ThemeColor().placeHolder),
             focusedBorder:
                 _isClicked && (widget.controller?.text.isEmpty ?? true)
                     ? OutlineInputBorder(
@@ -86,12 +87,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ),
             filled: true,
             fillColor:
-                _focusNode.hasFocus ? Colors.white : const Color(0xffECECEC),
+                _focusNode.hasFocus ? Colors.white : ThemeColor().textField,
             suffixIcon: widget.obscureText
                 ? IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: const Color(0xff9C9C9C),
+                      color: ThemeColor().placeHolder,
                     ),
                     onPressed: () {
                       setState(() {
