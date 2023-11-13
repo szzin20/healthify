@@ -20,12 +20,12 @@ class ButtonWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        fixedSize: const Size.fromHeight(42.0), 
+        fixedSize: const Size.fromHeight(42.0),
       ),
       onPressed: onPressed,
       child: Text(
         title,
-        style: ThemeTextStyle().labelLarge.copyWith(color: Colors.white),
+        style: ThemeTextStyle().titleMedium.copyWith(color: Colors.white),
       ),
     );
   }
