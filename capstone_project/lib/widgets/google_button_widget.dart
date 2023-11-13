@@ -3,15 +3,9 @@ import 'package:flutter/material.dart';
 
 class GoogleButtonWidget extends StatelessWidget {
   final VoidCallback onPressed;
-<<<<<<< HEAD
   
   const GoogleButtonWidget({
     super.key, 
-=======
-
-  const GoogleButtonWidget({
-    super.key,
->>>>>>> feat/login
     required this.onPressed,
   });
 
@@ -29,14 +23,10 @@ class GoogleButtonWidget extends StatelessWidget {
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-<<<<<<< HEAD
             side: BorderSide(
               width: 2,
               color: ThemeColor().primaryButtonActive
             ),
-=======
-            side: BorderSide(width: 2, color: ThemeColor().primaryButtonActive),
->>>>>>> feat/login
           ),
         ),
         child: Image.asset(
@@ -47,8 +37,4 @@ class GoogleButtonWidget extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> feat/login
