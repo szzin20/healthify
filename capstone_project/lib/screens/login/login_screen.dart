@@ -62,7 +62,9 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    //ke halaman lupa password
+                  },
                   child: Text(
                     'Lupa Password?',
                     style: ThemeTextStyle().titleMedium,
@@ -100,11 +102,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterScreen()),
-                    );
+                    // kehalaman register
                   },
                   child: Text(
                     'Daftar disini',
