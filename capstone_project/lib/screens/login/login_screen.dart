@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
@@ -38,7 +39,9 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Masuk',
-                style: ThemeTextStyle().hadlineSmall,
+                style: ThemeTextStyle().hadlineSmall.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
             const SizedBox(height: 35),
@@ -96,7 +99,13 @@ class LoginScreen extends StatelessWidget {
                   style: ThemeTextStyle().titleMedium,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterScreen()),
+                    );
+                  },
                   child: Text(
                     'Daftar disini',
                     style: ThemeTextStyle().titleMedium.copyWith(
