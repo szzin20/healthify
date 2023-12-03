@@ -1,4 +1,4 @@
-import 'package:capstone_project/screens/register/register_screen.dart';
+import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,14 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Healthify',
-      theme: ThemeData(
-        fontFamily: 'FontRoboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const RegisterScreen(),
-    );
+        title: 'Healthify',
+        theme: ThemeData(
+          fontFamily: 'FontRoboto',
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const DoctorScreen());
   }
 }
-
