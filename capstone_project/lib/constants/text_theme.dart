@@ -89,4 +89,10 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
+
+  TextStyle titleMedium2 = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+  );
 }
