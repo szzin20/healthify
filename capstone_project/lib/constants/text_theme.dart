@@ -105,10 +105,18 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
+
   TextStyle bodySmallShare = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
     color: ThemeColor().primaryFrame,
+  );
+
+  TextStyle titleMedium2 = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+
   );
 }

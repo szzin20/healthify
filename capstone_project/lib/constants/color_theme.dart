@@ -23,4 +23,8 @@ class ThemeColor {
   Color textChangeProfil = const Color(0XFF202020);
   Color backgroundKeranjangButton = const Color(0XFF008772);
   Color backgroundBeliSekarang = const Color(0XFF00444E);
+  Color bayarSekarangButton = const Color(0XFF1f1f1f);
+  Color white = Colors.white;
+  Color black = Colors.black;
+  Color progressBar = const Color(0XFF12874E);
 }
