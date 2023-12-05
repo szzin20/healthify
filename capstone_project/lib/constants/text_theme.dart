@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class ThemeTextStyle {
@@ -37,6 +38,12 @@ class ThemeTextStyle {
     fontFamily: 'FontRoboto',
   );
 
+  TextStyle headlineName = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w800,
+    fontFamily: 'FontRoboto',
+  );
+
   TextStyle titleLarge = const TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w400,
@@ -71,6 +78,11 @@ class ThemeTextStyle {
     fontFamily: 'FontRoboto',
   );
 
+  TextStyle labelSmallBold = const TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+  );
   TextStyle labelSmall = const TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w400,
@@ -92,5 +104,11 @@ class ThemeTextStyle {
     fontSize: 12,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
+  );
+  TextStyle bodySmallShare = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+    color: ThemeColor().primaryFrame,
   );
 }
