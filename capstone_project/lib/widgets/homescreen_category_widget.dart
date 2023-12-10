@@ -21,7 +21,7 @@ class HomeScreenCategoryWidget extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
         borderRadius: BorderRadius.circular(
@@ -32,7 +32,7 @@ class HomeScreenCategoryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iconWidget,
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(text),

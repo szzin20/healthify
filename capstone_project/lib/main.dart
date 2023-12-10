@@ -1,4 +1,6 @@
 import 'package:capstone_project/provider/medicine_provider.dart';
+import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
+import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,12 @@ void main() {
     providers: [
       ChangeNotifierProvider(
         create: (context) => MedicineProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => RegisterProvider(),
+      ),
+       ChangeNotifierProvider(
+        create: (context) => OTPProvider(),
       ),
     ],
     child: const MyApp(),
