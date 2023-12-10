@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 16,
           right: 16,
           top: 24,
@@ -19,40 +19,40 @@ class HomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: AssetImage(
                     'assets/images/doctor.png',
                   ),
                   radius: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Text('data'),
-                Spacer(),
+                const Text('data'),
+                const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.notifications,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            HomeSearchBarWidget(title: 'Search'),
-            SizedBox(
+            const HomeSearchBarWidget(title: 'Search'),
+            const SizedBox(
               height: 10,
             ),
-            Text('Apa yang kamu butuhkan?'),
-            SizedBox(
+            const Text('Apa yang kamu butuhkan?'),
+            const SizedBox(
               height: 8,
             ),
-            Row(
+            const Row(
               children: [
                 HomeScreenCategoryWidget(
                   iconWidget: Icon(

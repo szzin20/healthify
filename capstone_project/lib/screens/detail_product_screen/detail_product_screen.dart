@@ -31,7 +31,7 @@ class DetailProductScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 18,
             left: 16,
             right: 16,
@@ -42,7 +42,7 @@ class DetailProductScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
+                  const SizedBox(
                     height: 146,
                     width: 112,
                     child: Image(
@@ -52,7 +52,7 @@ class DetailProductScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 22,
                   ),
                   Expanded(
@@ -63,7 +63,7 @@ class DetailProductScreen extends StatelessWidget {
                           'OB Combi Antitussive Rasa Menthol 60 ml',
                           style: ThemeTextStyle().titleMedium,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 4,
                         ),
                         Text(
@@ -74,7 +74,7 @@ class DetailProductScreen extends StatelessWidget {
                           'Per botol',
                           style: ThemeTextStyle().bodyMedium,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 4,
                         ),
                         Padding(
@@ -89,7 +89,7 @@ class DetailProductScreen extends StatelessWidget {
                                 size: 20,
                                 color: ThemeColor().primaryFrame,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 4,
                               ),
                               Text(
@@ -104,7 +104,7 @@ class DetailProductScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Text(
@@ -115,7 +115,7 @@ class DetailProductScreen extends StatelessWidget {
                 'OB COMBI ANTITUSSIVE RASA MENTHOL mengandung dextrometorphan Hbr dan Dipenhydramine Hcl. Obat ini digunakan untuk meringankan batuk tidak berdahak disertai alergi',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text(
@@ -126,21 +126,21 @@ class DetailProductScreen extends StatelessWidget {
                 'Obat Bebas (Hijau)',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Text(
                 'Komposisi',
                 style: ThemeTextStyle().labelLarge2,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(
                 'Dextromethorphan HBr 12,5 mg ; Diphenhydramine HCl 7,5 mg',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(
@@ -151,14 +151,14 @@ class DetailProductScreen extends StatelessWidget {
                 '60 ml',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Text(
                 'Peringatan',
                 style: ThemeTextStyle().labelLarge2,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(
@@ -169,7 +169,7 @@ class DetailProductScreen extends StatelessWidget {
                 'BPOM: DBL2044401337A1',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(
@@ -180,7 +180,7 @@ class DetailProductScreen extends StatelessWidget {
                 'Pemakian 3 bulan setelah kemasan di buka',
                 style: ThemeTextStyle().bodySmall,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 56,
               ),
               Row(
