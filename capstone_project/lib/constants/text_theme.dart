@@ -88,6 +88,17 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
+  TextStyle labelExtraSmall = const TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+  );
+  TextStyle labelExtraSmallWhite = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+    color: ThemeColor().white
+  );
 
   TextStyle bodyLarge = const TextStyle(
     fontSize: 16,
