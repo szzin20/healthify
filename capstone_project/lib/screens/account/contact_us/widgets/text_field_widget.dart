@@ -50,11 +50,9 @@ class TextFieldWidget extends StatelessWidget {
             filled: true,
             fillColor: ThemeColor().textField,
             hintText: hintText,
-            hintStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ThemeColor().placeHolder,
-            ),
+            hintStyle: ThemeTextStyle().bodyMedium.copyWith(
+                  color: ThemeColor().placeHolder,
+                ),
             errorText: errorText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),

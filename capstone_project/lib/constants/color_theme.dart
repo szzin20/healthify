@@ -27,4 +27,6 @@ class ThemeColor {
   Color white = Colors.white;
   Color black = Colors.black;
   Color progressBar = const Color(0XFF12874E);
+  Color notActiveCategory = const Color(0XFFC5C8EE);
+  Color bottomNavigationBar = const Color(0XFFF5F5F5);
 }

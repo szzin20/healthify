@@ -1,18 +1,20 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
-import 'package:capstone_project/screens/account/widget/menu_tile_widget.dart';
+import 'package:capstone_project/screens/account/privacy_policy/privacy_policy_screen.dart';
+import 'package:capstone_project/screens/account/profile/profile_screen.dart';
+import 'package:capstone_project/screens/account/widgets/menu_tile_widget.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: AccountScreen(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const MaterialApp(
+//       home: AccountScreen(),
+//     ),
+//   );
+// }
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -20,20 +22,14 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(52),
-        child: AppBar(
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Colors.white,
-          ),
-          backgroundColor: ThemeColor().primaryFrame,
-          foregroundColor: Colors.white,
-          title: Text(
-            'Profil',
-            style: ThemeTextStyle().titleMedium,
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        backgroundColor: ThemeColor().primaryFrame,
+        foregroundColor: Colors.white,
+        title: Text(
+          'Akun',
+          style: ThemeTextStyle().titleMedium,
         ),
+        centerTitle: true,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -60,11 +56,21 @@ class AccountScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             MenuTileWidget(
-              icon: SvgPicture.asset('assets/icons/people_icon.svg'),
+              icon: SvgPicture.asset(
+                  'assets/icons/account_screen/people_icon.svg'),
               title: 'Profil Kamu',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
             ),
             MenuTileWidget(
-              icon: SvgPicture.asset('assets/icons/hubungi_kami_icon.svg'),
+              icon: SvgPicture.asset(
+                  'assets/icons/account_screen/hubungi_kami_icon.svg'),
               title: 'Hubungi Kami',
               onTap: () {
                 Navigator.push(
@@ -76,11 +82,21 @@ class AccountScreen extends StatelessWidget {
               },
             ),
             MenuTileWidget(
-              icon: SvgPicture.asset('assets/icons/privacy_policy_icon.svg'),
+              icon: SvgPicture.asset(
+                  'assets/icons/account_screen/privacy_policy_icon.svg'),
               title: 'Privacy Policy',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PrivacyPolicyScreen(),
+                  ),
+                );
+              },
             ),
             MenuTileWidget(
-              icon: SvgPicture.asset('assets/icons/logout_icon.svg'),
+              icon: SvgPicture.asset(
+                  'assets/icons/account_screen/logout_icon.svg'),
               title: 'Keluar',
             ),
           ],
