@@ -1,7 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
-import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
+import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/home.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/input_box_widget.dart';
@@ -18,7 +18,8 @@ class ConfirmationCodeScreen extends StatefulWidget {
 class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
   @override
   Widget build(BuildContext context) {
-    final providerOTP = Provider.of<OTPProvider>(context, listen: true);
+    final otpProvider = Provider.of<OtpProvider>(context);
+    final registerProvider = Provider.of<RegisterProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -31,14 +32,14 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
         backgroundColor: ThemeColor().primaryFrame,
       ),
       resizeToAvoidBottomInset: false,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        color: ThemeColor().textChat,
-        child: Consumer<OTPProvider>(
-          builder: (context, value, child) {
-            return Column(
+      body: Consumer<OtpProvider>(
+        builder: (context, value, _) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            color: ThemeColor().textChat,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -64,16 +65,16 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InputBoxWidget(
-                      controller: providerOTP.otp1Controller,
+                      controller: otpProvider.otp1Controller,
                     ),
                     InputBoxWidget(
-                      controller: providerOTP.otp2Controller,
+                      controller: otpProvider.otp2Controller,
                     ),
                     InputBoxWidget(
-                      controller: providerOTP.otp3Controller,
+                      controller: otpProvider.otp3Controller,
                     ),
                     InputBoxWidget(
-                      controller: providerOTP.otp4Controller,
+                      controller: otpProvider.otp4Controller,
                     ),
                   ],
                 ),
@@ -88,8 +89,8 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                           .copyWith(color: ThemeColor().filter),
                     ),
                     GestureDetector(
-                      onTap: () async {
-                        await Provider.of<RegisterProvider>(context, listen: false).resendOTP(context);
+                      onTap: () {
+                        // mengirim email kembali
                       },
                       child: Text(
                         'Resend',
@@ -105,12 +106,20 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                   width: double.infinity,
                   child: ButtonWidget(
                     title: 'Verifikasi dan lanjutkan',
-                    onPressed: providerOTP.isButtonEnabled
+                    onPressed: otpProvider.isButtonEnabled
                         ? () async {
-                            providerOTP.checkIfAllFieldsFilled();
-                            if (await providerOTP.verifyOTP()) {
-                              // OTP is verified, navigate to the home screen
-                              // ignore: use_build_context_synchronously
+                            print(
+                                '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}');
+
+                            int otp = int.parse(
+                                '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}');
+
+                            // Verify OTP
+                            bool isOtpValid = await otpProvider.verifyOtp(
+                                registerProvider.emailController.text, otp);
+
+                            if (isOtpValid) {
+                              // Navigate to the home page
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -118,16 +127,17 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                                 ),
                               );
                             } else {
-                              // Handle OTP verification failure if needed
+                              // Show an error message or handle invalid OTP
+                              // ...
                             }
                           }
                         : null,
                   ),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

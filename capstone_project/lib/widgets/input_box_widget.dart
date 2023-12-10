@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
+import 'package:capstone_project/provider/otp_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class InputBoxWidget extends StatefulWidget {
 class _InputBoxWidgetState extends State<InputBoxWidget> {
   @override
   Widget build(BuildContext context) {
-    final inputProvider = Provider.of<OTPProvider>(context);
+    final inputProvider = Provider.of<OtpProvider>(context);
     return Container(
       height: 60,
       width: 60,

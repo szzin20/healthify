@@ -4,13 +4,15 @@
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/api/register_api.dart';
 import 'package:capstone_project/models/register_model.dart';
+import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../screens/register/confirmation_code_screen.dart';
-import 'otp_provider.dart';
 
 class RegisterProvider extends ChangeNotifier {
+  final Dio dio = Dio();
+  final OtpProvider otpProvider = OtpProvider();
 
-   OTPProvider otpProvider = OTPProvider();
 
   // EMAIL VALIDATION
   String _emailValue = "";
@@ -164,13 +166,17 @@ class RegisterProvider extends ChangeNotifier {
     try {
       final postResponse = await RegisterApi().postData(
         dataRegister: RegisterModel(
-                email: emailController.text,
-                name: nameController.text,
-                password: passwordController.text)
-            .toJson(),
+          email: emailController.text,
+          name: nameController.text,
+          password: passwordController.text,
+        ).toJson(),
       );
+
       if (postResponse.statusCode == 201) {
-        // Registration successful, show success dialog
+        // Registration successful, send OTP
+        await sendOtp(context);
+
+        // Show success dialog
         _emailValue = emailController.text;
         showRegistrationSuccess(context);
       } else if (postResponse.statusCode == 409) {
@@ -186,6 +192,38 @@ class RegisterProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+ Future<void> sendOtp(BuildContext context) async {
+  try {
+    String email = emailController.text;
+
+    // Sending OTP
+    await dio.post(
+      'https://www.healthify.my.id/users/get-otp',
+      data: {'email': email},
+    );
+
+    // Verifying OTP
+    Future<void> otp =  otpProvider.sendOtp(email);
+    bool isOtpVerified = await otpProvider.verifyOtp(email, otp as int);
+
+    if (!isOtpVerified) {
+      // Handle OTP verification failure
+      return;
+    }
+
+    // Show a pop-up or navigate to the code confirmation screen
+    showRegistrationSuccess(context);
+  } catch (error) {
+    // Handle DioError separately
+    if (error is DioError) {
+      print('DioError: ${error.response?.statusCode} - ${error.response?.data}');
+    } else {
+      // Handle other errors
+      print('Error sending/verifying OTP: $error');
+    }
+  }
+}
 
   void showRegistrationError(BuildContext context, String errorMessage) {
     showDialog(
@@ -259,50 +297,9 @@ class RegisterProvider extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              const ConfirmationCodeScreen(),
-        ),
-      );
-    });
-  }
-
-   
-  Future<void> sendAndVerifyOTP(BuildContext context) async {
-    if (await otpProvider.sendOTP()) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("OTP has been sent"),
-      ));
-
-    //   // Navigate to the ConfirmationCodeScreen
-      Navigator.push(
-        context,
-        MaterialPageRoute(
           builder: (context) => const ConfirmationCodeScreen(),
         ),
       );
-    } 
-
-    if (await otpProvider.verifyOTP()) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("OTP is verified"),
-      ));
-      // Continue with the registration process or other actions
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Invalid OTP"),
-      ));
-    }
-  }
-
-   Future<void> resendOTP(BuildContext context) async {
-    if (await otpProvider.resendOTP()) {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //   content: Text("OTP has been resent"),
-      // ));
-    } else {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //   content: Text("Oops, OTP resend failed"),
-      // ));
-    }
+    });
   }
 }
