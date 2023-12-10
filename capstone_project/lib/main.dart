@@ -1,8 +1,21 @@
-import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
+import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
+import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
+import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => RegisterProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => OTPProvider(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +31,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const DoctorScreen());
+        home: const RegisterScreen());
   }
 }
