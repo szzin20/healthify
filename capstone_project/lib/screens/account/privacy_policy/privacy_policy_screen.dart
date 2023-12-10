@@ -14,14 +14,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ThemeColor().primaryFrame,
+        foregroundColor: Colors.white,
         title: Text(
           'Privacy Policy',
-          style: ThemeTextStyle().titleMedium.copyWith(
-                color: ThemeColor().white,
-              ),
+          style: ThemeTextStyle().titleMedium,
         ),
         centerTitle: true,
-        backgroundColor: ThemeColor().primaryFrame,
       ),
       body: SingleChildScrollView(
         child: Padding(
