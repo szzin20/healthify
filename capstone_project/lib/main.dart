@@ -18,6 +18,9 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => OTPProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => ContactUsProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -29,24 +32,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => MedicineProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ContactUsProvider(),
-        )
-      ],
-      child: MaterialApp(
-        title: 'Medicine App',
-        theme: ThemeData(
-          fontFamily: 'FontRoboto',
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const RegisterScreen(),
+    return MaterialApp(
+      title: 'Medicine App',
+      theme: ThemeData(
+        fontFamily: 'FontRoboto',
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: const RegisterScreen(),
     );
   }
 }
