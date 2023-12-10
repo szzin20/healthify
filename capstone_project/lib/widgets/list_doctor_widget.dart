@@ -10,16 +10,21 @@ class ListDoctorWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Rekomendasi Dokter',
-            ),
-            Text(
-              'Lihat Semua',
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(right: 18.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Rekomendasi Dokter',
+                style: ThemeTextStyle().titleSmall,
+              ),
+              Text(
+                'Lihat Semua',
+                style: ThemeTextStyle().titleSmallBlue,
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 8,
