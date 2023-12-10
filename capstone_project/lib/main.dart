@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return ChangeNotifierProvider(
       create: (context) => MedicineProvider(),
       child: MaterialApp(
@@ -22,6 +23,16 @@ class MyApp extends StatelessWidget {
         ),
         home: const MedicineListScreen(),
       ),
+=======
+    return MaterialApp(
+      title: 'Healthify',
+      theme: ThemeData(
+        fontFamily: 'FontRoboto',
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      // home: login(),
+>>>>>>> feat/accountScreen
     );
   }
 }

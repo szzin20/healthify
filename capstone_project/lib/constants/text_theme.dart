@@ -66,6 +66,11 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w700,
     fontFamily: 'FontRoboto',
   );
+  TextStyle labelLargeBold = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'FontRoboto',
+  );
   TextStyle labelLarge = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
@@ -118,5 +123,11 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w500,
     fontFamily: 'FontRoboto',
 
+  );
+
+  TextStyle actionButtonSmall = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'FontRoboto',
   );
 }
