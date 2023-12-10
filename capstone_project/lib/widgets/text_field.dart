@@ -1,6 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
