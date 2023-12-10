@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class ThemeTextStyle {
@@ -6,87 +7,127 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
-  
-   TextStyle displayMedium = const TextStyle(
+
+  TextStyle displayMedium = const TextStyle(
     fontSize: 45,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle displaySmall = const TextStyle(
+  TextStyle displaySmall = const TextStyle(
     fontSize: 36,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle headlineLarge = const TextStyle(
+  TextStyle headlineLarge = const TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle headlineMedium = const TextStyle(
+  TextStyle headlineMedium = const TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle hadlineSmall = const TextStyle(
+  TextStyle hadlineSmall = const TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle titleLarge = const TextStyle(
+  TextStyle headlineName = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w800,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle titleLarge = const TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle titleMedium = const TextStyle(
+  TextStyle titleMedium = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle titleSmall = const TextStyle(
+  TextStyle titleSmall = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     fontFamily: 'FontRoboto',
   );
-
-   TextStyle labelLarge = const TextStyle(
+  TextStyle labelLarge2 = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'FontRoboto',
+  );
+  TextStyle labelLargeBold = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'FontRoboto',
+  );
+  TextStyle labelLarge = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle labelMedium = const TextStyle(
+  TextStyle labelMedium = const TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle labelSmall = const TextStyle(
+  TextStyle labelSmallBold = const TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+  );
+  TextStyle labelSmall = const TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle bodyLarge = const TextStyle(
+  TextStyle bodyLarge = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 
-   TextStyle bodyMedium = const TextStyle(
+  TextStyle bodyMedium = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
-   TextStyle bodySmall = const TextStyle(
+  TextStyle bodySmall = const TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle bodySmallShare = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+    color: ThemeColor().primaryFrame,
+  );
+
+  TextStyle titleMedium2 = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+
+  );
+
+  TextStyle actionButtonSmall = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
     fontFamily: 'FontRoboto',
   );
 }

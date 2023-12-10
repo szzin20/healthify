@@ -5,8 +5,16 @@ import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +46,32 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Masuk',
-                style: ThemeTextStyle().hadlineSmall,
+                style: ThemeTextStyle().hadlineSmall.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
             const SizedBox(height: 35),
             CustomTextField(
               title: 'Username',
               hintText: 'Input username/email',
-              controller: TextEditingController(),
+              controller: userController,
             ),
             const SizedBox(height: 10),
             CustomTextField(
               title: 'Password',
               hintText: 'Input password',
               obscureText: true,
-              controller: TextEditingController(),
+              controller: passwordController,
             ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    //ke halaman lupa password
+                  },
                   child: Text(
                     'Lupa Password?',
                     style: ThemeTextStyle().titleMedium,
@@ -96,7 +108,9 @@ class LoginScreen extends StatelessWidget {
                   style: ThemeTextStyle().titleMedium,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    // kehalaman register
+                  },
                   child: Text(
                     'Daftar disini',
                     style: ThemeTextStyle().titleMedium.copyWith(
