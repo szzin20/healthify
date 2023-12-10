@@ -2,8 +2,6 @@ import 'package:capstone_project/provider/account_screen/contact_us_screen/conta
 import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/screens/history/history_screen.dart';
-import 'package:capstone_project/screens/notification/notification_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HistoryScreen(),
+      home: const RegisterScreen(),
     );
   }
 }
