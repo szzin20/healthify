@@ -57,8 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-<<<<<<< HEAD
-=======
   dio:
     dependency: "direct main"
     description:
@@ -67,7 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
->>>>>>> 99a13d4290b96cac877c4e1cf1f6bf899bc9a5d8
   dotted_border:
     dependency: "direct main"
     description:
@@ -267,8 +264,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-<<<<<<< HEAD
-=======
   nested:
     dependency: transitive
     description:
@@ -277,7 +272,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
->>>>>>> 99a13d4290b96cac877c4e1cf1f6bf899bc9a5d8
   path:
     dependency: transitive
     description:
@@ -318,8 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-<<<<<<< HEAD
-=======
   provider:
     dependency: "direct main"
     description:
@@ -328,7 +320,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.1"
->>>>>>> 99a13d4290b96cac877c4e1cf1f6bf899bc9a5d8
   sky_engine:
     dependency: transitive
     description: flutter
