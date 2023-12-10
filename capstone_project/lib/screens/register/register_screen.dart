@@ -1,32 +1,25 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
-import 'package:dio/dio.dart';
-import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-final dio = Dio();
-
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  EmailOTP myauth = EmailOTP();
 
   @override
   Widget build(BuildContext context) {
-    final providerRegister =
-        Provider.of<RegisterProvider>(context, listen: true);
+    final providerRegister = Provider.of<RegisterProvider>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -70,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   CustomTextField(
-                    title: 'Passsword',
+                    title: 'Password',
                     hintText: 'Buat Password',
                     obscureText: true,
                     controller: providerRegister.passwordController,
@@ -97,13 +90,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ButtonWidget(
-                        title: 'Daftar',
-                        onPressed: providerRegister.isButtonEnabled
-                            ? () async {
-                               await providerRegister.sendAndVerifyOTP(context);
-                                providerRegister.postData(context);
-                              }
-                            : null),
+                      title: 'Daftar',
+                      onPressed: providerRegister.isButtonEnabled
+                          ? () async {
+                              await providerRegister.postData(context);
+                            }
+                          : null,
+                    ),
                   ),
                   const SizedBox(height: 34),
                   const Text(

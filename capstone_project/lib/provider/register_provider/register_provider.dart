@@ -1,16 +1,12 @@
-// register_provider.dart
-// ignore_for_file: unused_element, recursive_getters, use_build_context_synchronously, avoid_print, unrelated_type_equality_checks
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/api/register_api.dart';
 import 'package:capstone_project/models/register_model.dart';
 import 'package:flutter/material.dart';
 import '../../screens/register/confirmation_code_screen.dart';
-import 'otp_provider.dart';
 
 class RegisterProvider extends ChangeNotifier {
-
-   OTPProvider otpProvider = OTPProvider();
 
   // EMAIL VALIDATION
   String _emailValue = "";
@@ -121,9 +117,6 @@ class RegisterProvider extends ChangeNotifier {
     }
   }
 
-  final RegisterModel _data2 = RegisterModel(email: '', name: '', password: '');
-  RegisterModel get data2 => _data2;
-
   bool isButtonEnabled = false;
 
   RegisterProvider() {
@@ -164,13 +157,14 @@ class RegisterProvider extends ChangeNotifier {
     try {
       final postResponse = await RegisterApi().postData(
         dataRegister: RegisterModel(
-                email: emailController.text,
-                name: nameController.text,
-                password: passwordController.text)
-            .toJson(),
+          email: emailController.text,
+          name: nameController.text,
+          password: passwordController.text,
+        ).toJson(),
       );
+
       if (postResponse.statusCode == 201) {
-        // Registration successful, show success dialog
+        // Registration successful, send OTP
         _emailValue = emailController.text;
         showRegistrationSuccess(context);
       } else if (postResponse.statusCode == 409) {
@@ -259,50 +253,9 @@ class RegisterProvider extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              const ConfirmationCodeScreen(),
-        ),
-      );
-    });
-  }
-
-   
-  Future<void> sendAndVerifyOTP(BuildContext context) async {
-    if (await otpProvider.sendOTP()) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("OTP has been sent"),
-      ));
-
-    //   // Navigate to the ConfirmationCodeScreen
-      Navigator.push(
-        context,
-        MaterialPageRoute(
           builder: (context) => const ConfirmationCodeScreen(),
         ),
       );
-    } 
-
-    if (await otpProvider.verifyOTP()) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("OTP is verified"),
-      ));
-      // Continue with the registration process or other actions
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Invalid OTP"),
-      ));
-    }
-  }
-
-   Future<void> resendOTP(BuildContext context) async {
-    if (await otpProvider.resendOTP()) {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //   content: Text("OTP has been resent"),
-      // ));
-    } else {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //   content: Text("Oops, OTP resend failed"),
-      // ));
-    }
+    });
   }
 }
