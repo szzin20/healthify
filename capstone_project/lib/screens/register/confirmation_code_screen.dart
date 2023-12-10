@@ -2,7 +2,7 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
 import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
-import 'package:capstone_project/screens/home.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/input_box_widget.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +89,9 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await Provider.of<RegisterProvider>(context, listen: false).resendOTP(context);
+                        await Provider.of<RegisterProvider>(context,
+                                listen: false)
+                            .resendOTP(context);
                       },
                       child: Text(
                         'Resend',

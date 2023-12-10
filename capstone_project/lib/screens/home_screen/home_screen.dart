@@ -1,4 +1,4 @@
-import 'package:capstone_project/widgets/bottom_navigation_bar.dart';
+import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
 import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';
@@ -10,8 +10,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController controller =
+        InheritedDataProvider.of(context).scrollController;
+
     return Scaffold(
       body: SingleChildScrollView(
+        controller: controller,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 16,
@@ -81,7 +85,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarWidget(),
     );
   }
 }
