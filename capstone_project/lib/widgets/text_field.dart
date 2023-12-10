@@ -1,24 +1,30 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomTextField extends StatefulWidget {
   final String? title;
   final String? hintText;
-  final TextEditingController? controller;
-  final TextInputType? keyboardType;
-  final bool obscureText;
   final Function(String)? onChanged;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType keyboardType;
+  final String? errorText;
+  final bool obscureText;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.title,
     required this.hintText,
-    this.controller,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
     this.onChanged,
-  }) : super(key: key);
+    this.controller,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    this.errorText,
+    this.obscureText = false,
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -26,13 +32,14 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscureText = false;
-  bool _isClicked = false; // Variable to track if the field has been clicked
+  bool _isClicked = false;
   late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    _obscureText = widget.obscureText; // Set initial state based on widget prop
   }
 
   @override
@@ -43,32 +50,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   @override
-  // ...
-
-  @override
   Widget build(BuildContext context) {
+     final textfieldProvider = Provider.of<RegisterProvider>(context);
     return Column(
       children: [
+
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
             widget.title ?? '',
-            style: ThemeTextStyle()
-                .titleSmall
-                .copyWith(color: ThemeColor().textChangeProfil),
+            style: ThemeTextStyle().titleSmall.copyWith(
+                  color: ThemeColor().textChangeProfil,
+                ),
           ),
         ),
         TextField(
-          onChanged: widget.onChanged,
+          onChanged: (value){
+            widget.onChanged?.call(value);
+            textfieldProvider.checkIfAllFieldsFilled();
+          },
           controller: widget.controller,
           keyboardType: widget.keyboardType,
           obscureText: _obscureText,
           focusNode: _focusNode,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: ThemeTextStyle()
-                .bodyMedium
-                .copyWith(color: ThemeColor().placeHolder),
+            hintStyle: ThemeTextStyle().bodyMedium.copyWith(
+                  color: ThemeColor().placeHolder,
+                ),
             focusedBorder:
                 _isClicked && (widget.controller?.text.isEmpty ?? true)
                     ? OutlineInputBorder(
@@ -108,8 +117,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           onTap: () {
             setState(() {
               _focusNode.requestFocus();
-              _isClicked =
-                  true; // Set to true when the field is clicked for the first time
+              _isClicked = true;
             });
           },
           onEditingComplete: () {
@@ -123,6 +131,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
             });
           },
         ),
+        if (widget.errorText != null)
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              widget.errorText!,
+              style: ThemeTextStyle().bodyMedium.copyWith(
+                    color: Colors.red,
+                  ),
+            ),
+          ),
       ],
     );
   }

@@ -81,14 +81,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  email_validator:
+  email_otp:
     dependency: "direct main"
     description:
-      name: email_validator
-      sha256: e9a90f27ab2b915a27d7f9c2a7ddda5dd752d6942616ee83529b686fc086221b
+      name: email_otp
+      sha256: "3c056c345be34e827135ddfce0c22850b32e1b697ce0a59257ffbc8d98a67c3f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.17"
+    version: "2.1.1"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -167,9 +175,18 @@ packages:
     dependency: transitive
     description: flutter
     source: sdk
-    version: "0.0.0"
+    version: "0.0.0"I
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "52671aea66da73b58d42ec6d0912b727a42248dd9a7c76d6c20f275783c48c08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.6.0"
   http:
     dependency: transitive
+
     description:
       name: http
       sha256: d4872660c46d929f6b8a9ef4e7a7eff7e49bbf0c4ec3f385ee32df5119175139
