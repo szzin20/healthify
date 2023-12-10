@@ -1,8 +1,8 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/api/otp_api.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/screens/home.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/input_box_widget.dart';
 import 'package:flutter/material.dart';
@@ -108,28 +108,10 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                     title: 'Verifikasi dan lanjutkan',
                     onPressed: otpProvider.isButtonEnabled
                         ? () async {
-                            print(
-                                '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}');
-
-                            int otp = int.parse(
-                                '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}');
-
-                            // Verify OTP
-                            bool isOtpValid = await otpProvider.verifyOtp(
-                                registerProvider.emailController.text, otp);
-
-                            if (isOtpValid) {
-                              // Navigate to the home page
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
-                                ),
-                              );
-                            } else {
-                              // Show an error message or handle invalid OTP
-                              // ...
-                            }
+                            String enteredOtp =
+                                '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}';
+                            print(enteredOtp);
+                            await OtpApi().registerUser(context, registerProvider.emailController.text,enteredOtp);
                           }
                         : null,
                   ),

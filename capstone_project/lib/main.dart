@@ -15,7 +15,7 @@ void main() {
         create: (context) => RegisterProvider(),
         ),
       ChangeNotifierProvider(
-        create: (context) => OtpProvider(),
+        create: (context) => OtpProvider(Provider.of<RegisterProvider>(context, listen: false)),
       ),
     ],
     child: const MyApp(),

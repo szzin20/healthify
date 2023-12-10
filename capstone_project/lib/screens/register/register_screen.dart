@@ -15,16 +15,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  @override
-  void dispose() {
-    // Dispose of TextEditingController instances to prevent memory leaks
-    Provider.of<RegisterProvider>(context, listen: false).disposeControllers();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final providerRegister = Provider.of<RegisterProvider>(context);
+    final providerRegister = Provider.of<RegisterProvider>(context, listen: false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

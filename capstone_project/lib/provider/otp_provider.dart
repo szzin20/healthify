@@ -1,8 +1,16 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:capstone_project/models/api/otp_api.dart';
+import 'package:capstone_project/provider/register_provider/register_provider.dart';
+import 'package:capstone_project/screens/home.dart';
+import 'package:flutter/material.dart';
 
 class OtpProvider extends ChangeNotifier {
-  final Dio _dio = Dio();
+   final RegisterProvider registerProvider;
+
+  OtpProvider(this.registerProvider) {
+    _setupTextControllers();
+  }
 
   TextEditingController otp1Controller = TextEditingController();
   TextEditingController get _otp1Controller => otp1Controller;
@@ -31,7 +39,6 @@ class OtpProvider extends ChangeNotifier {
       controller.addListener(checkIfAllFieldsFilled);
     }
   }
-  
 
   void checkIfAllFieldsFilled() {
     isButtonEnabled = otp1Controller.text.isNotEmpty &&
@@ -48,39 +55,42 @@ class OtpProvider extends ChangeNotifier {
     otp4Controller.dispose();
   }
 
-  Future<void> sendOtp(String email) async {
-    try {
-      // Make an API call to send OTP
-      Response response = await _dio.post(
-        'https://www.healthify.my.id/users/get-otp',
-        data: {'email': email},
-      );
-
-      // Handle the response as needed
-      print('Send OTP Response: ${response.data}');
-    } catch (error) {
-      // Handle error
-      print('Error sending OTP: $error');
+  void sendOTP() async {
+    bool result = await OtpApi().createOTP(
+      registerProvider.emailController.text,
+    );
+    if (result) {
+      print("OTP sent successfully");
+    } else {
+      print("Failed to send OTP");
     }
   }
 
-  Future<bool> verifyOtp(String email, int otp) async {
-    try {
-      // Make an API call to verify OTP
-      Response response = await _dio.post(
-        'https://www.healthify.my.id/users/verify-otp',
-        data: {'email': email, 'otp': otp},
-      );
+  void verifyAndRegister(BuildContext context) async {
+    String enteredOtp = "${otp1Controller.text}"
+        "${otp2Controller.text}"
+        "${otp3Controller.text}"
+        "${otp4Controller.text}";
+    bool verificationResult = await OtpApi()
+        .verifyOTP(registerProvider.emailController.text, enteredOtp);
 
-      // Handle the response as needed
-      print('Verify OTP Response: ${response.data}');
+    if (verificationResult) {
+      String enteredOtp = "${otp1Controller.text}"
+          "${otp2Controller.text}"
+          "${otp3Controller.text}"
+          "${otp4Controller.text}";
+      bool registrationResult =  OtpApi().registerUser(context, registerProvider.emailController.text, enteredOtp) as bool;
 
-      // Return true if the OTP is valid, false otherwise
-      return response.data['success'] ?? false;
-    } catch (error) {
-      // Handle error
-      print('Error verifying OTP: $error');
-      return false;
+      if (registrationResult) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        const SnackBar(content: Text("Error"));
+      }
+    } else {
+      const SnackBar(content: Text('Invalid OTP. Please try again.'));
     }
   }
 }

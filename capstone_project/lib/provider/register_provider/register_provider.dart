@@ -1,18 +1,12 @@
-// register_provider.dart
-// ignore_for_file: unused_element, recursive_getters, use_build_context_synchronously, avoid_print, unrelated_type_equality_checks
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/api/register_api.dart';
 import 'package:capstone_project/models/register_model.dart';
-import 'package:capstone_project/provider/otp_provider.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../screens/register/confirmation_code_screen.dart';
 
 class RegisterProvider extends ChangeNotifier {
-  final Dio dio = Dio();
-  final OtpProvider otpProvider = OtpProvider();
-
 
   // EMAIL VALIDATION
   String _emailValue = "";
@@ -123,9 +117,6 @@ class RegisterProvider extends ChangeNotifier {
     }
   }
 
-  final RegisterModel _data2 = RegisterModel(email: '', name: '', password: '');
-  RegisterModel get data2 => _data2;
-
   bool isButtonEnabled = false;
 
   RegisterProvider() {
@@ -174,9 +165,6 @@ class RegisterProvider extends ChangeNotifier {
 
       if (postResponse.statusCode == 201) {
         // Registration successful, send OTP
-        await sendOtp(context);
-
-        // Show success dialog
         _emailValue = emailController.text;
         showRegistrationSuccess(context);
       } else if (postResponse.statusCode == 409) {
@@ -192,38 +180,6 @@ class RegisterProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
- Future<void> sendOtp(BuildContext context) async {
-  try {
-    String email = emailController.text;
-
-    // Sending OTP
-    await dio.post(
-      'https://www.healthify.my.id/users/get-otp',
-      data: {'email': email},
-    );
-
-    // Verifying OTP
-    Future<void> otp =  otpProvider.sendOtp(email);
-    bool isOtpVerified = await otpProvider.verifyOtp(email, otp as int);
-
-    if (!isOtpVerified) {
-      // Handle OTP verification failure
-      return;
-    }
-
-    // Show a pop-up or navigate to the code confirmation screen
-    showRegistrationSuccess(context);
-  } catch (error) {
-    // Handle DioError separately
-    if (error is DioError) {
-      print('DioError: ${error.response?.statusCode} - ${error.response?.data}');
-    } else {
-      // Handle other errors
-      print('Error sending/verifying OTP: $error');
-    }
-  }
-}
 
   void showRegistrationError(BuildContext context, String errorMessage) {
     showDialog(
