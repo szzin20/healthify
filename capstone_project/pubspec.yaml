@@ -38,6 +38,8 @@ dependencies:
   pin_input_text_field: ^4.5.1
   image_picker: ^1.0.4
   dotted_border: ^2.1.0
+  dio: ^5.4.0
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
