@@ -12,8 +12,8 @@ class HomeScreenCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 72,
-      height: 72,
+      width: 78,
+      height: 78,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -32,6 +32,7 @@ class HomeScreenCategoryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iconWidget,
+
           const SizedBox(
             height: 8,
           ),
