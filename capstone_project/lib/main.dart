@@ -1,3 +1,4 @@
+import 'package:capstone_project/provider/account_screen/contact_us_screen/contact_us_provider.dart';
 import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/regiter_provider/otp_provider.dart';
 import 'package:capstone_project/provider/regiter_provider/register_provider.dart';
@@ -14,7 +15,7 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => RegisterProvider(),
       ),
-       ChangeNotifierProvider(
+      ChangeNotifierProvider(
         create: (context) => OTPProvider(),
       ),
     ],
@@ -28,13 +29,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Healthify',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => MedicineProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ContactUsProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Medicine App',
         theme: ThemeData(
           fontFamily: 'FontRoboto',
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const RegisterScreen());
+        home: const RegisterScreen(),
+      ),
+    );
   }
 }
