@@ -1,9 +1,11 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/article_list_model.dart';
 import 'package:flutter/material.dart';
 
 class ListArticleWidget extends StatelessWidget {
-  const ListArticleWidget({super.key});
+  final List<Result> result;
+  const ListArticleWidget({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ListArticleWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: result.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(
@@ -43,8 +45,8 @@ class ListArticleWidget extends StatelessWidget {
                       width: double.infinity,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: const Image(
-                          image: AssetImage('assets/images/doctor.png'),
+                        child: Image(
+                          image: NetworkImage(result[index].image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -71,7 +73,7 @@ class ListArticleWidget extends StatelessWidget {
                       bottom: 20,
                       left: 20,
                       right: 126,
-                      child: Text('Pentingnya Menjaga Kesehatan Kulit', style: ThemeTextStyle().titleSmallWhite,),
+                      child: Text(result[index].title, style: ThemeTextStyle().titleSmallWhite,),
                     ),
                     Positioned(
                       bottom: 10,

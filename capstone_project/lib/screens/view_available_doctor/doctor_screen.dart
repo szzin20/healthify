@@ -1,6 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/list_doctor_model.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';
 import 'package:capstone_project/widgets/search_bar_widget.dart';
@@ -76,6 +77,7 @@ class DoctorScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 1),
     );
   }
 }

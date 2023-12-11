@@ -1,6 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
-import 'package:capstone_project/screens/home.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
