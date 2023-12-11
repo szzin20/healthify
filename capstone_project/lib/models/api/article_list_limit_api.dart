@@ -14,7 +14,7 @@ class ArticleListAPI {
       final data = listArticlesFromJson(json.encode(response.data));
       listArticlesData = data.results;
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return listArticlesData;
   }
