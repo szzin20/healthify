@@ -8,6 +8,8 @@ class Urls {
   static const String profile = "/users/profile";
   static const String avilabledoctors =
       "/users/doctors/available?limit=5&offset=0";
+  static const String allavilabledoctors =
+      "/users/doctors/available?limit=1000&offset=0";
   static const String alldoctorsspecialization =
       "/users/doctors?specialist=gigi&limit=5&offset=0";
   static const String byid = "/users/4";
