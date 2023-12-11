@@ -1,4 +1,4 @@
-import 'package:capstone_project/widgets/bottom_navigation_bar.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
 import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';

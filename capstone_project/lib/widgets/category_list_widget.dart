@@ -9,7 +9,7 @@ class CategoryListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 18.0),
+      padding: const EdgeInsets.only(right: 14.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -20,30 +20,38 @@ class CategoryListWidget extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               HomeScreenCategoryWidget(
-                iconWidget: Icon(
-                  Icons.abc,
+                iconWidget: Image.asset(
+                  'assets/icons/all_icon/dokter.png',
+                  height: 24,
+                  width: 24,
                 ),
                 text: 'Konsultasi',
               ),
               HomeScreenCategoryWidget(
-                iconWidget: Icon(
-                  Icons.abc,
+                iconWidget:  Image.asset(
+                  'assets/icons/all_icon/mdi_drugs.png',
+                  height: 24,
+                  width: 24,
                 ),
                 text: 'Obat',
               ),
               NotActiveHomeScreenCategoryWidget(
-                iconWidget: Icon(
-                  Icons.abc,
+                iconWidget:  Image.asset(
+                  'assets/icons/all_icon/Ambulance.png',
+                  height: 24,
+                  width: 24,
                 ),
                 text: 'Ambulan',
               ),
               NotActiveHomeScreenCategoryWidget(
-                iconWidget: Icon(
-                  Icons.abc,
+                iconWidget:  Image.asset(
+                  'assets/icons/all_icon/syringe.png',
+                  height: 24,
+                  width: 24,
                 ),
                 text: 'Vaksinasi',
               ),
