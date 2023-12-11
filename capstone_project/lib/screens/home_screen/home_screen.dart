@@ -1,4 +1,4 @@
-import 'package:capstone_project/widgets/bottom_navigation_bar.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
 import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';
@@ -56,16 +56,19 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 32,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 112,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    8.0,
-                  ),
-                  child: const Image(
-                    image: AssetImage('assets/images/doctor.png'),
-                    fit: BoxFit.cover,
+              Padding(
+                padding: const EdgeInsets.only(right: 18.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 112,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      8.0,
+                    ),
+                    child: const Image(
+                      image: AssetImage('assets/images/doctor.png'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
