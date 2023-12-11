@@ -16,6 +16,7 @@ class Urls {
       "/users/medicines?offset=0&limit=5&name=ZZ";
   static const String medicinebyid = "/users/medicines/:medicine_id";
   static const String chatbots = "/customerservice";
+  static const String allarticles = "/users/articles?limit=5&offset=0";
   static const String articles = "/users/articles";
   static const String doctortransactions = "/users/doctor-payments/:doctor_id";
   static const String doctortransactionsbyid =

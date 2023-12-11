@@ -1,9 +1,12 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/doctor_list_model.dart';
+import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';
 
 class ListDoctorWidget extends StatelessWidget {
-  const ListDoctorWidget({super.key});
+  final List<Result> result;
+  const ListDoctorWidget({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,19 @@ class ListDoctorWidget extends StatelessWidget {
                 'Rekomendasi Dokter',
                 style: ThemeTextStyle().titleSmall,
               ),
-              Text(
-                'Lihat Semua',
-                style: ThemeTextStyle().titleSmallBlue,
+              GestureDetector(
+                child: Text(
+                  'Lihat Semua',
+                  style: ThemeTextStyle().titleSmallBlue,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DoctorScreen(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -34,7 +47,7 @@ class ListDoctorWidget extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
-            itemCount: 4,
+            itemCount: result.length,
             itemBuilder: (context, index) {
               return Container(
                 padding: const EdgeInsets.only(right: 18.0),
@@ -56,8 +69,9 @@ class ListDoctorWidget extends StatelessWidget {
                             height: 90,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4.0),
-                              child: const Image(
-                                image: AssetImage('assets/images/doctor.png'),
+                              child: Image(
+                                image:
+                                    NetworkImage(result[index].profilePicture),
                               ),
                             ),
                           ),
@@ -85,14 +99,14 @@ class ListDoctorWidget extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        'hjhgg',
+                        result[index].fullname,
                         style: ThemeTextStyle().labelMedium,
                       ),
                       const SizedBox(
                         height: 4,
                       ),
                       Text(
-                        'hjhgg',
+                        result[index].specialist,
                         style: ThemeTextStyle().bodySmall,
                       ),
                       const SizedBox(
@@ -131,7 +145,7 @@ class ListDoctorWidget extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        'hjhgg',
+                        result[index].price.toString(),
                         style: ThemeTextStyle().labelSmallBold,
                       ),
                     ],
