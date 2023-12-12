@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenCategoryWidget extends StatelessWidget {
@@ -36,7 +37,7 @@ class HomeScreenCategoryWidget extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Text(text),
+          Text(text, style: ThemeTextStyle().labelMedium),
         ],
       ),
     );

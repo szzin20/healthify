@@ -16,7 +16,7 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 84,
+          width: 80,
           padding: EdgeInsets.only(
             right: 8,
             bottom: 6,
@@ -38,7 +38,7 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(text),
+                Text(text, style: ThemeTextStyle().labelMedium),
               ],
             ),
           ),
