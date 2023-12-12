@@ -90,9 +90,9 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await Provider.of<RegisterProvider>(context,
-                                listen: false)
-                            .resendOTP(context);
+                        // await Provider.of<RegisterProvider>(context,
+                        // listen: false)
+                        // .resendOTP(context);
                       },
                       child: Text(
                         'Resend',
