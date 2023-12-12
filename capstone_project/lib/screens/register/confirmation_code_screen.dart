@@ -89,10 +89,8 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                           .copyWith(color: ThemeColor().filter),
                     ),
                     GestureDetector(
-                      onTap: () async {
-                        // await Provider.of<RegisterProvider>(context,
-                        // listen: false)
-                        // .resendOTP(context);
+                      onTap: () {
+                        // mengirim email kembali
                       },
                       child: Text(
                         'Resend',
