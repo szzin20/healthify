@@ -2,11 +2,12 @@
 
 import 'package:capstone_project/models/api/otp_api.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/screens/home.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
+
 import 'package:flutter/material.dart';
 
 class OtpProvider extends ChangeNotifier {
-   final RegisterProvider registerProvider;
+  final RegisterProvider registerProvider;
 
   OtpProvider(this.registerProvider) {
     _setupTextControllers();
@@ -79,7 +80,8 @@ class OtpProvider extends ChangeNotifier {
           "${otp2Controller.text}"
           "${otp3Controller.text}"
           "${otp4Controller.text}";
-      bool registrationResult =  OtpApi().registerUser(context, registerProvider.emailController.text, enteredOtp) as bool;
+      bool registrationResult = OtpApi().registerUser(
+          context, registerProvider.emailController.text, enteredOtp) as bool;
 
       if (registrationResult) {
         Navigator.pushReplacement(

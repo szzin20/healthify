@@ -1,6 +1,6 @@
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
-import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
+import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
 import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';
@@ -13,8 +13,6 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
-
-  
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -23,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     Future.delayed(Duration.zero, () {
-      Provider.of<DoctorsListProvider>(context, listen: false).fetchDoctorsList();
+      Provider.of<DoctorsListProvider>(context, listen: false)
+          .fetchDoctorsList();
     });
     Future.delayed(Duration.zero, () {
       Provider.of<ArticlesListProvider>(context, listen: false).fetchArticles();
@@ -32,8 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController =
+        InheritedDataProvider.of(context).scrollController;
+
     return Scaffold(
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 16,
@@ -98,23 +101,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 32,
               ),
               Consumer<DoctorsListProvider>(
-                builder: (context, doctorsListProvider, _) {
-                  return ListDoctorWidget(result: doctorsListProvider.doctorsList);
-                }
-              ),
+                  builder: (context, doctorsListProvider, _) {
+                return ListDoctorWidget(
+                    result: doctorsListProvider.doctorsList);
+              }),
               const SizedBox(
                 height: 32,
               ),
               Consumer<ArticlesListProvider>(
-                builder: (context, articlesListProvider, _) {
-                  return ListArticleWidget(result: articlesListProvider.articles,);
-                }
-              )
+                  builder: (context, articlesListProvider, _) {
+                return ListArticleWidget(
+                  result: articlesListProvider.articles,
+                );
+              })
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 0,),
     );
   }
 }
