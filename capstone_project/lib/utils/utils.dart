@@ -12,7 +12,7 @@ class Urls {
       "/users/doctors/available?limit=1000&offset=0";
   static const String alldoctorsspecialization =
       "/users/doctors?specialist=gigi&limit=5&offset=0";
-  static const String byid = "/users/4";
+  static const String byid = "/users/";
   static const String allmedicines = "/users/medicines?offset=0&limit=5";
   static const String medicinebyname =
       "/users/medicines?offset=0&limit=5&name=ZZ";

@@ -1,6 +1,7 @@
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
 import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
 import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';
@@ -31,12 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController =
-        InheritedDataProvider.of(context).scrollController;
-
     return Scaffold(
       body: SingleChildScrollView(
-        controller: scrollController,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 16,
@@ -118,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 0),
     );
   }
 }
