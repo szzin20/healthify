@@ -7,7 +7,7 @@ import 'package:capstone_project/provider/register_provider/register_provider.da
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/widgets/feedback_doctor.dart';
-// import 'package:capstone_project/screens/register/register_screen.dart';
+import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,10 +47,10 @@ class MyApp extends StatelessWidget {
       title: 'Medicine App',
       theme: ThemeData(
         fontFamily: 'FontRoboto',
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ConsultationFeeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
