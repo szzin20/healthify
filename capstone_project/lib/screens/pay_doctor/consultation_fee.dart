@@ -5,7 +5,14 @@ import 'package:capstone_project/screens/payment_detail/payment_detail_screen.da
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
-  const ConsultationFeeScreen({super.key});
+  final String fullname;
+  final int price;
+
+  const ConsultationFeeScreen({
+    Key? key,
+    required this.fullname,
+    required this.price,
+  }) : super(key: key);
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
@@ -54,8 +61,8 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              _buildPaymentDetails('Dr. Putu Shinta Widari Tirka Sp.D.V.E',
-                  '(Konsultasi 30 menit)', 'Rp 79.000'),
+              _buildPaymentDetails(widget.fullname ,
+                  '(Konsultasi 30 menit)', 'Rp ${widget.price}'),
               const SizedBox(height: 20),
               _buildPaymentDetails2('Biaya Layanan', 'Rp 1.000'),
               const SizedBox(height: 40),
@@ -131,7 +138,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(line1, style: ThemeTextStyle().titleSmall),
+            Text(widget.fullname, style: ThemeTextStyle().titleSmall),
             Text(line2, style: ThemeTextStyle().labelSmall),
           ],
         ),
