@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class RegisterApi {
   final Dio _dio = Dio();
-
   Future<Response> postData({required Map<String, dynamic> dataRegister}) async {
     try {
       final postResponse = await _dio.post(
