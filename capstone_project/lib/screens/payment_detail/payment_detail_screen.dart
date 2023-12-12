@@ -1,12 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class PaymentDetailScreen extends StatefulWidget {
-  const PaymentDetailScreen({super.key});
+  final int totalAmount;
+  final int selectedPaymentMethod;
+
+  const PaymentDetailScreen({
+    super.key,
+    required this.totalAmount,
+    required this.selectedPaymentMethod,
+  });
 
   @override
   State<PaymentDetailScreen> createState() => _PaymentDetailScreenState();
@@ -15,8 +22,8 @@ class PaymentDetailScreen extends StatefulWidget {
 class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
   late XFile? _pickedImage;
   bool _showUploadUI = true;
+  bool _fileUploaded = false;
 
-// Function to open gallery and pick an image
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -24,14 +31,15 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
     setState(() {
       _pickedImage = pickedImage;
       _showUploadUI = false;
+      _fileUploaded = true;
     });
   }
 
-  // Function to reset the UI to the initial state
   void _resetUI() {
     setState(() {
       _pickedImage = null;
       _showUploadUI = true;
+      _fileUploaded = false;
     });
   }
 
@@ -62,7 +70,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                     'Untuk Dibayar',
                     style: ThemeTextStyle().titleSmall,
                   ),
-                  Text('RP 80.000',
+                  Text('Rp ${widget.totalAmount}',
                       style: ThemeTextStyle().titleSmall.copyWith(
                             fontWeight: FontWeight.bold,
                           )),
@@ -77,7 +85,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                     style: ThemeTextStyle().titleSmall,
                   ),
                   Image.asset(
-                    'assets/images/bca.png',
+                    getBankLogo(widget.selectedPaymentMethod),
                     width: 40,
                     height: 40,
                   ),
@@ -222,7 +230,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                                               top: 4,
                                             ),
                                             child: SizedBox(
-                                              width: 375,
+                                              width: 350,
                                               height: 10,
                                               child: LinearProgressIndicator(
                                                 borderRadius:
@@ -233,8 +241,6 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                                             ),
                                           ),
                                         ],
-                                        // ),
-                                        // ],
                                       ),
                                     ),
                                   ],
@@ -246,26 +252,33 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                 ),
               ),
               const SizedBox(height: 180),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Add code to handle the upload here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ThemeColor().primaryFrame,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 220,
+                ),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: _fileUploaded
+                        ? () {
+                            // Add code to handle the upload here
+                          }
+                        : null, // Disable button if no file uploaded
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ThemeColor().primaryFrame,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 150,
+                      ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 20,
+                    child: Text(
+                      'Upload Sekarang',
+                      style: ThemeTextStyle().titleMedium.copyWith(
+                            color: ThemeColor().white,
+                          ),
                     ),
-                  ),
-                  child: Text(
-                    'Upload Sekarang',
-                    style: ThemeTextStyle().titleMedium.copyWith(
-                          color: ThemeColor().white,
-                        ),
                   ),
                 ),
               ),
@@ -275,25 +288,33 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
       ),
     );
   }
-}
 
-// Fungsi untuk menyalin teks ke Clipboard
-void _copyToClipboard(BuildContext context, String text) {
-  Clipboard.setData(ClipboardData(text: text));
-  // Tampilkan pesan
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.grey,
-      content: Container(
-        height: 18,
-        alignment: Alignment.center,
-        child: const Text(
-          'Nomor rekening disalin ke Clipboard',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 14),
+  String getBankLogo(int index) {
+    List<String> bankLogos = [
+      'assets/images/bca.png',
+      'assets/images/bri.png',
+      'assets/images/bni.png',
+    ];
+
+    return bankLogos[index];
+  }
+
+  void _copyToClipboard(BuildContext context, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.grey,
+        content: Container(
+          height: 18,
+          alignment: Alignment.center,
+          child: const Text(
+            'Nomor rekening disalin ke Clipboard',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

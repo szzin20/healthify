@@ -1,8 +1,8 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
-import 'package:flutter/material.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
   const ConsultationFeeScreen({super.key});
@@ -11,7 +11,7 @@ class ConsultationFeeScreen extends StatefulWidget {
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
 }
 
-int selectedPaymentMethod = -1; // -1 menunjukkan tidak ada yang dipilih
+int selectedPaymentMethod = -1; 
 
 final List<String> paymentMethods = [
   ' Manual Transfer BCA ',
@@ -24,6 +24,10 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int consultationFee = 79000; 
+    int serviceFee = 1000; 
+    int totalAmount = consultationFee + serviceFee;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -77,21 +81,20 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
               const SizedBox(height: 140),
               Padding(
                 padding: const EdgeInsets.only(
-                  bottom: 20,
+                  top: 120,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildPaymentDetails3('Untuk Dibayar', 'Rp 80.000'),
+                    _buildPaymentDetails3('Untuk Dibayar', 'Rp $totalAmount'),
                     Align(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Tambahkan logika pembayaran dokter di sini
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PaymentDetailScreen(),
+                              builder: (context) => PaymentDetailScreen(totalAmount: totalAmount, selectedPaymentMethod: selectedPaymentMethod),
                             ),
                           );
                         },
