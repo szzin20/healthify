@@ -63,11 +63,10 @@ class ThemeTextStyle {
   );
 
   TextStyle titleSmallWhite = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'FontRoboto',
-    color: ThemeColor().white
-  );
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'FontRoboto',
+      color: ThemeColor().white);
 
   TextStyle titleSmallBlue = TextStyle(
     fontSize: 14,
@@ -111,11 +110,10 @@ class ThemeTextStyle {
     fontFamily: 'FontRoboto',
   );
   TextStyle labelSmallWhite = TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'FontRoboto',
-    color: ThemeColor().white
-  );
+      fontSize: 11,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'FontRoboto',
+      color: ThemeColor().white);
   TextStyle labelExtraSmall = const TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w400,
@@ -160,6 +158,12 @@ class ThemeTextStyle {
   TextStyle actionButtonSmall = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle bodySmall2 = const TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 }

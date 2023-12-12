@@ -30,4 +30,6 @@ class ThemeColor {
   Color notActiveCategory = const Color(0XFFC5C8EE);
   Color bottomNavigationBar = const Color(0XFFF5F5F5);
   Color starYellow = const Color(0XFFFCD200);
+  Color disableNavigationBar = const Color(0XFF9C9C9C);
+  Color activeNavigationBar = const Color(0XFF008772);
 }

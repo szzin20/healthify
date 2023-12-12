@@ -1,5 +1,5 @@
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/account_screen/contact_us_screen/contact_us_provider.dart';
+import 'package:capstone_project/provider/account_provider/contact_us_provider/contact_us_provider.dart';
 import 'package:capstone_project/screens/account/contact_us/widgets/card_button_widget.dart';
 import 'package:capstone_project/screens/account/contact_us/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';

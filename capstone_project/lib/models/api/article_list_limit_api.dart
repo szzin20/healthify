@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:capstone_project/models/article_list_model.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
