@@ -9,7 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class BottomBarScreen extends StatefulWidget {
-  BottomBarScreen({Key? key}) : super(key: key);
+  const BottomBarScreen({Key? key}) : super(key: key);
 
   @override
   _BottomBarScreenState createState() => _BottomBarScreenState();

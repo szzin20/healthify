@@ -5,7 +5,6 @@ import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
-import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/account_provider/contact_us_provider/contact_us_provider.dart';

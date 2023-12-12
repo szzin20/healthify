@@ -23,9 +23,6 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController controller =
-        InheritedDataProvider.of(context).scrollController;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeColor().primaryFrame,
