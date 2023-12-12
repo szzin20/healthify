@@ -4,6 +4,7 @@ import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.d
 import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
+import 'package:capstone_project/screens/bottom_bar/bottom_bar_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const BottomBarScreen(),
     );
   }
 }

@@ -31,12 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController controller =
+    final ScrollController scrollController =
         InheritedDataProvider.of(context).scrollController;
 
     return Scaffold(
       body: SingleChildScrollView(
-        controller: controller,
+        controller: scrollController,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 16,

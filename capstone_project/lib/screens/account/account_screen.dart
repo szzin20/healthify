@@ -104,7 +104,6 @@ class AccountScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 4),
     );
   }
 }

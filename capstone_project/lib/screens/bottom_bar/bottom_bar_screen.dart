@@ -63,12 +63,16 @@ class _BottomBarScreenState extends State<BottomBarScreen>
             controller: tabController,
             dragStartBehavior: DragStartBehavior.down,
             physics: const BouncingScrollPhysics(),
-            children: const [
-              HomeScreen(),
-              DoctorScreen(),
-              MedicineListScreen(),
-              PaymentDetailScreen(),
-              AccountScreen(),
+            children: [
+              const HomeScreen(),
+              const DoctorScreen(),
+              Container(
+                  color: Colors.orange,
+                  child: const Center(child: Text('Riwayat'))),
+              Container(
+                  color: Colors.red,
+                  child: const Center(child: Text('Artikel'))),
+              const AccountScreen(),
             ],
           ),
         ),
