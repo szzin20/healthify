@@ -12,8 +12,8 @@ class HomeScreenCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 78,
-      height: 78,
+      width: 72,
+      height: 72,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [

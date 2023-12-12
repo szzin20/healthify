@@ -123,7 +123,7 @@ class DoctorCardWidget extends StatelessWidget {
                         .labelSmall
                         .copyWith(color: ThemeColor().filter),
                   ),
-                  const SizedBox(width: 70),
+                  const Expanded(child: SizedBox()),
                   Text('$numberOfReviews ulasan',
                       textDirection: TextDirection.ltr,
                       style: ThemeTextStyle()

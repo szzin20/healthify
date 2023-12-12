@@ -16,15 +16,15 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 88,
+          width: 84,
           padding: EdgeInsets.only(
             right: 8,
             bottom: 6,
             top: 6,
           ),
           child: Container(
-            width: 80,
-            height: 80,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
               color: ThemeColor().searchBar,
               borderRadius: BorderRadius.circular(
