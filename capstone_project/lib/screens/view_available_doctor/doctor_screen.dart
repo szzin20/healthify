@@ -13,11 +13,8 @@ class DoctorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController =
-        InheritedDataProvider.of(context).scrollController;
     return Scaffold(
       body: CustomScrollView(
-        controller: scrollController,
         slivers: [
           SliverAppBar(
             floating: false,
@@ -81,6 +78,7 @@ class DoctorScreen extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 1),
     );
   }
 }

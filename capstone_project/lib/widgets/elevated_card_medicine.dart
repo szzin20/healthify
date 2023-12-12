@@ -19,44 +19,62 @@ class ElevatedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        Card(
-          color: ThemeColor().white,
-          shadowColor: Colors.grey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 8),
-                  Image.network(
-                    image,
-                    height: 150,
-                    width: 200,
-                  ),
-                  const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      name,
-                      style: ThemeTextStyle().labelMedium,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      "Rp $price / $type",
-                      style: ThemeTextStyle().labelMedium.copyWith(
-                            fontWeight: FontWeight.bold,
+        SizedBox(
+          height: 164,
+          width: 154,
+          child: Card(
+            color: ThemeColor().white,
+            shadowColor: Colors.grey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    Image.network(
+                      image,
+                      height: 88,
+                      width: 138,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 88,
+                          width: 138,
+                          color: ThemeColor().disableNavigationBar,
+                          child: Center(
+                            child: Text(
+                              'No Image',
+                              style: ThemeTextStyle().labelMedium,
+                            ),
                           ),
+                        );
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                ],
-              ),
-            ],
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        name,
+                        style: ThemeTextStyle().labelMedium,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        "Rp $price / $type",
+                        style: ThemeTextStyle().labelMedium.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

@@ -2,13 +2,14 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
-import 'package:capstone_project/provider/medicine_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/screens/bottom_bar/bottom_bar_screen.dart';
+import 'package:capstone_project/screens/account/account_screen.dart';
+import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
-import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
-import 'package:capstone_project/widgets/feedback_doctor.dart';
+import 'package:capstone_project/screens/login/login_screen.dart';
+import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
@@ -24,7 +25,7 @@ void main() {
         create: (context) => DoctorByIdProvider(),
       ),
       ChangeNotifierProvider(
-        create: (context) => MedicineProvider(),
+        create: (context) => AllMedicineProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => RegisterProvider(),
@@ -59,9 +60,9 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const MedicineListScreen(),
       routes: <String, WidgetBuilder>{
-        '_': (BuildContext context) => const SplashScreen(),
+        '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomeScreen(),
