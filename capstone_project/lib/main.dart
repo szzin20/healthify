@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/account_screen/contact_us_screen/contact_us_provider.dart';
 import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized;
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -14,10 +16,10 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (context) => RegisterProvider(),
-        ),
-      ChangeNotifierProvider(
-        create: (context) => OtpProvider(Provider.of<RegisterProvider>(context, listen: false))
       ),
+      ChangeNotifierProvider(
+          create: (context) => OtpProvider(
+              Provider.of<RegisterProvider>(context, listen: false))),
       ChangeNotifierProvider(
         create: (context) => ContactUsProvider(),
       ),
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
       title: 'Medicine App',
       theme: ThemeData(
         fontFamily: 'FontRoboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
       home: const RegisterScreen(),

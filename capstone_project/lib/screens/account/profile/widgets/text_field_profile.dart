@@ -12,6 +12,7 @@ class TextFieldProfile extends StatelessWidget {
   final TextInputAction? textInputAction;
   final String? errorText;
   final int? maxLines;
+  final FocusNode? focusNode;
 
   const TextFieldProfile({
     super.key,
@@ -24,12 +25,13 @@ class TextFieldProfile extends StatelessWidget {
     this.textInputAction,
     this.errorText,
     this.maxLines,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 35,
       child: TextFormField(
         style: ThemeTextStyle().bodySmall,
         onChanged: onChanged,
@@ -38,9 +40,9 @@ class TextFieldProfile extends StatelessWidget {
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 11,
-            horizontal: 16,
+          contentPadding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
           ),
           filled: true,
           fillColor: ThemeColor().textField,
@@ -77,6 +79,7 @@ class TextFieldProfile extends StatelessWidget {
         ),
         cursorColor: ThemeColor().primaryFrame,
         maxLines: maxLines,
+        focusNode: focusNode,
       ),
     );
   }
