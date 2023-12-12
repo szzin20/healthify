@@ -1,7 +1,11 @@
+import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/article_list_model.dart';
 import 'package:flutter/material.dart';
 
 class ListArticleWidget extends StatelessWidget {
-  const ListArticleWidget({super.key});
+  final List<Result> result;
+  const ListArticleWidget({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +15,16 @@ class ListArticleWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Rekomendasi Dokter',
+                'Artikel Kesehatan',
+                style: ThemeTextStyle().titleSmall,
               ),
               Text(
                 'Lihat Semua',
+                style: ThemeTextStyle().titleSmallBlue,
               ),
             ],
           ),
@@ -26,7 +32,7 @@ class ListArticleWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: result.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(
@@ -39,8 +45,8 @@ class ListArticleWidget extends StatelessWidget {
                       width: double.infinity,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: const Image(
-                          image: AssetImage('assets/images/doctor.png'),
+                        child: Image(
+                          image: NetworkImage(result[index].image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -50,39 +56,37 @@ class ListArticleWidget extends StatelessWidget {
                       left: 0,
                       right: 0,
                       child: Container(
-                        height:
-                            80, 
+                        height: 80,
                         decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
                                 Color(0xFF005E61),
                                 Colors.transparent,
-  
                               ],
                             ),
                             borderRadius: BorderRadius.circular(8.0)),
                       ),
                     ),
                     Positioned(
-                      child: Text('Pentingnya Menjaga Kesehatan Kulit'),
                       bottom: 20,
                       left: 20,
                       right: 126,
+                      child: Text(result[index].title, style: ThemeTextStyle().titleSmallWhite,),
                     ),
                     Positioned(
-                      child: Row(
-                        children: [
-                          Icon(Icons.remove_red_eye_outlined),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text('245k'),
-                        ],
-                      ),
                       bottom: 10,
                       right: 20,
+                      child: Row(
+                        children: [
+                          Icon(Icons.remove_red_eye_outlined, color: ThemeColor().white,),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text('245k', style: ThemeTextStyle().labelSmallWhite,),
+                        ],
+                      ),
                     ),
                   ],
                 ),
