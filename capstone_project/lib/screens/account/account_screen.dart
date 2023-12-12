@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
 import 'package:capstone_project/screens/account/privacy_policy/privacy_policy_screen.dart';
 import 'package:capstone_project/screens/account/profile/profile_screen.dart';
@@ -103,7 +104,6 @@ class AccountScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 4),
     );
   }
 }

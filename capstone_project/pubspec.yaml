@@ -46,6 +46,7 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_svg: ^2.0.9
   email_validator: ^2.1.17
+  flutter_floating_bottom_bar: ^1.2.0
   textfield_datepicker: ^0.2.0
   group_button: ^5.3.3
   cool_dropdown: ^2.1.0
@@ -81,7 +82,7 @@ flutter:
     - assets/icons/account_screen/
     - assets/icons/account_screen/contact_us_screen/
     - assets/icons/account_screen/profile_screen/
-    
+    - assets/icons/bottom_bar/
 
   # To add fonts to application
 
