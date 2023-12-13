@@ -2,6 +2,8 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
+import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
@@ -16,7 +18,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late SharedPreferences loginData;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -101,16 +107,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed:
                         (checkLogin.user.isEmpty || checkLogin.pass.isEmpty)
                             ? null
-                            : () {
-                                Provider.of<LoginProcessProvider>(context,
-                                        listen: false)
-                                    .sendLoginData(
-                                        checkLogin.user, checkLogin.pass);
+                            : () async {
                                 final loginProvider =
-                                    Provider.of<LoginProcessProvider>(context);
+                                    Provider.of<LoginProcessProvider>(context,
+                                        listen: false);
+
+                                await loginProvider.sendLoginData(
+                                    checkLogin.user, checkLogin.pass);
+
                                 final loginResult = loginProvider.login;
+
                                 if (loginResult?.meta.success == false) {
-                                  
+                                  // Handle login failure (e.g., show an error message)
+                                } else {
+                                  SharedPreferencesUtils.setToken(loginResult?.results.token ?? '');
+                                  SharedPreferencesUtils.setNama(loginResult?.results.fullname ?? '');
+                                  SharedPreferencesUtils.setLoggedIn(true);
+                                  print(loginResult?.results.token);
+
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                    (route) => false,
+                                  );
                                 }
                               },
                   );

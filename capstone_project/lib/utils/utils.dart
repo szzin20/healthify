@@ -1,5 +1,7 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Urls {
-  static const String baseUrl = "https://www.healthify.my.id";
+  static const String baseUrl = "https://dev.healthify.my.id";
   static const String register = "/users/register";
   static const String signIn = "/users/login";
   static const String getotp = "/users/get-otp";
@@ -43,4 +45,37 @@ class Urls {
   static const String roomchat = "/users/chats/:transaction_id";
   static const String complaintmessage = "/users/chats/:roomchat_id/message";
   static const String roomchatbyid = "/users/chats/2";
+}
+
+
+class SharedPreferencesUtils {
+  static late SharedPreferences _prefs;
+
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  static String getToken() {
+    return _prefs.getString('token') ?? '';
+  }
+
+  static String getNama() {
+    return _prefs.getString('nama') ?? '';
+  }
+
+  static bool isLoggedIn() {
+    return _prefs.getBool('login') ?? false;
+  }
+
+  static Future<void> setToken(String token) async {
+    await _prefs.setString('token', token);
+  }
+
+  static Future<void> setNama(String nama) async {
+    await _prefs.setString('nama', nama);
+  }
+
+  static Future<void> setLoggedIn(bool isLoggedIn) async {
+    await _prefs.setBool('login', isLoggedIn);
+  }
 }
