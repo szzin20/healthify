@@ -19,8 +19,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
   late DoctorProvider doctorProvider;
   // Example in _DoctorScreenState
 
-
-
   final List<String> displayedSpecializations = [
     'Dokter Umum',
     'Spesialis Anak',
@@ -41,6 +39,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
     });
     Provider.of<DoctorProvider>(context, listen: false).fetchDoctor();
   }
+
   @override
   Widget build(BuildContext context) {
     final menuProvider = Provider.of<MenuProvider>(context, listen: false);
@@ -110,8 +109,22 @@ class _DoctorScreenState extends State<DoctorScreen> {
   SliverPadding _buildDoctorGrid() {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-      sliver: Consumer<DoctorProvider>(
-        builder: (context, value, child) => SliverGrid(
+      sliver: Consumer<DoctorProvider>(builder: (context, value, child) {
+        final doctors = doctorProvider.filteredDoctors;
+
+        if (doctors.isEmpty) {
+          // Display a message when the doctor list is empty
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                'Dokter tidak tersedia',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          );
+        }
+
+        return SliverGrid(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16,
@@ -136,8 +149,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
             },
             childCount: doctorProvider.filteredDoctors.length,
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

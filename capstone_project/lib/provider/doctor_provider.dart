@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProvider extends ChangeNotifier {
-
   static const String baseUrl = "https://www.healthify.my.id/users/doctors";
   static const String availableDoctorsUrl = "$baseUrl/available";
   static const String filteredDoctorsUrl = "$baseUrl?limit=5&offset=0";
@@ -30,18 +29,31 @@ class DoctorProvider extends ChangeNotifier {
 
 Future<void> fetchFilterDoctor(String specialization) async {
   try {
-    final encodedSpecialization = Uri.encodeQueryComponent(specialization);
-    final apiUrl = Uri.parse('$baseUrl?limit=5&offset=0&specialist=$encodedSpecialization');
+    final Response response = await _dio.get(
+      "$filteredDoctorsUrl&specialist=$specialization",
+    );
 
-    Response response = await _dio.get(apiUrl.toString());
-    final List<dynamic> results = response.data['results'];
-    _doctors = results.map((json) => Doctor.fromJson(json)).toList();
-    _filteredDoctors = List.from(_doctors);
-    notifyListeners();
+    if (response.statusCode == 200) {
+      final List<dynamic> results = response.data['results'];
+      _doctors = results.map((json) => Doctor.fromJson(json)).toList();
+      _filteredDoctors = List.from(_doctors);
+      notifyListeners();
+      print("Filtered Doctors: $_filteredDoctors");
+    } else if (response.statusCode == 404) {
+      // Handle the case when no doctors are found
+      _doctors = [];
+      _filteredDoctors = [];
+      notifyListeners();
+      print("No doctors available for $specialization");
+    } else {
+      // Handle other error cases if needed
+      print("Error fetching filtered doctor - Status Code: ${response.statusCode}");
+    }
   } catch (error) {
     print("Error fetching filtered doctor: $error");
   }
 }
+
 
   List<Doctor> get filteredDoctors => _filteredDoctors;
 
@@ -49,7 +61,7 @@ Future<void> fetchFilterDoctor(String specialization) async {
     if (index < 0 || index >= MenuProvider().doctorItems.length) {
       return;
     }
-    final selectedSpecialization = MenuProvider().doctorItems[index];
+    final selectedSpecialization = filterSpecializations[index];
     fetchFilterDoctor(selectedSpecialization);
   }
 
