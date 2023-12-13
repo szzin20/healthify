@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
+import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,18 +33,31 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(_animationController);
 
     _animationController.forward();
-
-    Timer(
-      const Duration(seconds: 3),
-      () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
-      },
-    );
+    if (SharedPreferencesUtils.isLoggedIn()) {
+      Timer(
+        const Duration(seconds: 3),
+        () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+        },
+      );
+    } else {
+            Timer(
+        const Duration(seconds: 3),
+        () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
+        },
+      );
+    }
   }
 
   @override

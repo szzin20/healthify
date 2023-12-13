@@ -23,37 +23,36 @@ class DoctorProvider extends ChangeNotifier {
       _filteredDoctors = List.from(_doctors);
       notifyListeners();
     } catch (error) {
-      print("Error fetching doctor: $error");
     }
   }
 
-Future<void> fetchFilterDoctor(String specialization) async {
-  try {
-    final Response response = await _dio.get(
-      "$filteredDoctorsUrl&specialist=$specialization",
-    );
+  Future<void> fetchFilterDoctor(String specialization) async {
+    try {
+      final Response response = await _dio.get(
+        "$filteredDoctorsUrl&specialist=$specialization",
+      );
 
-    if (response.statusCode == 200) {
-      final List<dynamic> results = response.data['results'];
-      _doctors = results.map((json) => Doctor.fromJson(json)).toList();
-      _filteredDoctors = List.from(_doctors);
-      notifyListeners();
-      print("Filtered Doctors: $_filteredDoctors");
-    } else if (response.statusCode == 404) {
-      // Handle the case when no doctors are found
+      if (response.statusCode == 200) {
+        final List<dynamic> results = response.data['results'];
+        _doctors = results.map((json) => Doctor.fromJson(json)).toList();
+        _filteredDoctors = List.from(_doctors);
+        notifyListeners();
+      } else if (response.statusCode == 404) {
+        // Handle the case when no doctors are found
+        _doctors = [];
+        _filteredDoctors = [];
+        notifyListeners();
+      } else {
+        _doctors = [];
+        _filteredDoctors = [];
+        notifyListeners();
+      }
+    } catch (error) {
       _doctors = [];
       _filteredDoctors = [];
       notifyListeners();
-      print("No doctors available for $specialization");
-    } else {
-      // Handle other error cases if needed
-      print("Error fetching filtered doctor - Status Code: ${response.statusCode}");
     }
-  } catch (error) {
-    print("Error fetching filtered doctor: $error");
   }
-}
-
 
   List<Doctor> get filteredDoctors => _filteredDoctors;
 

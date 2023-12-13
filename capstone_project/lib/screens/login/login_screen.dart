@@ -3,13 +3,13 @@ import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
+import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -120,13 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (loginResult?.meta.success == false) {
                                   // Handle login failure (e.g., show an error message)
                                 } else {
-                                  SharedPreferencesUtils.setToken(loginResult?.results.token ?? '');
-                                  SharedPreferencesUtils.setNama(loginResult?.results.fullname ?? '');
+                                  SharedPreferencesUtils.setToken(
+                                      loginResult?.results.token ?? '');
+                                  SharedPreferencesUtils.setNama(
+                                      loginResult?.results.fullname ?? '');
                                   SharedPreferencesUtils.setLoggedIn(true);
                                   print(loginResult?.results.token);
 
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
+                                  navigatorKey.currentState?.pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) => const HomeScreen(),
                                     ),
@@ -160,7 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // kehalaman register
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterScreen()),
+                      (route) => false,
+                    );
                   },
                   child: Text(
                     'Daftar disini',

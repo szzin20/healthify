@@ -18,11 +18,20 @@ class DetailDoctorScreen extends StatefulWidget {
 }
 
 class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
+  int doctorId = 0;
+  bool _dataFetched = false;
+
   @override
-  void initState() {
-    super.initState();
-    Provider.of<DoctorByIdProvider>(context, listen: false).fetchDoctorData(15);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_dataFetched) {
+      doctorId = ModalRoute.of(context)?.settings.arguments as int;
+      Provider.of<DoctorByIdProvider>(context, listen: false).fetchDoctorData(doctorId);
+      _dataFetched = true;
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {

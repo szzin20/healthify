@@ -13,7 +13,7 @@ class DetailDokterHeaderWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 196,
+          height: 210,
           width: double.infinity,
           child: Image(
             image: NetworkImage(
@@ -40,7 +40,7 @@ class DetailDokterHeaderWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 156,
+            bottom: 24,
             right: 24,
             child: (status)
                 ? Container(

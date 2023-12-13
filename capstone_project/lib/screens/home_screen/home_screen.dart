@@ -1,6 +1,5 @@
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
-import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/category_list_widget.dart';
@@ -9,7 +8,6 @@ import 'package:capstone_project/widgets/list_article_widget.dart';
 import 'package:capstone_project/widgets/list_doctor_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -118,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 0),
+      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 0),
     );
   }
 }

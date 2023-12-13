@@ -7,7 +7,7 @@ import 'package:capstone_project/widgets/all_list_artikel_widget.dart';
 import 'package:flutter/material.dart';
 
 class ArtikelScreen extends StatefulWidget {
-  const ArtikelScreen({Key? key}) : super(key: key);
+  const ArtikelScreen({super.key});
 
   @override
   _ArtikelScreenState createState() => _ArtikelScreenState();
@@ -33,7 +33,8 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
                     ),
               ),
               centerTitle: true,
-              titlePadding: EdgeInsetsDirectional.zero, //perubahan
+              titlePadding: const EdgeInsets.only(
+                  bottom: 14.0), // Adjust the bottom padding as needed
               background: Container(
                 color: ThemeColor().primaryFrame,
               ),
@@ -72,7 +73,9 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
           ),
         ],
       ),
-      // bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: null,),
+      bottomNavigationBar: const BottomNavigationBarWidget(
+        currentIndex: 3,
+      ),
     );
   }
 }
