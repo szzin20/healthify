@@ -1,3 +1,5 @@
+import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
@@ -5,16 +7,29 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Selesaikan Pembayaran',
+          style: ThemeTextStyle().titleMedium.copyWith(
+                fontWeight: FontWeight.bold,
+                color: const Color(0XFFFBFBFB),
+              ),
+        ),
+        backgroundColor: ThemeColor().primaryFrame,
+        centerTitle: true,
+      ),
+      body:  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text(
-              'Loading...',
-              style: TextStyle(fontSize: 16),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
+            Center(
+              child: Text(
+                'Pembayaran sedang di Proses',
+                style: ThemeTextStyle().titleMedium,
+              ),
             ),
           ],
         ),
