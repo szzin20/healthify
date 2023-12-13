@@ -1,20 +1,22 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
+import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late SharedPreferences loginData;
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -100,7 +102,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         (checkLogin.user.isEmpty || checkLogin.pass.isEmpty)
                             ? null
                             : () {
-                                print('object');
+                                Provider.of<LoginProcessProvider>(context,
+                                        listen: false)
+                                    .sendLoginData(
+                                        checkLogin.user, checkLogin.pass);
+                                final loginProvider =
+                                    Provider.of<LoginProcessProvider>(context);
+                                final loginResult = loginProvider.login;
+                                if (loginResult?.meta.success == false) {
+                                  
+                                }
                               },
                   );
                 },

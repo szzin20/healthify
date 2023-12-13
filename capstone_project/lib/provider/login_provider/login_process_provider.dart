@@ -1,17 +1,17 @@
+import 'package:capstone_project/models/api/login_process_api.dart';
 import 'package:capstone_project/models/login_data_model.dart';
 import 'package:flutter/material.dart';
 
-class DoctorByIdProvider extends ChangeNotifier {
+class LoginProcessProvider extends ChangeNotifier {
   LoginData? _dataLogin;
 
-  LoginData? get doctor => _dataLogin;
+  LoginData? get login => _dataLogin;
 
-  Future<void> fetchDoctorData(int doctorId) async {
+  Future<void> sendLoginData(String email, String pass) async {
     try {
-      final doctorData = await DoctorAPI.getDoctorData(doctorId);
-      _dataLogin = doctorData;
+      final loginData = await GetLoginData.postLogin(email, pass);
+      _dataLogin = loginData;
       notifyListeners();
-      print('object');
     } catch (e) {
       print('Error fetching doctor data: $e');
     }

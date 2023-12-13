@@ -1,4 +1,5 @@
 import 'package:capstone_project/provider/doctor_provider.dart';
+import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
@@ -54,6 +55,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (context) => CheckLoginProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => LoginProcessProvider(),
       ),
     ],
     child: const MyApp(),
