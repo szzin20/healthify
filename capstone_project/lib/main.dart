@@ -2,6 +2,7 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
+import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
@@ -42,6 +43,9 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => ArticlesListProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => CheckLoginProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -60,7 +64,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const MedicineListScreen(),
+      home: const LoginScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
