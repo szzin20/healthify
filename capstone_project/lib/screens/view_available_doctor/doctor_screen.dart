@@ -2,6 +2,7 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';
 import 'package:capstone_project/widgets/search_bar_widget.dart';
@@ -52,6 +53,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
           _buildDoctorGrid(),
         ],
       ),
+      bottomNavigationBar: const BottomNavigationBarWidget(
+        currentIndex: 1,
+      ),
     );
   }
 
@@ -62,13 +66,16 @@ class _DoctorScreenState extends State<DoctorScreen> {
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           'Dokter',
-          style: ThemeTextStyle()
-              .titleMedium
-              .copyWith(fontSize: 20, color: const Color(0xffFBFBFB)),
+          style: ThemeTextStyle().titleMedium.copyWith(
+                fontSize: 20,
+                color: const Color(0xffFBFBFB),
+              ),
         ),
         centerTitle: true,
+        titlePadding: const EdgeInsets.only(
+            bottom: 14.0), // Adjust the bottom padding as needed
         background: Container(
-          color: ThemeColor().primaryButtonActive,
+          color: ThemeColor().primaryFrame,
         ),
       ),
     );
@@ -101,7 +108,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
           doctorItems: displayedSpecializations,
         ),
       ),
-      bottom: PreferredSize(preferredSize: Size.zero, child: Text('')),
+      bottom: const PreferredSize(preferredSize: Size.zero, child: Text('')),
     );
   }
 
@@ -140,7 +147,10 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     imageUrl: doctor.profilePicture,
                     price: doctor.price.toString(),
                     isOnline: doctor.status,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, '/detailDoctor',
+                          arguments: doctor.id);
+                    },
                   );
                 } else {
                   return const SizedBox.shrink();

@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
         '/history': (BuildContext context) => const Center(),
         '/account': (BuildContext context) => const AccountScreen(),
         '/detailMed': (BuildContext context) => const AccountScreen(),
-        '/detailarticle': (BuildContext context) => const AccountScreen(),
+        '/detailArticle': (BuildContext context) => const AccountScreen(),
         '/detailDoctor': (BuildContext context) => const DetailDoctorScreen(),
         '/notif': (BuildContext context) => const AccountScreen(),
         '/contactUs': (BuildContext context) => const AccountScreen(),

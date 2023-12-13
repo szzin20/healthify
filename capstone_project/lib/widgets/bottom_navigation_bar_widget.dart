@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
+import 'package:capstone_project/screens/artikel/artikel.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,11 @@ class BottomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      HomeScreen(),
-      DoctorScreen(),
-      Container(color: Colors.orange, child: Center(child: Text('Riwayat'))),
-      Container(color: Colors.red, child: Center(child: Text('Artikel'))),
-      AccountScreen(),
+      const HomeScreen(),
+      const DoctorScreen(),
+      Container(color: Colors.orange, child: const Center(child: Text('Riwayat'))),
+      const ArtikelScreen(),
+      const AccountScreen(),
     ];
     return Theme(
       data: Theme.of(context).copyWith(

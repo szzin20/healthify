@@ -49,106 +49,113 @@ class ListDoctorWidget extends StatelessWidget {
             shrinkWrap: true,
             itemCount: result.length,
             itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.only(right: 18.0),
-                color: ThemeColor().searchBar,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/detailDoctor',
+                      arguments: result[index].id);
+                },
                 child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        12.0,
-                      ),
-                      color: ThemeColor().white),
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          SizedBox(
-                            width: 130,
-                            height: 90,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4.0),
-                              child: Image(
-                                image:
-                                    NetworkImage(result[index].profilePicture),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 4,
-                            bottom: 4,
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                left: 10,
-                                right: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ThemeColor().kirimButton,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Online',
-                                style: ThemeTextStyle().labelExtraSmallWhite,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        result[index].fullname,
-                        style: ThemeTextStyle().labelMedium,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        result[index].specialist,
-                        style: ThemeTextStyle().bodySmall,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      SizedBox(
-                        width: 130,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  padding: const EdgeInsets.only(right: 18.0),
+                  color: ThemeColor().searchBar,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          12.0,
+                        ),
+                        color: ThemeColor().white),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
                           children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star,
-                                    size: 10,
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    '4,7',
-                                    style: ThemeTextStyle().labelSmall,
-                                  ),
-                                ],
+                            SizedBox(
+                              width: 130,
+                              height: 90,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4.0),
+                                child: Image(
+                                  image: NetworkImage(
+                                      result[index].profilePicture),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            Text(
-                              '74 ulasan',
-                              style: ThemeTextStyle().labelSmall,
-                            ),
+                            Positioned(
+                              right: 4,
+                              bottom: 4,
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: ThemeColor().kirimButton,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'Online',
+                                  style: ThemeTextStyle().labelExtraSmallWhite,
+                                ),
+                              ),
+                            )
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        result[index].price.toString(),
-                        style: ThemeTextStyle().labelSmallBold,
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          result[index].fullname,
+                          style: ThemeTextStyle().labelMedium,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          result[index].specialist,
+                          style: ThemeTextStyle().bodySmall,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        SizedBox(
+                          width: 130,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      size: 10,
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      '4,7',
+                                      style: ThemeTextStyle().labelSmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                '74 ulasan',
+                                style: ThemeTextStyle().labelSmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          result[index].price.toString(),
+                          style: ThemeTextStyle().labelSmallBold,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
