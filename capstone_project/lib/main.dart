@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => const HomeScreen(),
         '/doctorList': (BuildContext context) => const DoctorScreen(),
         '/articleList': (BuildContext context) => const Center(),
-        '/findMed': (BuildContext context) => const Center(),
+        '/findMed': (BuildContext context) => const MedicineListScreen(),
         '/history': (BuildContext context) => const Center(),
         '/account': (BuildContext context) => const AccountScreen(),
         '/detailMed': (BuildContext context) => const AccountScreen(),

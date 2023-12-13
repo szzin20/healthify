@@ -9,12 +9,12 @@ class ElevatedCard extends StatelessWidget {
   final String type;
 
   const ElevatedCard({
-    Key? key,
+    super.key,
     required this.image,
     required this.name,
     required this.price,
     required this.type,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ElevatedCard extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         SizedBox(
-          height: 164,
+          height: 174,
           width: 154,
           child: Card(
             color: ThemeColor().white,
@@ -34,24 +34,27 @@ class ElevatedCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 8),
-                    Image.network(
-                      image,
-                      height: 88,
-                      width: 138,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          height: 88,
-                          width: 138,
-                          color: ThemeColor().disableNavigationBar,
-                          child: Center(
-                            child: Text(
-                              'No Image',
-                              style: ThemeTextStyle().labelMedium,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        image,
+                        height: 88,
+                        width: 138,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            height: 88,
+                            width: 138,
+                            color: ThemeColor().disableNavigationBar,
+                            child: Center(
+                              child: Text(
+                                'No Image',
+                                style: ThemeTextStyle().labelMedium,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Padding(

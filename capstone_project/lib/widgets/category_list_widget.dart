@@ -23,24 +23,40 @@ class CategoryListWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              HomeScreenCategoryWidget(
-                iconWidget: Image.asset(
-                  'assets/icons/all_icon/dokter.png',
-                  height: 24,
-                  width: 24,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/doctorList',
+                  );
+                },
+                child: HomeScreenCategoryWidget(
+                  iconWidget: Image.asset(
+                    'assets/icons/all_icon/dokter.png',
+                    height: 24,
+                    width: 24,
+                  ),
+                  text: 'Konsultasi',
                 ),
-                text: 'Konsultasi',
               ),
-              HomeScreenCategoryWidget(
-                iconWidget:  Image.asset(
-                  'assets/icons/all_icon/mdi_drugs.png',
-                  height: 24,
-                  width: 24,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/findMed',
+                  );
+                },
+                child: HomeScreenCategoryWidget(
+                  iconWidget: Image.asset(
+                    'assets/icons/all_icon/mdi_drugs.png',
+                    height: 24,
+                    width: 24,
+                  ),
+                  text: 'Obat',
                 ),
-                text: 'Obat',
               ),
               NotActiveHomeScreenCategoryWidget(
-                iconWidget:  Image.asset(
+                iconWidget: Image.asset(
                   'assets/icons/all_icon/Ambulance.png',
                   height: 24,
                   width: 24,
@@ -48,7 +64,7 @@ class CategoryListWidget extends StatelessWidget {
                 text: 'Ambulan',
               ),
               NotActiveHomeScreenCategoryWidget(
-                iconWidget:  Image.asset(
+                iconWidget: Image.asset(
                   'assets/icons/all_icon/syringe.png',
                   height: 24,
                   width: 24,

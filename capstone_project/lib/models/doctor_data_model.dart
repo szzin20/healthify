@@ -9,32 +9,32 @@ Doctor doctorFromJson(String str) => Doctor.fromJson(json.decode(str));
 String doctorToJson(Doctor data) => json.encode(data.toJson());
 
 class Doctor {
-    Meta meta;
-    Results results;
+    Meta? meta;
+    Results? results;
 
     Doctor({
-        required this.meta,
-        required this.results,
+        this.meta,
+        this.results,
     });
 
     factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
-        meta: Meta.fromJson(json["meta"]),
-        results: Results.fromJson(json["results"]),
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+        results: json["results"] == null ? null : Results.fromJson(json["results"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "meta": meta.toJson(),
-        "results": results.toJson(),
+        "meta": meta?.toJson(),
+        "results": results?.toJson(),
     };
 }
 
 class Meta {
-    bool success;
-    String message;
+    bool? success;
+    String? message;
 
     Meta({
-        required this.success,
-        required this.message,
+        this.success,
+        this.message,
     });
 
     factory Meta.fromJson(Map<String, dynamic> json) => Meta(
@@ -49,26 +49,28 @@ class Meta {
 }
 
 class Results {
-    int id;
-    String profilePicture;
-    bool status;
-    String fullname;
-    String specialist;
-    int price;
-    String alumnus;
-    String experience;
-    int noStr;
+    int? id;
+    String? profilePicture;
+    bool? status;
+    String? fullname;
+    String? specialist;
+    int? price;
+    String? alumnus;
+    String? experience;
+    int? noStr;
+    String? locationPractice;
 
     Results({
-        required this.id,
-        required this.profilePicture,
-        required this.status,
-        required this.fullname,
-        required this.specialist,
-        required this.price,
-        required this.alumnus,
-        required this.experience,
-        required this.noStr,
+        this.id,
+        this.profilePicture,
+        this.status,
+        this.fullname,
+        this.specialist,
+        this.price,
+        this.alumnus,
+        this.experience,
+        this.noStr,
+        this.locationPractice,
     });
 
     factory Results.fromJson(Map<String, dynamic> json) => Results(
@@ -81,6 +83,7 @@ class Results {
         alumnus: json["alumnus"],
         experience: json["experience"],
         noStr: json["no_str"],
+        locationPractice: json["location_practice"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -93,5 +96,6 @@ class Results {
         "alumnus": alumnus,
         "experience": experience,
         "no_str": noStr,
+        "location_practice": locationPractice,
     };
 }

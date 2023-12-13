@@ -96,29 +96,28 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: provider.medicine.length,
-                    itemBuilder: (context, index) {
-                      Result medicine = provider.medicine[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                        ),
-                        child: ElevatedCard(
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 0,
+                      ),
+                      itemCount: provider.medicine.length,
+                      itemBuilder: (context, index) {
+                        Result medicine = provider.medicine[index];
+                        return ElevatedCard(
                           image: medicine.image,
                           name: medicine.name,
                           price: medicine.price.toDouble(),
                           type: medicine.type,
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
               },
