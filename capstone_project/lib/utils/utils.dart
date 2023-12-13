@@ -47,7 +47,6 @@ class Urls {
   static const String roomchatbyid = "/users/chats/2";
 }
 
-
 class SharedPreferencesUtils {
   static late SharedPreferences _prefs;
 
@@ -77,5 +76,22 @@ class SharedPreferencesUtils {
 
   static Future<void> setLoggedIn(bool isLoggedIn) async {
     await _prefs.setBool('login', isLoggedIn);
+  }
+
+  static Future<void> unsetToken() async {
+    await _prefs.remove('token');
+  }
+
+  static Future<void> unsetNama() async {
+    await _prefs.remove('nama');
+  }
+
+  static Future<void> unsetLoggedIn() async {
+    await _prefs.remove('login');
+  }
+
+  // Method to clear all SharedPreferences
+  static Future<void> clear() async {
+    await _prefs.clear();
   }
 }
