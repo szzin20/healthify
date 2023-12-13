@@ -1,6 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/screens/history/consultation_history_screen.dart';
+import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -52,12 +52,13 @@ class HistoryScreen extends StatelessWidget {
                         style: ThemeTextStyle().titleSmall,
                       ),
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(
-                          FontAwesomeIcons.circleChevronRight,
-                          color: Colors.black,
-                        ))
+                    GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        "assets/icons/all_icon/chevron-right.png",
+                        width: 26,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -91,20 +92,21 @@ class HistoryScreen extends StatelessWidget {
                         style: ThemeTextStyle().titleSmall,
                       ),
                     ),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ConsultationHistoryScreen(),
-                            ),
-                          );
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.circleChevronRight,
-                          color: Colors.black,
-                        ))
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const ConsultationHistoryScreen(),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        "assets/icons/all_icon/chevron-right.png",
+                        width: 26,
+                      ),
+                    ),
                   ],
                 ),
               ),
