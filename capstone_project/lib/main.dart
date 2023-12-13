@@ -1,3 +1,5 @@
+import 'package:capstone_project/provider/doctor_provider.dart';
+import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
@@ -36,6 +38,13 @@ void main() {
               Provider.of<RegisterProvider>(context, listen: false))),
       ChangeNotifierProvider(
         create: (context) => ContactUsProvider(),
+      ),
+
+       ChangeNotifierProvider(
+        create: (context) => DoctorProvider(),
+      ),
+        ChangeNotifierProvider(
+        create: (context) => MenuProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => DoctorsListProvider(),

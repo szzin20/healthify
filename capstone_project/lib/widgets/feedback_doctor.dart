@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -82,6 +83,7 @@ class FeedBackDoctor extends StatelessWidget {
                         ),
                         child: ElevatedButton(
                           onPressed: () {
+                            Navigator.pop(context);
                             // Aksi ketika tombol "tidak sekarang" ditekan
                           },
                           style: ElevatedButton.styleFrom(
@@ -102,7 +104,8 @@ class FeedBackDoctor extends StatelessWidget {
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Aksi ketika tombol "Kirim" ditekan
+                            Navigator.pop(context);
+                            _showConfirmationDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ThemeColor().kirimButton,
@@ -135,6 +138,49 @@ class FeedBackDoctor extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            width: 210,
+            height: 372,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/all_icon/check_success.png",
+                  height: 50,
+                  width: 50,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Penilaian Berhasil di Kirim!',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Terima kasih telah memberikan penilaian. Ini akan membantu kami terus memperbaiki untuk kepuasan Anda.',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 16),
+                ButtonWidget(
+                  title: "Lihat Riwayat",
+                  onPressed: (){
+                    
+                    // ke halaman ConsultationHistoryScreen
+                  },
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
