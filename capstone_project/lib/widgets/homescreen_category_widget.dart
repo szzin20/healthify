@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenCategoryWidget extends StatelessWidget {
@@ -12,8 +13,8 @@ class HomeScreenCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 78,
-      height: 78,
+      width: 72,
+      height: 72,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -36,7 +37,7 @@ class HomeScreenCategoryWidget extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Text(text),
+          Text(text, style: ThemeTextStyle().labelMedium),
         ],
       ),
     );

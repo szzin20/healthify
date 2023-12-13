@@ -1,5 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/screens/account/profile/new_pass_screen/new_pass_screen.dart';
 import 'package:capstone_project/screens/account/profile/widgets/profile_tile_widget.dart';
 import 'package:capstone_project/screens/account/profile/widgets/text_field_profile.dart';
 import 'package:capstone_project/screens/account/profile/widgets/text_field_tb_bb.dart';
@@ -138,7 +139,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             style: ThemeTextStyle().bodySmall,
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const NewPassScreen(),
+                                ),
+                              );
+                            },
                             icon: const Icon(
                               Icons.navigate_next,
                             ),
