@@ -9,16 +9,15 @@ class ConsultationFeeScreen extends StatefulWidget {
   final int price;
 
   const ConsultationFeeScreen({
-    Key? key,
+    super.key,
     required this.fullname,
     required this.price,
-  }) : super(key: key);
+  });
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
 }
 
-int selectedPaymentMethod = -1; 
 
 final List<String> paymentMethods = [
   ' Manual Transfer BCA ',
@@ -28,12 +27,13 @@ final List<String> paymentMethods = [
 
 class _ConsultationFeeState extends State<ConsultationFeeScreen> {
   TextEditingController voucherCodeController = TextEditingController();
+  int _selectedPaymentMethod = -1;
+
 
   @override
   Widget build(BuildContext context) {
-    int consultationFee = 79000; 
-    int serviceFee = 1000; 
-    int totalAmount = consultationFee + serviceFee;
+    int serviceFee = 1000;
+    int totalAmount = widget.price + serviceFee;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,10 +61,10 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              _buildPaymentDetails(widget.fullname ,
-                  '(Konsultasi 30 menit)', 'Rp ${widget.price}'),
+              _buildPaymentDetails(widget.fullname, '(Konsultasi 30 menit)',
+                  'Rp ${widget.price}'),
               const SizedBox(height: 20),
-              _buildPaymentDetails2('Biaya Layanan', 'Rp 1.000'),
+              _buildPaymentDetails2('Biaya Layanan', 'Rp 1000'),
               const SizedBox(height: 40),
               Text(
                 'Kode Voucher',
@@ -97,13 +97,8 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PaymentDetailScreen(totalAmount: totalAmount, selectedPaymentMethod: selectedPaymentMethod),
-                            ),
-                          );
+                       onPressed: () {
+                          navigateToPaymentDetail();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ThemeColor().primaryFrame,
@@ -126,6 +121,21 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void navigateToPaymentDetail() {
+    int totalAmount = widget.price + 1000; // Assuming 1000 is the service fee
+    int selectedPaymentMethod = _selectedPaymentMethod;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentDetailScreen(
+          totalAmount: totalAmount,
+          selectedPaymentMethod: selectedPaymentMethod,
         ),
       ),
     );
@@ -217,10 +227,10 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
             Text(paymentMethods[index]),
           ]),
           value: index,
-          groupValue: selectedPaymentMethod,
-          onChanged: (int? value) {
+          groupValue: _selectedPaymentMethod,
+           onChanged: (int? value) {
             setState(() {
-              selectedPaymentMethod = value!;
+              _selectedPaymentMethod = value!;
             });
           },
           activeColor: ThemeColor().primaryFrame,

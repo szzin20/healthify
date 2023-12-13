@@ -1,3 +1,6 @@
+import 'package:capstone_project/models/api/payment_api.dart';
+import 'package:capstone_project/screens/history/consultation_history_screen.dart';
+import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -41,6 +44,49 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
       _showUploadUI = true;
       _fileUploaded = false;
     });
+  }
+
+  void _uploadPayment() async {
+    if (_fileUploaded) {
+      // Show loading screen
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoadingScreen()));
+
+      try {
+        // Call the payment API
+        await PaymentAPI().createPayment(
+          paymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
+          paymentConfirmationPath: _pickedImage!.path,
+        );
+
+        // If the API call is successful, navigate to the transaction history screen
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ConsultationHistoryScreen()));
+      } catch (e) {
+        // Handle API call error
+        // ignore: avoid_print
+        print("Error uploading payment: $e");
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to upload payment. Please try again.'),
+          ),
+        );
+      }
+    }
+  }
+
+  String getPaymentMethodName(int index) {
+    List<String> paymentMethods = [
+      'Manual Transfer BCA',
+      'Manual Transfer BRI',
+      'Manual Transfer BNI',
+    ];
+
+    return paymentMethods[index];
   }
 
   @override
@@ -258,11 +304,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                 ),
                 child: Center(
                   child: ElevatedButton(
-                    onPressed: _fileUploaded
-                        ? () {
-                            // Add code to handle the upload here
-                          }
-                        : null, // Disable button if no file uploaded
+                    onPressed: _fileUploaded ? _uploadPayment : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ThemeColor().primaryFrame,
                       shape: RoundedRectangleBorder(
