@@ -2,8 +2,6 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
-import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
-import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';
 import 'package:capstone_project/widgets/search_bar_widget.dart';
@@ -111,75 +109,49 @@ class _DoctorScreenState extends State<DoctorScreen> {
   SliverPadding _buildDoctorGrid() {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-      sliver: Consumer<DoctorProvider>(builder: (context, value, child) {
-        final doctors = doctorProvider.filteredDoctors;
+      sliver: Consumer<DoctorProvider>(
+        builder: (context, value, child) {
+          final doctors = doctorProvider.filteredDoctors;
 
-        if (doctors.isEmpty) {
-          // Display a message when the doctor list is empty
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: Text(
-                'Dokter tidak tersedia',
-                style: TextStyle(fontSize: 16),
+          if (doctors.isEmpty) {
+            // Display a message when the doctor list is empty
+            return const SliverToBoxAdapter(
+              child: Center(
+                child: Text(
+                  'Dokter tidak tersedia',
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
+            );
+          }
+          return SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              mainAxisExtent: 210,
             ),
-          );
-        }
-
-        return SliverGrid(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            mainAxisExtent: 210,
-          ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              if (index < doctorProvider.filteredDoctors.length) {
-                final doctor = doctorProvider.filteredDoctors[index];
-                return DoctorCardWidget(
-                  doctorName: doctor.fullname,
-                  specialty: doctor.specialist,
-                  imageUrl: doctor.profilePicture,
-                  price: doctor.price.toString(),
-                  isOnline: doctor.status,
-                  onTap: () {},
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-            childCount: doctorProvider.filteredDoctors.length,
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  mainAxisExtent: 210),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  final doctor = doctors[index];
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                if (index < doctorProvider.filteredDoctors.length) {
+                  final doctor = doctorProvider.filteredDoctors[index];
                   return DoctorCardWidget(
-                    doctorName: doctor.doctorName,
-                    specialty: doctor.specialty,
-                    imageUrl: doctor.imageUrl,
-                    rating: doctor.rating,
-                    numberOfReviews: doctor.numberOfReviews,
-                    price: doctor.price,
-                    isOnline: doctor.isOnline,
+                    doctorName: doctor.fullname,
+                    specialty: doctor.specialist,
+                    imageUrl: doctor.profilePicture,
+                    price: doctor.price.toString(),
+                    isOnline: doctor.status,
                     onTap: () {},
                   );
-                },
-                childCount: doctors.length,
-              ),
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+              childCount: doctorProvider.filteredDoctors.length,
             ),
-          ),
-        ],
+          );
+        },
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 1),
     );
   }
 }
