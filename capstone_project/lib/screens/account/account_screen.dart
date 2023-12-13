@@ -5,6 +5,7 @@ import 'package:capstone_project/screens/account/contact_us/contact_us_screen.da
 import 'package:capstone_project/screens/account/privacy_policy/privacy_policy_screen.dart';
 import 'package:capstone_project/screens/account/profile/profile_screen.dart';
 import 'package:capstone_project/screens/account/widgets/menu_tile_widget.dart';
+import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 
 import 'package:flutter/material.dart';
@@ -100,6 +101,10 @@ class AccountScreen extends StatelessWidget {
               icon: SvgPicture.asset(
                   'assets/icons/account_screen/logout_icon.svg'),
               title: 'Keluar',
+              onTap: () {
+                SharedPreferencesUtils.unsetToken();
+                Navigator.pushNamed(context, '/login');
+              },
             ),
           ],
         ),

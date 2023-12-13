@@ -43,11 +43,10 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ContactUsProvider(),
       ),
-
-       ChangeNotifierProvider(
+      ChangeNotifierProvider(
         create: (context) => DoctorProvider(),
       ),
-        ChangeNotifierProvider(
+      ChangeNotifierProvider(
         create: (context) => MenuProvider(),
       ),
       ChangeNotifierProvider(
@@ -80,7 +79,6 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
@@ -99,6 +97,8 @@ class MyApp extends StatelessWidget {
         '/consultHistory': (BuildContext context) => const AccountScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
       },
+      // initialRoute: '/splash',
+      home: const SplashScreen(),
     );
   }
 }
