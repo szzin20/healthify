@@ -61,16 +61,32 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w500,
     fontFamily: 'FontRoboto',
   );
+
+  TextStyle titleSmallWhite = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      fontFamily: 'FontRoboto',
+      color: ThemeColor().white);
+
+  TextStyle titleSmallBlue = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'FontRoboto',
+    color: ThemeColor().info,
+  );
+
   TextStyle labelLarge2 = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
     fontFamily: 'FontRoboto',
   );
+
   TextStyle labelLargeBold = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
     fontFamily: 'FontRoboto',
   );
+
   TextStyle labelLarge = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
@@ -93,17 +109,21 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
+  TextStyle labelSmallWhite = TextStyle(
+      fontSize: 11,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'FontRoboto',
+      color: ThemeColor().white);
   TextStyle labelExtraSmall = const TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
   TextStyle labelExtraSmallWhite = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'FontRoboto',
-    color: ThemeColor().white
-  );
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'FontRoboto',
+      color: ThemeColor().white);
 
   TextStyle bodyLarge = const TextStyle(
     fontSize: 16,
@@ -133,12 +153,17 @@ class ThemeTextStyle {
     fontSize: 18,
     fontWeight: FontWeight.w500,
     fontFamily: 'FontRoboto',
-
   );
 
   TextStyle actionButtonSmall = const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle bodySmall2 = const TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
 }

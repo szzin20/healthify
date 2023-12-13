@@ -16,15 +16,15 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: 88,
+          width: 80,
           padding: EdgeInsets.only(
             right: 8,
             bottom: 6,
             top: 6,
           ),
           child: Container(
-            width: 80,
-            height: 80,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
               color: ThemeColor().searchBar,
               borderRadius: BorderRadius.circular(
@@ -38,7 +38,7 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(text),
+                Text(text, style: ThemeTextStyle().labelMedium),
               ],
             ),
           ),

@@ -2,34 +2,48 @@ import 'package:capstone_project/provider/account_screen/contact_us_screen/conta
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/medicine_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
-import 'package:capstone_project/provider/otp_provider.dart';
-import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/screens/register/register_screen.dart';
+import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
+import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
+import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
+import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
-import 'package:capstone_project/widgets/menu_doctor_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'provider/account_provider/contact_us_provider/contact_us_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized;
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
-        create: (context) => MedicineProvider(),
+        create: (context) => DoctorByIdProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AllMedicineProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => RegisterProvider(),
-        ),
-      ChangeNotifierProvider(
-        create: (context) => OtpProvider(Provider.of<RegisterProvider>(context, listen: false))
       ),
+      ChangeNotifierProvider(
+          create: (context) => OtpProvider(
+              Provider.of<RegisterProvider>(context, listen: false))),
       ChangeNotifierProvider(
         create: (context) => ContactUsProvider(),
       ),
+
        ChangeNotifierProvider(
         create: (context) => DoctorProvider(),
       ),
         ChangeNotifierProvider(
         create: (context) => MenuProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => DoctorsListProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ArticlesListProvider(),
       ),
     ],
     child: const MyApp(),
@@ -42,13 +56,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Medicine App',
       theme: ThemeData(
         fontFamily: 'FontRoboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: DoctorScreen(),
+      home: const MedicineListScreen(),
+      routes: <String, WidgetBuilder>{
+        '/splash': (BuildContext context) => const SplashScreen(),
+        '/register': (BuildContext context) => const RegisterScreen(),
+        '/login': (BuildContext context) => const LoginScreen(),
+        '/home': (BuildContext context) => const HomeScreen(),
+        '/doctorList': (BuildContext context) => const DoctorScreen(),
+        '/articleList': (BuildContext context) => const Center(),
+        '/findMed': (BuildContext context) => const Center(),
+        '/history': (BuildContext context) => const Center(),
+        '/account': (BuildContext context) => const AccountScreen(),
+        '/detailMed': (BuildContext context) => const AccountScreen(),
+        '/detailarticle': (BuildContext context) => const AccountScreen(),
+        '/detailDoctor': (BuildContext context) => const DetailDoctorScreen(),
+        '/notif': (BuildContext context) => const AccountScreen(),
+        '/contactUs': (BuildContext context) => const AccountScreen(),
+        '/consultHistory': (BuildContext context) => const AccountScreen(),
+        '/medHistory': (BuildContext context) => const AccountScreen(),
+      },
     );
   }
 }

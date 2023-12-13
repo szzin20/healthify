@@ -2,6 +2,8 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
+import 'package:capstone_project/screens/bottom_bar/inherited_data_provider.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';
 import 'package:capstone_project/widgets/search_bar_widget.dart';
@@ -149,8 +151,35 @@ class _DoctorScreenState extends State<DoctorScreen> {
             },
             childCount: doctorProvider.filteredDoctors.length,
           ),
-        );
-      }),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  mainAxisExtent: 210),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final doctor = doctors[index];
+                  return DoctorCardWidget(
+                    doctorName: doctor.doctorName,
+                    specialty: doctor.specialty,
+                    imageUrl: doctor.imageUrl,
+                    rating: doctor.rating,
+                    numberOfReviews: doctor.numberOfReviews,
+                    price: doctor.price,
+                    isOnline: doctor.isOnline,
+                    onTap: () {},
+                  );
+                },
+                childCount: doctors.length,
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 1),
     );
   }
 }

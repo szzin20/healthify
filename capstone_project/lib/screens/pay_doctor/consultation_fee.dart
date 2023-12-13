@@ -1,17 +1,24 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
-import 'package:flutter/material.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
-  const ConsultationFeeScreen({super.key});
+  final String fullname;
+  final int price;
+
+  const ConsultationFeeScreen({
+    Key? key,
+    required this.fullname,
+    required this.price,
+  }) : super(key: key);
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
 }
 
-int selectedPaymentMethod = -1; // -1 menunjukkan tidak ada yang dipilih
+int selectedPaymentMethod = -1; 
 
 final List<String> paymentMethods = [
   ' Manual Transfer BCA ',
@@ -24,6 +31,10 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int consultationFee = 79000; 
+    int serviceFee = 1000; 
+    int totalAmount = consultationFee + serviceFee;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,8 +61,8 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              _buildPaymentDetails('Dr. Putu Shinta Widari Tirka Sp.D.V.E',
-                  '(Konsultasi 30 menit)', 'Rp 79.000'),
+              _buildPaymentDetails(widget.fullname ,
+                  '(Konsultasi 30 menit)', 'Rp ${widget.price}'),
               const SizedBox(height: 20),
               _buildPaymentDetails2('Biaya Layanan', 'Rp 1.000'),
               const SizedBox(height: 40),
@@ -77,21 +88,20 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
               const SizedBox(height: 140),
               Padding(
                 padding: const EdgeInsets.only(
-                  bottom: 20,
+                  top: 120,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buildPaymentDetails3('Untuk Dibayar', 'Rp 80.000'),
+                    _buildPaymentDetails3('Untuk Dibayar', 'Rp $totalAmount'),
                     Align(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Tambahkan logika pembayaran dokter di sini
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PaymentDetailScreen(),
+                              builder: (context) => PaymentDetailScreen(totalAmount: totalAmount, selectedPaymentMethod: selectedPaymentMethod),
                             ),
                           );
                         },
@@ -128,7 +138,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(line1, style: ThemeTextStyle().titleSmall),
+            Text(widget.fullname, style: ThemeTextStyle().titleSmall),
             Text(line2, style: ThemeTextStyle().labelSmall),
           ],
         ),
