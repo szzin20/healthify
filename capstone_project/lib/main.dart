@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const DoctorScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
