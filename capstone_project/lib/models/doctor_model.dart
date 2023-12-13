@@ -1,19 +1,29 @@
 class Doctor {
-  final String doctorName;
-  final String specialty;
-  final String imageUrl;
-  final double rating;
-  final int numberOfReviews;
-  final String price;
-  final bool isOnline;
+  final int id;
+  final String profilePicture;
+  final String fullname;
+  final String specialist;
+  final int price;
+  final bool status;
 
   Doctor({
-    required this.doctorName,
-    required this.specialty,
-    required this.imageUrl,
-    required this.rating,
-    required this.numberOfReviews,
+    required this.id,
+    required this.profilePicture,
+    required this.fullname,
+    required this.specialist,
     required this.price,
-    required this.isOnline,
+    required this.status,
   });
+
+  // Factory method to create a Doctor instance from JSON
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      id: json['id'],
+      profilePicture: json['profile_picture'],
+      fullname: json['fullname'],
+      specialist: json['specialist'],
+      price: json['price'],
+      status: json['status'],
+    );
+  }
 }

@@ -6,8 +6,6 @@ class DoctorCardWidget extends StatelessWidget {
   final String doctorName;
   final String specialty;
   final String imageUrl;
-  final double rating;
-  final int numberOfReviews;
   final String price;
   final bool isOnline;
   final Function()? onTap;
@@ -17,8 +15,6 @@ class DoctorCardWidget extends StatelessWidget {
     required this.doctorName,
     required this.specialty,
     required this.imageUrl,
-    required this.rating,
-    required this.numberOfReviews,
     required this.price,
     required this.isOnline,
     required this.onTap,
@@ -57,7 +53,7 @@ class DoctorCardWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         image: DecorationImage(
-                          image: AssetImage(imageUrl),
+                          image: NetworkImage(imageUrl),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -118,13 +114,13 @@ class DoctorCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '$rating',
+                    "4,4",
                     style: ThemeTextStyle()
                         .labelSmall
                         .copyWith(color: ThemeColor().filter),
                   ),
                   const SizedBox(width: 70),
-                  Text('$numberOfReviews ulasan',
+                  Text('62 ulasan',
                       textDirection: TextDirection.ltr,
                       style: ThemeTextStyle()
                           .labelSmall
