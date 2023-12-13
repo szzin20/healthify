@@ -103,6 +103,7 @@ class AccountScreen extends StatelessWidget {
               title: 'Keluar',
               onTap: () {
                 SharedPreferencesUtils.unsetToken();
+                SharedPreferencesUtils.unsetLoggedIn();
                 Navigator.pushNamed(context, '/login');
               },
             ),
