@@ -1,6 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
+import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/widgets/detail_dokter_button_widget.dart';
 import 'package:capstone_project/widgets/detail_doctor_info_widget.dart';
 import 'package:capstone_project/widgets/detail_dokter_header_widget.dart';
@@ -32,7 +33,9 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
         body: Center(child: CircularProgressIndicator()),
       );
     } else {
-      String formattedPrice = NumberFormat.currency(locale: 'id_IDR', symbol: 'Rp ').format(double.parse(doctor.price.toString()));
+      String formattedPrice =
+          NumberFormat.currency(locale: 'id_IDR', symbol: 'Rp ')
+              .format(double.parse(doctor.price.toString()));
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -181,7 +184,17 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                 ),
                 child: ButtonWidget(
                   title: 'Chat Sekarang',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConsultationFeeScreen(
+                          fullname: doctor.fullname,
+                          price: doctor.price,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

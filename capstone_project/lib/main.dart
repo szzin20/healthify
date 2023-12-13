@@ -1,9 +1,11 @@
 import 'package:capstone_project/provider/doctor_provider.dart';
+import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
+import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
@@ -15,12 +17,15 @@ import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
+import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/account_provider/contact_us_provider/contact_us_provider.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesUtils.init();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -51,6 +56,12 @@ void main() {
       ChangeNotifierProvider(
         create: (context) => ArticlesListProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => CheckLoginProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => LoginProcessProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -69,7 +80,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const MedicineListScreen(),
+      home: const LoginScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
