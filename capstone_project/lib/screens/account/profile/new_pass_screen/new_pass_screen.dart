@@ -71,11 +71,10 @@ class _NewPassScreenState extends State<NewPassScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeColor().primaryFrame,
+        foregroundColor: ThemeColor().white,
         title: Text(
           'Ganti Kata Sandi',
-          style: TextStyle(
-            color: ThemeColor().textChat,
-          ),
+          style: ThemeTextStyle().titleMedium,
         ),
         centerTitle: true,
       ),

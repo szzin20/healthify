@@ -1,18 +1,28 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
+import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
+import 'package:capstone_project/screens/home_screen/home_screen.dart';
+import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -56,6 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
               title: 'Username',
               hintText: 'Input username/email',
               controller: userController,
+              onChanged: (value) {
+                Provider.of<CheckLoginProvider>(context, listen: false)
+                    .fetchUsername(userController.text);
+              },
             ),
             const SizedBox(height: 10),
             CustomTextField(
@@ -63,6 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Input password',
               obscureText: true,
               controller: passwordController,
+              onChanged: (value) {
+                Provider.of<CheckLoginProvider>(context, listen: false)
+                    .fetchPassword(passwordController.text);
+              },
             ),
             const SizedBox(height: 10),
             Row(
@@ -82,9 +100,42 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              child: ButtonWidget(
-                title: 'Login',
-                onPressed: () {},
+              child: Consumer<CheckLoginProvider>(
+                builder: (context, checkLogin, _) {
+                  return ButtonWidget(
+                    title: 'Login',
+                    onPressed:
+                        (checkLogin.user.isEmpty || checkLogin.pass.isEmpty)
+                            ? null
+                            : () async {
+                                final loginProvider =
+                                    Provider.of<LoginProcessProvider>(context,
+                                        listen: false);
+
+                                await loginProvider.sendLoginData(
+                                    checkLogin.user, checkLogin.pass);
+
+                                final loginResult = loginProvider.login;
+
+                                if (loginResult?.meta.success == false) {
+                                  // Handle login failure (e.g., show an error message)
+                                } else {
+                                  SharedPreferencesUtils.setToken(loginResult?.results.token ?? '');
+                                  SharedPreferencesUtils.setNama(loginResult?.results.fullname ?? '');
+                                  SharedPreferencesUtils.setLoggedIn(true);
+                                  print(loginResult?.results.token);
+
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                }
+                              },
+                  );
+                },
               ),
             ),
             const SizedBox(height: 10),

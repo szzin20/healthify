@@ -3,7 +3,7 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone_project/models/medicine_model.dart';
-import 'package:capstone_project/provider/medicine_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/widgets/elevated_card_medicine.dart';
 
 class MedicineListScreen extends StatefulWidget {
@@ -17,8 +17,10 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch data when the screen is initialized
-    Provider.of<MedicineProvider>(context, listen: false).fetchMedicines();
+        Future.delayed(Duration.zero, () {
+      Provider.of<AllMedicineProvider>(context, listen: false).fetchMedicine();
+    });
+    
   }
 
   @override
@@ -38,7 +40,6 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
             icon: const Icon(Icons.shopping_cart),
             color: Colors.white,
             onPressed: () {
-              // Add logic when the cart icon is clicked here
             },
           ),
         ],
@@ -88,26 +89,23 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Consumer<MedicineProvider>(
+            Consumer<AllMedicineProvider>(
               builder: (context, provider, child) {
-                if (provider.medicines.isEmpty) {
+                if (provider.medicine.isEmpty) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
                   return GridView.builder(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                    ),
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                     ),
-                    itemCount: provider.medicines.length,
+                    itemCount: provider.medicine.length,
                     itemBuilder: (context, index) {
-                      Medicine medicine = provider.medicines[index];
+                      Result medicine = provider.medicine[index];
                       return Padding(
                         padding: const EdgeInsets.only(
                           left: 10,
@@ -116,7 +114,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                         child: ElevatedCard(
                           image: medicine.image,
                           name: medicine.name,
-                          price: medicine.price,
+                          price: medicine.price.toDouble(),
                           type: medicine.type,
                         ),
                       );
