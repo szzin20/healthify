@@ -103,6 +103,10 @@ class AccountScreen extends StatelessWidget {
               icon: SvgPicture.asset(
                   'assets/icons/account_screen/logout_icon.svg'),
               title: 'Keluar',
+              onTap: () {
+                SharedPreferencesUtils.unsetToken();
+                Navigator.pushNamed(context, '/login');
+              },
             ),
           ],
         ),

@@ -14,6 +14,7 @@ import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_scre
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
+import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
@@ -43,11 +44,10 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ContactUsProvider(),
       ),
-
-       ChangeNotifierProvider(
+      ChangeNotifierProvider(
         create: (context) => DoctorProvider(),
       ),
-        ChangeNotifierProvider(
+      ChangeNotifierProvider(
         create: (context) => MenuProvider(),
       ),
       ChangeNotifierProvider(
@@ -80,7 +80,6 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: ThemeColor().primaryFrame,
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
@@ -99,6 +98,8 @@ class MyApp extends StatelessWidget {
         '/consultHistory': (BuildContext context) => const AccountScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
       },
+      // initialRoute: '/splash',
+      home: const SplashScreen(),
     );
   }
 }
