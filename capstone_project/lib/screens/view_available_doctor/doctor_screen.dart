@@ -60,7 +60,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
-        expandedTitleScale: 0,
         title: Text(
           'Dokter',
           style: ThemeTextStyle()
