@@ -103,6 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               child: Consumer<CheckLoginProvider>(
                 builder: (context, checkLogin, _) {
+                  void changePage(){
+                    Navigator.pushNamed(context, '/home');
+                  }
                   return ButtonWidget(
                     title: 'Login',
                     onPressed:
@@ -127,13 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       loginResult?.results.fullname ?? '');
                                   SharedPreferencesUtils.setLoggedIn(true);
                                   print(loginResult?.results.token);
-
-                                  navigatorKey.currentState?.pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
-                                    ),
-                                    (route) => false,
-                                  );
+                                  changePage();
                                 }
                               },
                   );

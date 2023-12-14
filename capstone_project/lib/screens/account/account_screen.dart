@@ -98,13 +98,11 @@ class AccountScreen extends StatelessWidget {
               },
             ),
             MenuTileWidget(
-              onTap: () {SharedPreferencesUtils.clear();
-              },
               icon: SvgPicture.asset(
                   'assets/icons/account_screen/logout_icon.svg'),
               title: 'Keluar',
               onTap: () {
-                SharedPreferencesUtils.unsetToken();
+                SharedPreferencesUtils.clear();
                 Navigator.pushNamed(context, '/login');
               },
             ),
