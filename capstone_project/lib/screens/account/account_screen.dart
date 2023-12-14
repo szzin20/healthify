@@ -104,7 +104,7 @@ class AccountScreen extends StatelessWidget {
               onTap: () {
                 SharedPreferencesUtils.clear();
                 SharedPreferencesUtils.unsetLoggedIn();
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/login');
               },
             ),
           ],
