@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
         '/medHistory': (BuildContext context) => const AccountScreen(),
       },
       // initialRoute: '/splash',
-      home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }

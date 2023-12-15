@@ -1,40 +1,47 @@
-import 'package:dio/dio.dart';
-import 'package:capstone_project/utils/utils.dart';
+// import 'dart:io';
+// import 'package:dio/dio.dart';
+// import 'package:http_parser/http_parser.dart';
+// import 'package:capstone_project/utils/utils.dart';
+// import 'package:mime/mime.dart';
 
-class PaymentAPI {
-  final Dio _dio = Dio();
+// Future<bool> uploadProfileImage({
+//   required int doctorId,
+//   required File image,
+//   required String selectedPaymentMethod,
+// }) async {
+//   try {
+//     await SharedPreferencesUtils.init();
+//     String token = SharedPreferencesUtils.getToken();
+//     String fileName = image.path.split('/').last;
+//     String baseUrl = Urls.baseUrl;
 
-  Future<void> createPayment({
-    required String paymentMethod,
-    required String paymentConfirmationPath,
-  }) async {
-    const String url = 'http://34.101.122.152/users/doctor-payments/1'; 
-    String token = SharedPreferencesUtils.getToken();
+//     // Get mimeType dynamically from the image_picker package
+//     String mimeType = mime(image.path) ?? 'application/octet-stream';
 
-    try {
-      FormData formData = FormData.fromMap({
-        'payment_method': paymentMethod,
-        'payment_confirmation': await MultipartFile.fromFile(
-          paymentConfirmationPath,
-          filename: 'payment_confirmation.jpg', 
-        ),
-      });
+//     Response response = await Dio().post(
+//       '$baseUrl${Urls.doctortransactions.replaceFirst(':doctor_id', doctorId.toString())}',
+//       options: Options(
+//         headers: {
+//           "authorization": "Bearer $token",
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       ),
+//       data: FormData.fromMap({
+//         'payment_method': selectedPaymentMethod,
+//         'payment_confirmation': await MultipartFile.fromFile(
+//           image.path,
+//           filename: fileName,
+//           contentType: MediaType.parse(mimeType), // Use dynamic mimeType
+//         ),
+//       }),
+//     );
 
-      final response = await _dio.post(
-        url,
-        data: formData,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
-      );
-
-      // Handle the API response as needed
-      // ignore: avoid_print
-      print(response.data);
-    } catch (e) {
-      throw Exception('Failed to make payment $e');
-    }
-  }
-}
+//     if (response.statusCode == 200) {
+//       return true;
+//     } else {
+//       throw 'Failed to upload image';
+//     }
+//   } on DioError catch (e) {
+//     throw '${e.response?.data['message']}';
+//   }
+// }
