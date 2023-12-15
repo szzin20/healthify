@@ -99,6 +99,12 @@ class ThemeTextStyle {
     fontFamily: 'FontRoboto',
   );
 
+  TextStyle labelMediumBold = const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'FontRoboto',
+  );
+
   TextStyle labelSmallBold = const TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,

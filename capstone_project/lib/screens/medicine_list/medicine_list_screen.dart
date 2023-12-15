@@ -1,3 +1,4 @@
+import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -17,14 +18,15 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
   @override
   void initState() {
     super.initState();
-        Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
       Provider.of<AllMedicineProvider>(context, listen: false).fetchMedicine();
     });
-    
   }
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,6 +42,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
             icon: const Icon(Icons.shopping_cart),
             color: Colors.white,
             onPressed: () {
+              Navigator.pushNamed(context, '/cart');
             },
           ),
         ],
@@ -106,16 +109,23 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                     itemCount: provider.medicine.length,
                     itemBuilder: (context, index) {
                       Result medicine = provider.medicine[index];
+
                       return Padding(
                         padding: const EdgeInsets.only(
                           left: 10,
                           right: 10,
                         ),
-                        child: ElevatedCard(
-                          image: medicine.image,
-                          name: medicine.name,
-                          price: medicine.price.toDouble(),
-                          type: medicine.type,
+                        child: InkWell(
+                          onTap: () {
+                            cartProvider.cartList.add(medicine);
+                            cartProvider.addMedToCart();
+                          },
+                          child: ElevatedCard(
+                            image: medicine.image,
+                            name: medicine.name,
+                            price: medicine.price.toDouble(),
+                            type: medicine.type,
+                          ),
                         ),
                       );
                     },

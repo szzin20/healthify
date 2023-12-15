@@ -9,12 +9,12 @@ class ElevatedCard extends StatelessWidget {
   final String type;
 
   const ElevatedCard({
-    Key? key,
+    super.key,
     required this.image,
     required this.name,
     required this.price,
     required this.type,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

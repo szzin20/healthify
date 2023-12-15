@@ -1,5 +1,6 @@
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
@@ -13,6 +14,7 @@ import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
+import 'package:capstone_project/screens/medicine_list/cart/cart_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
 import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
@@ -62,6 +64,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => LoginProcessProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => CartProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -97,9 +102,10 @@ class MyApp extends StatelessWidget {
         '/contactUs': (BuildContext context) => const AccountScreen(),
         '/consultHistory': (BuildContext context) => const AccountScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
+        '/cart': (BuildContext context) => const CartScreen(),
       },
       // initialRoute: '/splash',
-      home: const SplashScreen(),
+      home: const MedicineListScreen(),
     );
   }
 }
