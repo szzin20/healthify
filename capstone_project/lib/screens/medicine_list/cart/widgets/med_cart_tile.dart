@@ -9,6 +9,9 @@ class MedCartTile extends StatelessWidget {
   final double price;
   final String quantity;
   final String image;
+  final VoidCallback? onPressedAdd;
+  final VoidCallback? onPressedRemove;
+  final VoidCallback? onClose;
 
   const MedCartTile({
     super.key,
@@ -17,6 +20,9 @@ class MedCartTile extends StatelessWidget {
     required this.price,
     required this.quantity,
     required this.image,
+    this.onPressedAdd,
+    this.onPressedRemove,
+    this.onClose,
   });
 
   @override
@@ -85,7 +91,7 @@ class MedCartTile extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: onClose,
                             child: const Icon(Icons.close, size: 20),
                           ),
                         ],
@@ -121,7 +127,7 @@ class MedCartTile extends StatelessWidget {
                                       MediaQuery.of(context).size.height * .033,
                                   child: IconButton(
                                     padding: EdgeInsets.zero,
-                                    onPressed: () {},
+                                    onPressed: onPressedRemove,
                                     icon: const Icon(Icons.remove),
                                   ),
                                 ),
@@ -139,7 +145,7 @@ class MedCartTile extends StatelessWidget {
                                       MediaQuery.of(context).size.height * .033,
                                   child: IconButton(
                                     padding: EdgeInsets.zero,
-                                    onPressed: () {},
+                                    onPressed: onPressedAdd,
                                     icon: const Icon(Icons.add),
                                   ),
                                 ),

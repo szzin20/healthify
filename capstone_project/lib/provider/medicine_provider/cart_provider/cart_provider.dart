@@ -2,10 +2,10 @@ import 'package:capstone_project/models/medicine_model.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider extends ChangeNotifier {
-  List<Result> _cartList = [];
+  final List<Result> _cartList = [];
   List<Result> get cartList => _cartList;
 
-  Set<Result> _cartSet = {};
+  final Set<Result> _cartSet = {};
   Set<Result> get cartSet => _cartSet;
 
   void addMedToCart() {
@@ -19,5 +19,22 @@ class CartProvider extends ChangeNotifier {
     final cart = _cartList.where((result) => result.id == id);
     final cartList = cart.toList();
     return cartList.length;
+  }
+
+  void addQuantity(Result result) {
+    _cartList.add(result);
+    notifyListeners();
+  }
+
+  void removeQuantity(Result result) {
+    // ignore: collection_methods_unrelated_type
+    _cartList.remove(result);
+    notifyListeners();
+  }
+
+  void removeAllQuantity(int id) {
+    _cartList.removeWhere((result) => result.id == id);
+    _cartSet.removeWhere((result) => result.id == id);
+    notifyListeners();
   }
 }

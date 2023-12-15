@@ -30,12 +30,25 @@ class CartScreen extends StatelessWidget {
                 final cartProduct = cartList[index];
                 final quantity = cartProvider.countMedQuantity(cartProduct.id);
                 final price = cartProduct.price * quantity;
+
                 return MedCartTile(
                   title: cartProduct.name,
                   category: cartProduct.category,
                   price: price.toDouble(),
                   quantity: quantity.toString(),
                   image: cartProduct.image,
+                  onPressedAdd: () {
+                    cartProvider.addQuantity(cartProduct);
+                  },
+                  onPressedRemove: () {
+                    if (cartProvider.cartList.length <= 1) {
+                      cartProvider.removeAllQuantity(cartProduct.id);
+                    }
+                    cartProvider.removeQuantity(cartProduct);
+                  },
+                  onClose: () {
+                    cartProvider.removeAllQuantity(cartProduct.id);
+                  },
                 );
               },
             );
