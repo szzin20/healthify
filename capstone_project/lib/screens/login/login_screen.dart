@@ -23,6 +23,27 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
+  void _showLoginFailureAlert( String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login gagal'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -121,15 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                 final loginResult = loginProvider.login;
 
-                                if (loginResult?.meta.success == false) {
-                                  // Handle login failure (e.g., show an error message)
-                                } else {
+                                if (loginResult?.meta?.success == false) {
+                                  _showLoginFailureAlert('Email Tidak Diregister');
+                                } else if(loginResult?.meta?.success == true){
                                   SharedPreferencesUtils.setToken(
-                                      loginResult?.results.token ?? '');
+                                      loginResult?.results?.token ?? '');
                                   SharedPreferencesUtils.setNama(
-                                      loginResult?.results.fullname ?? '');
+                                      loginResult?.results?.fullname ?? '');
                                   SharedPreferencesUtils.setLoggedIn(true);
-                                  print(loginResult?.results.token);
+                                  print(loginResult?.results?.token);
                                   changePage();
                                 }
                               },
