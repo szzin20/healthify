@@ -44,7 +44,8 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
             icon: Badge(
               label: Text(cartProvider.cartList.length.toString()),
               child: SvgPicture.asset(
-                  'assets/icons/all_icon/shopping_cart_icon.svg'),
+                'assets/icons/all_icon/shopping_cart_icon.svg',
+              ),
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/cart');

@@ -48,6 +48,11 @@ class ListArticleWidget extends StatelessWidget {
                         child: Image(
                           image: NetworkImage(result[index].image),
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Center(
+                              child: Text('No Image'),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -73,18 +78,27 @@ class ListArticleWidget extends StatelessWidget {
                       bottom: 20,
                       left: 20,
                       right: 126,
-                      child: Text(result[index].title, style: ThemeTextStyle().titleSmallWhite,),
+                      child: Text(
+                        result[index].title,
+                        style: ThemeTextStyle().titleSmallWhite,
+                      ),
                     ),
                     Positioned(
                       bottom: 10,
                       right: 20,
                       child: Row(
                         children: [
-                          Icon(Icons.remove_red_eye_outlined, color: ThemeColor().white,),
+                          Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: ThemeColor().white,
+                          ),
                           const SizedBox(
                             width: 2,
                           ),
-                          Text('245k', style: ThemeTextStyle().labelSmallWhite,),
+                          Text(
+                            '245k',
+                            style: ThemeTextStyle().labelSmallWhite,
+                          ),
                         ],
                       ),
                     ),
