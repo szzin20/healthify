@@ -9,32 +9,32 @@ LoginData loginDataFromJson(String str) => LoginData.fromJson(json.decode(str));
 String loginDataToJson(LoginData data) => json.encode(data.toJson());
 
 class LoginData {
-    Meta meta;
-    Results results;
+    Meta? meta;
+    Results? results;
 
     LoginData({
-        required this.meta,
-        required this.results,
+        this.meta,
+        this.results,
     });
 
     factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
-        meta: Meta.fromJson(json["meta"]),
-        results: Results.fromJson(json["results"]),
+        meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
+        results: json["results"] == null ? null : Results.fromJson(json["results"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "meta": meta.toJson(),
-        "results": results.toJson(),
+        "meta": meta?.toJson(),
+        "results": results?.toJson(),
     };
 }
 
 class Meta {
-    bool success;
-    String message;
+    bool? success;
+    String? message;
 
     Meta({
-        required this.success,
-        required this.message,
+        this.success,
+        this.message,
     });
 
     factory Meta.fromJson(Map<String, dynamic> json) => Meta(
@@ -49,14 +49,14 @@ class Meta {
 }
 
 class Results {
-    String fullname;
-    String email;
-    String token;
+    String?  fullname;
+    String? email;
+    String? token;
 
     Results({
-        required this.fullname,
-        required this.email,
-        required this.token,
+        this.fullname,
+        this.email,
+        this.token,
     });
 
     factory Results.fromJson(Map<String, dynamic> json) => Results(

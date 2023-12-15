@@ -78,6 +78,11 @@ class ListDoctorWidget extends StatelessWidget {
                                   image: NetworkImage(
                                       result[index].profilePicture),
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Center(
+                                      child: Text('No Image'),
+                                    );
+                                  },
                                 ),
                               ),
                             ),

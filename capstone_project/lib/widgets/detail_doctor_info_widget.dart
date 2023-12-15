@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class DetailDoctorInfoWidget extends StatelessWidget {
   final String str;
   final String pendidikan;
+  final String praktek;
   const DetailDoctorInfoWidget(
-      {super.key, required this.str, required this.pendidikan});
+      {super.key, required this.str, required this.pendidikan, required this.praktek});
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +51,11 @@ class DetailDoctorInfoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Lokasi Praktik',
+                  'Lokasi Praktik' ,
                   style: ThemeTextStyle().labelMedium,
                 ),
                 Text(
-                  'RSUD H. Soewondo Kendal, Jawa Tengah',
+                  praktek,
                   style: ThemeTextStyle().bodySmall,
                 ),
               ],

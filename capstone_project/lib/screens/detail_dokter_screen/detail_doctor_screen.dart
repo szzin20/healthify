@@ -50,8 +50,8 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
           child: Column(
             children: [
               DetailDokterHeaderWidget(
-                image: doctor.profilePicture,
-                status: doctor.status,
+                image: doctor.profilePicture ?? '',
+                status: doctor.status ?? false,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -63,9 +63,9 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     DetailDoctorTitleWidget(
-                      nama: doctor.fullname,
-                      specialist: doctor.specialist,
-                      experience: doctor.experience,
+                      nama: doctor.fullname ?? '',
+                      specialist: doctor.specialist ?? '',
+                      experience: doctor.experience ?? '',
                       price: formattedPrice,
                     ),
                     const SizedBox(
@@ -73,7 +73,8 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                     ),
                     DetailDoctorInfoWidget(
                       str: doctor.noStr.toString(),
-                      pendidikan: doctor.alumnus,
+                      pendidikan: doctor.alumnus ?? '',
+                      praktek: doctor.locationPractice ?? '',
                     ),
                     const SizedBox(
                       height: 20,
@@ -193,13 +194,14 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                 ),
                 child: ButtonWidget(
                   title: 'Chat Sekarang',
-                  onPressed: () {
+                  onPressed: (doctor == null )? null
+                  :() {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ConsultationFeeScreen(
-                          fullname: doctor.fullname,
-                          price: doctor.price,
+                          fullname: doctor.fullname ?? '',
+                          price: doctor.price ?? 0
                         ),
                       ),
                     );
