@@ -8,13 +8,14 @@ import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.d
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
-import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
+import 'package:capstone_project/screens/register/confirmation_code_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
@@ -62,6 +63,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => LoginProcessProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => RegisterProcessProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -83,6 +87,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
+        '/otp': (BuildContext context) => const ConfirmationCodeScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomeScreen(),
         '/doctorList': (BuildContext context) => const DoctorScreen(),

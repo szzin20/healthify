@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_final_fields, empty_catches
+
 import 'package:capstone_project/models/doctor_model.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:dio/dio.dart';

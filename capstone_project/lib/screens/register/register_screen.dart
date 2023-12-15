@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
+import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/google_button_widget.dart';
 import 'package:capstone_project/widgets/text_field.dart';
@@ -15,10 +18,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
-    final providerRegister = Provider.of<RegisterProvider>(context, listen: false);
+    final providerRegister =
+        Provider.of<RegisterProvider>(context, listen: false);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -54,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomTextField(
                     title: 'Nama',
                     hintText: 'Nama',
-                    controller: providerRegister.nameController,
+                    controller: providerRegister.fullnameController,
                     onChanged: (_) {
                       providerRegister.nameOnChange();
                       providerRegister.checkIfAllFieldsFilled();
@@ -91,9 +100,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     child: ButtonWidget(
                       title: 'Daftar',
-                      onPressed: providerRegister.isButtonEnabled
-                          ? () async {
-                              await providerRegister.postData(context);
+                      buttonColor: providerRegister.isButtonEnabled
+                          ? ThemeColor().primaryButtonActive
+                          : ThemeColor().primaryButton,
+                      onPressed: (providerRegister.isButtonEnabled)
+                          ? () {
+                              print(providerRegister.emailController.text);
+                              providerRegister.registerUser(context);
                             }
                           : null,
                     ),
@@ -120,7 +133,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // menuju halaman login
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                            (route) => false,
+                          );
                         },
                         child: Text(
                           'Login disini',
