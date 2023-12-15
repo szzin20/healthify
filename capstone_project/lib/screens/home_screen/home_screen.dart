@@ -110,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, articlesListProvider, _) {
                 return ListArticleWidget(
                   result: articlesListProvider.articles,
+                  loading: articlesListProvider.loading,
                 );
               })
             ],
