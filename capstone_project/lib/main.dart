@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
         '/cart': (BuildContext context) => const CartScreen(),
       },
       // initialRoute: '/splash',
-      home: const SplashScreen(),
+      initialRoute: '/splash',
     );
   }
 }
