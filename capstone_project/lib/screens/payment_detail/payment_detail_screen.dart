@@ -1,12 +1,12 @@
-// import 'package:capstone_project/models/api/payment_api.dart';
-// import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
-// import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
-// import 'package:flutter/material.dart';
-// import 'package:capstone_project/constants/color_theme.dart';
-// import 'package:capstone_project/constants/text_theme.dart';
-// import 'package:flutter/services.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:dotted_border/dotted_border.dart';
+import 'package:capstone_project/models/api/payment_api.dart';
+import 'package:capstone_project/screens/history/consultation_history_screen.dart';
+import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/constants/text_theme.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 // class PaymentDetailScreen extends StatefulWidget {
 //   final int totalAmount;

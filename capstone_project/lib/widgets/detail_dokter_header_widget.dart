@@ -20,6 +20,11 @@ class DetailDokterHeaderWidget extends StatelessWidget {
               image,
             ),
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(
+                child: Text('No Image'),
+              );
+            },
           ),
         ),
         Positioned(

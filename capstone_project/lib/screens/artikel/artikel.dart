@@ -57,19 +57,9 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
             flexibleSpace: MenuArtikel(),
             bottom: PreferredSize(preferredSize: Size.zero, child: Text('')),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                mainAxisSpacing: 10,
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return const ListArticleWidget();
-                },
-              ),
-            ),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4),
+            sliver: ListArticleWidget(),
           ),
         ],
       ),
