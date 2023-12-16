@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       8.0,
                     ),
                     child: const Image(
-                      image: AssetImage('assets/images/doctor.png'),
+                      image: AssetImage('assets/images/BannerPromosi.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
