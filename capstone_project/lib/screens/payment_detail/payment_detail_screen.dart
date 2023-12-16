@@ -60,12 +60,15 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
 
       try {
         // Call the uploadProfileImage function
-        bool success = await uploadProfileImage(
+        bool success = await uploadPaymentTransaction(
           doctorId: widget.doctorId,
           image: File(_pickedImage!.path),
           selectedPaymentMethod:
               getPaymentMethodName(widget.selectedPaymentMethod),
         );
+
+        // ignore: avoid_print
+        print("Upload Payment Response: $success");
 
         if (success) {
           // If the upload is successful, navigate to the transaction history screen
