@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  void _showLoginFailureAlert( String message) {
+  void _showLoginFailureAlert(String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -41,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
       },
     );
   }
-
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   TextEditingController userController = TextEditingController();
@@ -123,36 +122,37 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               child: Consumer<CheckLoginProvider>(
                 builder: (context, checkLogin, _) {
-                  void changePage(){
+                  void changePage() {
                     Navigator.pushNamed(context, '/home');
                   }
+
                   return ButtonWidget(
                     title: 'Login',
-                    onPressed:
-                        (checkLogin.user.isEmpty || checkLogin.pass.isEmpty)
-                            ? null
-                            : () async {
-                                final loginProvider =
-                                    Provider.of<LoginProcessProvider>(context,
-                                        listen: false);
+                    onPressed: (checkLogin.user.isEmpty ||
+                            checkLogin.pass.isEmpty)
+                        ? null
+                        : () async {
+                            final loginProvider =
+                                Provider.of<LoginProcessProvider>(context,
+                                    listen: false);
 
-                                await loginProvider.sendLoginData(
-                                    checkLogin.user, checkLogin.pass);
+                            await loginProvider.sendLoginData(
+                                checkLogin.user, checkLogin.pass);
 
-                                final loginResult = loginProvider.login;
+                            final loginResult = loginProvider.login;
 
-                                if (loginResult?.meta?.success == false) {
-                                  _showLoginFailureAlert('Email Tidak Diregister');
-                                } else if(loginResult?.meta?.success == true){
-                                  SharedPreferencesUtils.setToken(
-                                      loginResult?.results?.token ?? '');
-                                  SharedPreferencesUtils.setNama(
-                                      loginResult?.results?.fullname ?? '');
-                                  SharedPreferencesUtils.setLoggedIn(true);
-                                  print(loginResult?.results?.token);
-                                  changePage();
-                                }
-                              },
+                            if (loginResult?.meta?.success == false) {
+                              _showLoginFailureAlert('Email Tidak Diregister');
+                            } else if (loginResult?.meta?.success == true) {
+                              SharedPreferencesUtils.setToken(
+                                  loginResult?.results?.token ?? '');
+                              SharedPreferencesUtils.setNama(
+                                  loginResult?.results?.fullname ?? '');
+                              SharedPreferencesUtils.setLoggedIn(true);
+                              print(loginResult?.results?.token);
+                              changePage();
+                            }
+                          },
                   );
                 },
               ),
@@ -179,11 +179,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const RegisterScreen()),
-                      (route) => false,
                     );
                   },
                   child: Text(

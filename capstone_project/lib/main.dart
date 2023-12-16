@@ -12,9 +12,11 @@ import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.d
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
+import 'package:capstone_project/screens/cart/cart_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/detail_product_screen/detail_product_screen.dart';
@@ -22,9 +24,9 @@ import 'package:capstone_project/screens/history_consultation_doctor/consultatio
 import 'package:capstone_project/screens/history_consultation_doctor/history_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
-import 'package:capstone_project/screens/cart/cart_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
 import 'package:capstone_project/screens/notification/notification_screen.dart';
+import 'package:capstone_project/screens/register/confirmation_code_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
@@ -82,7 +84,7 @@ void main() async {
         create: (context) => ArticleByIdProvider(),
       ),
       ChangeNotifierProvider(
-        create: (context) => MedicineByIdProvider(),
+        create: (context) => RegisterProcessProvider(),
       ),
     ],
     child: const MyApp(),
@@ -105,6 +107,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
+        '/otp': (BuildContext context) => const ConfirmationCodeScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomeScreen(),
         '/doctorList': (BuildContext context) => const DoctorScreen(),

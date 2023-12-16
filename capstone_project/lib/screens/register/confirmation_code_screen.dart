@@ -89,8 +89,8 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                           .copyWith(color: ThemeColor().filter),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        // mengirim email kembali
+                      onTap: ()async {
+                        otpProvider.sendOTP();
                       },
                       child: Text(
                         'Resend',
@@ -106,6 +106,9 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                   width: double.infinity,
                   child: ButtonWidget(
                     title: 'Verifikasi dan lanjutkan',
+                    buttonColor: otpProvider.isButtonEnabled
+                        ? ThemeColor().primaryButtonActive
+                        : ThemeColor().primaryButton,
                     onPressed: otpProvider.isButtonEnabled
                         ? () async {
                             String enteredOtp =

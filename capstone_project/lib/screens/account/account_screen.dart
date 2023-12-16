@@ -65,7 +65,7 @@ class AccountScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
+                    builder: (context) => const ProfileScreen(),
                   ),
                 );
               },
@@ -109,7 +109,7 @@ class AccountScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(currentIndex: 4),
+      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 4),
     );
   }
 }

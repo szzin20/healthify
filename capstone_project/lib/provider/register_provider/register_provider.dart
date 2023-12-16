@@ -1,12 +1,33 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_element, recursive_getters, unrelated_type_equality_checks
 
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/models/api/register_api.dart';
-import 'package:capstone_project/models/register_model.dart';
+import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
+import 'package:capstone_project/screens/register/confirmation_code_screen.dart';
 import 'package:flutter/material.dart';
-import '../../screens/register/confirmation_code_screen.dart';
+import 'package:provider/provider.dart';
 
 class RegisterProvider extends ChangeNotifier {
+  RegisterProvider() {
+    _setupTextControllers();
+  }
+
+  RegisterProvider.initialize() {
+    _setupTextControllers();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    fullnameController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+
+    emailController.dispose();
+    fullnameController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   // EMAIL VALIDATION
   String _emailValue = "";
@@ -17,19 +38,19 @@ class RegisterProvider extends ChangeNotifier {
   String? get _messageErrorEmail => messageErrorEmail;
 
   void emailOnChange() {
-    String email = _emailController.text.trim();
+    _emailValue = _emailController.text.trim();
 
-    if (email.isEmpty) {
+    if (_emailValue.isEmpty) {
       messageErrorEmail = "Email Harus Diisi";
-    } else if (!_isEmailValid(email)) {
+    } else if (!_isEmailValid(_emailValue)) {
       messageErrorEmail = "Format email tidak falid";
     } else {
       messageErrorEmail = null;
     }
+    notifyListeners();
   }
 
   bool _isEmailValid(String email) {
-    // Regular expression for a simple email validation
     final emailRegExp = RegExp(
       r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
@@ -37,15 +58,15 @@ class RegisterProvider extends ChangeNotifier {
   }
 
   // NAME VALIDATION
-  String _nameValue = "";
-  String get nameValue => _nameValue;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController get _nameController => nameController;
+  String _fullnameValue = "";
+  String get fullnameValue => _fullnameValue;
+  TextEditingController fullnameController = TextEditingController();
+  TextEditingController get _fullnameController => fullnameController;
   String? messageErrorName;
   String? get _messageErrorName => messageErrorName;
 
   void nameOnChange() {
-    String name = _nameController.text.trim();
+    String name = _fullnameController.text.trim();
     if (name.isEmpty) {
       messageErrorName = "Nama harus diisi";
     } else if (name.length < 2) {
@@ -81,8 +102,7 @@ class RegisterProvider extends ChangeNotifier {
     if (password.isEmpty) {
       messageErrorPassword = "Password harus diisi";
     } else if (!_isPasswordValid(password)) {
-      messageErrorPassword =
-          "Password harus lebih dari 9 karakter, terdiri dari angka dan karakter";
+      messageErrorPassword = "Password harus lebih dari 9 karakter";
     } else {
       messageErrorPassword = null;
     }
@@ -91,7 +111,7 @@ class RegisterProvider extends ChangeNotifier {
   bool _isPasswordValid(String password) {
     // Password should be at least 8 characters long and contain at least one digit and one special character
     final passwordRegExp = RegExp(
-      r'^(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{9,}$',
+      r'^(?=.*[0-9])[0-9a-zA-Z]{10,}$',
     );
     return passwordRegExp.hasMatch(password);
   }
@@ -119,143 +139,157 @@ class RegisterProvider extends ChangeNotifier {
 
   bool isButtonEnabled = false;
 
-  RegisterProvider() {
-    _setupTextControllers();
-  }
-
   void _setupTextControllers() {
     emailController.addListener(checkIfAllFieldsFilled);
-    nameController.addListener(checkIfAllFieldsFilled);
+    fullnameController.addListener(checkIfAllFieldsFilled);
     passwordController.addListener(checkIfAllFieldsFilled);
     confirmPasswordController.addListener(checkIfAllFieldsFilled);
   }
 
   void checkIfAllFieldsFilled() {
-    isButtonEnabled = emailController.text.isNotEmpty &&
-        nameController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        confirmPasswordController.text.isNotEmpty;
+    final fieldsFilled = [
+      emailController.text.isNotEmpty,
+      fullnameController.text.isNotEmpty,
+      passwordController.text.isNotEmpty,
+      confirmPasswordController.text.isNotEmpty,
+    ];
+
+    final errorMessages = [
+      messageErrorEmail?.isEmpty,
+      messageErrorName?.isEmpty,
+      messageErrorPassword?.isEmpty,
+      messageErrorConfirmPass?.isEmpty,
+    ];
+
+    isButtonEnabled = fieldsFilled.every((field) => field) &&
+        errorMessages.every((message) => message == null);
     notifyListeners();
   }
 
   void clearFields() {
     _emailValue = "";
-    _nameValue = "";
+    _fullnameValue = "";
     _passwordValue = "";
     _confirmPassValue = "";
     notifyListeners();
   }
 
-  void disposeControllers() {
-    emailController.dispose();
-    nameController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-  }
-
-  Future<void> postData(BuildContext context) async {
+  void registerUser(BuildContext context) async {
     try {
-      final postResponse = await RegisterApi().postData(
-        dataRegister: RegisterModel(
-          email: emailController.text,
-          name: nameController.text,
-          password: passwordController.text,
-        ).toJson(),
+      print("Start registration process");
+      checkIfAllFieldsFilled();
+
+      // Continue with registration process
+      final processRegisterProvider =
+          Provider.of<RegisterProcessProvider>(context, listen: false);
+
+      await processRegisterProvider.sendRegisterData(
+        fullnameController.text,
+        emailController.text,
+        passwordController.text,
       );
 
-      if (postResponse.statusCode == 201) {
-        // Registration successful, send OTP
-        _emailValue = emailController.text;
-        showRegistrationSuccess(context);
-      } else if (postResponse.statusCode == 409) {
-        // Email is already registered, show appropriate error message
-        showRegistrationError(context, 'Email Anda Telah Terdaftar');
-      } else {
-        // Handle other response codes or scenarios if needed
-        print('Unexpected response code: ${postResponse.statusCode}');
+      final regisResult = processRegisterProvider.dataRegister;
+
+      if (regisResult != null) {
+        print("Registration result: $regisResult");
+
+        if (regisResult.meta?.success == false) {
+          showRegistrationError(
+            context,
+            'Email Anda Telah Terdaftar',
+          );
+        } else if (regisResult.meta?.success == true) {
+          _emailValue = emailController.text;
+          showRegistrationSuccess(context);
+        }
       }
     } catch (e) {
-      print('Error during registration: $e');
-      // Handle other errors if needed
+      print("Error in registerUser: $e");
     }
-    notifyListeners();
-  }
 
-  void showRegistrationError(BuildContext context, String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(30),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.error,
-                color: Colors.red,
-                size: 60,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                'Registrasi Anda Gagal!',
-                style: ThemeTextStyle()
-                    .labelLarge
-                    .copyWith(fontWeight: FontWeight.w700, color: Colors.red),
-              ),
-              Text(
-                errorMessage,
-                style: ThemeTextStyle().labelMedium,
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-        );
-      },
-    );
+    notifyListeners(); // Notify listeners after updating state
   }
+}
 
-  void showRegistrationSuccess(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(30),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/images/check_circle.png',
-                width: 60,
-                height: 60,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                'Terima kasih atas pendaftaran Anda!',
-                style: ThemeTextStyle()
-                    .labelLarge
-                    .copyWith(fontWeight: FontWeight.w700),
-              ),
-              Text(
-                'Kami telah mengirimkan kode verifikasi ke alamat email yang Anda daftarkan.',
-                style: ThemeTextStyle().labelMedium,
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-        );
-      },
-    );
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ConfirmationCodeScreen(),
+// POP UP ERROR
+
+void showRegistrationError(BuildContext context, String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: const EdgeInsets.all(30),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 60,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              'Registrasi Anda Gagal!',
+              style: ThemeTextStyle()
+                  .labelLarge
+                  .copyWith(fontWeight: FontWeight.w700, color: Colors.red),
+            ),
+            Text(
+              errorMessage,
+              style: ThemeTextStyle().labelMedium,
+              textAlign: TextAlign.center,
+            )
+          ],
         ),
       );
-    });
-  }
+    },
+  );
+}
+
+// POP UP SUCCESS
+
+void showRegistrationSuccess(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: const EdgeInsets.all(30),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/check_circle.png',
+              width: 60,
+              height: 60,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              'Terima kasih atas pendaftaran Anda!',
+              style: ThemeTextStyle()
+                  .labelLarge
+                  .copyWith(fontWeight: FontWeight.w700),
+            ),
+            Text(
+              'Kami telah mengirimkan kode verifikasi ke alamat email yang Anda daftarkan.',
+              style: ThemeTextStyle().labelMedium,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      );
+    },
+  );
+  Future.delayed(const Duration(seconds: 3), () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ConfirmationCodeScreen(),
+      ),
+    );
+  });
 }
