@@ -39,7 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   void initState() {
     super.initState();
     _focusNode = FocusNode();
-    _obscureText = widget.obscureText; // Set initial state based on widget prop
+    _obscureText = widget.obscureText;
   }
 
   @override

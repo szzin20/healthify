@@ -36,4 +36,13 @@ class ThemeColor {
   Color cartMedTitle = const Color(0XFF757575);
   Color cartMedTypeTitle = const Color(0XFF9C9C9C);
   Color cartTileButton = const Color(0XFFF5F5F5);
+  Color backgroundOutgoingBubbleChat = const Color(0XFF008772);
+  Color backgroundIncomingBubbleChat = const Color(0xFFFFFFFF);
+  Color linkPreviewOutgoing = Colors.white;
+  Color linkPreviewIncoming = const Color(0XFF008772);
+  Color linkColor = const Color(0xFFa7fcd1);
+  Color placeholderChatBot = const Color(0xFF757575);
+  Color textFieldChatBot = const Color(0xFFE7E7E7);
+  Color textChatBot = const Color(0XFF202020);
+  Color backgroundChat = const Color(0xFFEEEEEE);
 }

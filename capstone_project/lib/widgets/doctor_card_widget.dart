@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
