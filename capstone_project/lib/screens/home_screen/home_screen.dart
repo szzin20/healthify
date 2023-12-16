@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/notif');
+                    },
                     icon: const Icon(
                       Icons.notifications,
                     ),
@@ -117,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {},),
       bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 0),
     );
   }

@@ -1,14 +1,42 @@
 import 'package:capstone_project/constants/color_theme.dart';
-import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/medicine_model.dart';
+import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/medicine_by_id_provider.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
+import 'package:capstone_project/widgets/detail_product_description.dart';
+import 'package:capstone_project/widgets/detail_product_header_widget.dart';
 import 'package:capstone_project/widgets/keranjang_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DetailProductScreen extends StatelessWidget {
+class DetailProductScreen extends StatefulWidget {
   const DetailProductScreen({super.key});
 
   @override
+  State<DetailProductScreen> createState() => _DetailProductScreenState();
+}
+
+class _DetailProductScreenState extends State<DetailProductScreen> {
+  int medicineId = 0;
+  bool _dataFetched = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_dataFetched) {
+      medicineId = ModalRoute.of(context)?.settings.arguments as int;
+      Provider.of<MedicineByIdProvider>(context, listen: false)
+          .fetchMedicines(medicineId);
+      _dataFetched = true;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final medicineProvider = Provider.of<MedicineByIdProvider>(context);
+    final dataMed = medicineProvider;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeColor().primaryFrame,
@@ -21,7 +49,9 @@ class DetailProductScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/cart');
+            },
             icon: Icon(
               Icons.shopping_cart_checkout,
               color: ThemeColor().textChat,
@@ -29,186 +59,77 @@ class DetailProductScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 18,
-            left: 16,
-            right: 16,
-            bottom: 18,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 18,
+                  left: 16,
+                  right: 16,
+                  bottom: 18,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DetailProductHeaderWidget(
+                      name: dataMed.medicines?.results?.name ?? '',
+                      price: dataMed.medicines?.results?.price.toString() ?? '',
+                      type: dataMed.medicines?.results?.type ?? '',
+                      image: dataMed.medicines?.results?.image ?? '',
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    DetailProductDescWidget(
+                      desc: dataMed.medicines?.results?.details ?? '',
+                      price: dataMed.medicines?.results?.price.toString() ?? '',
+                      kode: dataMed.medicines?.results?.code ?? '',
+                      type: dataMed.medicines?.results?.type ?? '',
+                      category: dataMed.medicines?.results?.category ?? '',
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const SizedBox(
-                    height: 146,
-                    width: 112,
-                    child: Image(
-                      image: AssetImage(
-                        'assets/images/doctor.png',
-                      ),
-                      fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 18,
+              left: 16,
+              right: 16,
+              bottom: 18,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: OutlineButtonWidget(
+                      title: 'Tambah',
+                      onPressed: () {
+                      cartProvider.cartList.add(dataMed.medicines!.results as Result);
+                            cartProvider.addMedToCart();
+                      }
                     ),
                   ),
-                  const SizedBox(
-                    width: 22,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'OB Combi Antitussive Rasa Menthol 60 ml',
-                          style: ThemeTextStyle().titleMedium,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          'Rp. 18.000',
-                          style: ThemeTextStyle().titleSmall,
-                        ),
-                        Text(
-                          'Per botol',
-                          style: ThemeTextStyle().bodyMedium,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                            bottom: 10.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.share,
-                                size: 20,
-                                color: ThemeColor().primaryFrame,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                'Bagikan Tautan',
-                                style: ThemeTextStyle().bodySmallShare,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: ButtonWidget(
+                      title: 'Beli Sekarang',
+                      onPressed: () {},
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Text(
-                'Deskripsi',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              Text(
-                'OB COMBI ANTITUSSIVE RASA MENTHOL mengandung dextrometorphan Hbr dan Dipenhydramine Hcl. Obat ini digunakan untuk meringankan batuk tidak berdahak disertai alergi',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                'Golongan Produk',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              Text(
-                'Obat Bebas (Hijau)',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(
-                'Komposisi',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                'Dextromethorphan HBr 12,5 mg ; Diphenhydramine HCl 7,5 mg',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                'Per Botol',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              Text(
-                '60 ml',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(
-                'Peringatan',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                'No. Registrasi',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              Text(
-                'BPOM: DBL2044401337A1',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                'Kemasan Obat',
-                style: ThemeTextStyle().labelLarge2,
-              ),
-              Text(
-                'Pemakian 3 bulan setelah kemasan di buka',
-                style: ThemeTextStyle().bodySmall,
-              ),
-              const SizedBox(
-                height: 56,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: OutlineButtonWidget(
-                        title: 'Tambah',
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: ButtonWidget(
-                        title: 'Beli Sekarang',
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

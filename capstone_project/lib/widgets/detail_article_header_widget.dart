@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class DetailArticleHeaderWidget extends StatelessWidget {
   final String title;
   final String name;
-  const DetailArticleHeaderWidget({super.key, required this.title, required this.name});
+  final String date;
+  const DetailArticleHeaderWidget({super.key, required this.title, required this.name, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +81,11 @@ class DetailArticleHeaderWidget extends StatelessWidget {
                 text: 'Ditinjau oleh ',
               ),
               TextSpan(
-                text: name,
+                text: '$name ',
                 style: ThemeTextStyle().labelSmall,
               ),
-              const TextSpan(
-                text: '10 November 2023',
+              TextSpan(
+                text: date,
               ),
             ],
           ),
