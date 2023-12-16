@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // menuju halaman login
+                          Navigator.popAndPushNamed(context, '/login');
                         },
                         child: Text(
                           'Login disini',

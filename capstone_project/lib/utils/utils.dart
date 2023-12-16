@@ -14,14 +14,14 @@ class Urls {
       "/users/doctors/available?limit=1000&offset=0";
   static const String alldoctorsspecialization =
       "/users/doctors?specialist=gigi&limit=5&offset=0";
-  static const String byid = "/users/";
+  static const String byid = "/users/doctors/";
   static const String allmedicines = "/users/medicines?offset=0&limit=5";
   static const String medicinebyname =
       "/users/medicines?offset=0&limit=5&name=ZZ";
   static const String medicinebyid = "/users/medicines/:medicine_id";
   static const String chatbots = "/customerservice";
   static const String allarticles = "/users/articles?limit=5&offset=0";
-  static const String articles = "/users/articles?limit=1000&offset=0";
+  static const String articles = "/users/articles?limit=100&offset=0";
   static const String doctortransactions = "/users/doctor-payments/:doctor_id";
   static const String doctortransactionsbyid =
       "/users/doctor-payments/:transaction_id";

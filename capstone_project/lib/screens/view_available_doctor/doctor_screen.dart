@@ -73,7 +73,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
         ),
         centerTitle: true,
         titlePadding: const EdgeInsets.only(
-            bottom: 14.0), // Adjust the bottom padding as needed
+            bottom: 14.0), 
         background: Container(
           color: ThemeColor().primaryFrame,
         ),

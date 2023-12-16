@@ -1,34 +1,30 @@
 // To parse this JSON data, do
 //
-//     final listArticles = listArticlesFromJson(jsonString);
+//     final article = articleFromJson(jsonString);
 
 import 'dart:convert';
 
-ListArticles listArticlesFromJson(String str) => ListArticles.fromJson(json.decode(str));
+Article articleFromJson(String str) => Article.fromJson(json.decode(str));
 
-String listArticlesToJson(ListArticles data) => json.encode(data.toJson());
+String articleToJson(Article data) => json.encode(data.toJson());
 
-class ListArticles {
+class Article {
     Meta? meta;
-    List<Result>? results;
-    Pagination? pagination;
+    Results? results;
 
-    ListArticles({
+    Article({
         this.meta,
         this.results,
-        this.pagination,
     });
 
-    factory ListArticles.fromJson(Map<String, dynamic> json) => ListArticles(
+    factory Article.fromJson(Map<String, dynamic> json) => Article(
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
-        results: json["results"] == null ? [] : List<Result>.from(json["results"]!.map((x) => Result.fromJson(x))),
-        pagination: json["pagination"] == null ? null : Pagination.fromJson(json["pagination"]),
+        results: json["results"] == null ? null : Results.fromJson(json["results"]),
     );
 
     Map<String, dynamic> toJson() => {
         "meta": meta?.toJson(),
-        "results": results == null ? [] : List<dynamic>.from(results!.map((x) => x.toJson())),
-        "pagination": pagination?.toJson(),
+        "results": results?.toJson(),
     };
 }
 
@@ -52,31 +48,7 @@ class Meta {
     };
 }
 
-class Pagination {
-    int? offset;
-    int? limit;
-    int? total;
-
-    Pagination({
-        this.offset,
-        this.limit,
-        this.total,
-    });
-
-    factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-        offset: json["offset"],
-        limit: json["limit"],
-        total: json["total"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "offset": offset,
-        "limit": limit,
-        "total": total,
-    };
-}
-
-class Result {
+class Results {
     int? id;
     String? title;
     String? content;
@@ -85,7 +57,7 @@ class Result {
     String? fullname;
     String? profilePicture;
 
-    Result({
+    Results({
         this.id,
         this.title,
         this.content,
@@ -95,7 +67,7 @@ class Result {
         this.profilePicture,
     });
 
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
+    factory Results.fromJson(Map<String, dynamic> json) => Results(
         id: json["id"],
         title: json["title"],
         content: json["content"],

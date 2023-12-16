@@ -1,10 +1,12 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/menu_artikel_widget.dart';
 import 'package:capstone_project/widgets/search_bar_widget.dart';
 import 'package:capstone_project/widgets/all_list_artikel_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ArtikelScreen extends StatefulWidget {
   const ArtikelScreen({super.key});
@@ -15,6 +17,14 @@ class ArtikelScreen extends StatefulWidget {
 
 class _ArtikelScreenState extends State<ArtikelScreen> {
   int selectedChipIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Provider.of<AllArticlesProvider>(context, listen: false).fetchArticles();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +43,7 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
                     ),
               ),
               centerTitle: true,
-              titlePadding: const EdgeInsets.only(
-                  bottom: 14.0), // Adjust the bottom padding as needed
+              titlePadding: const EdgeInsets.only(bottom: 14.0),
               background: Container(
                 color: ThemeColor().primaryFrame,
               ),
@@ -49,6 +58,7 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
             ),
           ),
           const SliverAppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
             toolbarHeight: 40,
             floating: false,
@@ -57,20 +67,17 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
             flexibleSpace: MenuArtikel(),
             bottom: PreferredSize(preferredSize: Size.zero, child: Text('')),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                mainAxisSpacing: 10,
+          Consumer<AllArticlesProvider>(
+              builder: (context, articlesListProvider, _) {
+            return SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4),
+              sliver: ListArticleWidget(
+                result: articlesListProvider.articles,
+                loading: articlesListProvider.loading,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return const ListArticleWidget();
-                },
-              ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
       bottomNavigationBar: const BottomNavigationBarWidget(
