@@ -1,7 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
-import 'package:capstone_project/screens/medicine_list/cart/widgets/med_cart_tile.dart';
+import 'package:capstone_project/widgets/med_cart_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
