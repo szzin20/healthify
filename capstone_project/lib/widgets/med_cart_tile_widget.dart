@@ -58,6 +58,11 @@ class MedCartTile extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * .21,
                 height: MediaQuery.of(context).size.height * .12,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Text('No Image'),
+                  );
+                },
               ),
               const SizedBox(width: 10),
               Expanded(

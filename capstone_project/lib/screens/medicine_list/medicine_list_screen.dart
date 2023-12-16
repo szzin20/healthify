@@ -123,8 +123,8 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            cartProvider.cartList.add(medicine);
-                            cartProvider.addMedToCart();
+                            Navigator.of(context).pushNamed('/detailMed',
+                                arguments: medicine.id);
                           },
                           child: ElevatedCard(
                             image: medicine.image,
