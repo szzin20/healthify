@@ -1,22 +1,30 @@
 import 'package:capstone_project/models/api/payment_api.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
-import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
+import 'package:capstone_project/utils/utils.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone_project/constants/color_theme.dart';
-import 'package:capstone_project/constants/text_theme.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'dart:io';
+import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
+import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
+import 'package:capstone_project/constants/color_theme.dart';
+import 'package:capstone_project/constants/text_theme.dart';
+// ignore: depend_on_referenced_packages
+import 'package:http_parser/http_parser.dart';
 
 class PaymentDetailScreen extends StatefulWidget {
   final int totalAmount;
   final int selectedPaymentMethod;
+  final int doctorId;
 
+  // ignore: use_super_parameters
   const PaymentDetailScreen({
-    super.key,
+    Key? key,
     required this.totalAmount,
     required this.selectedPaymentMethod,
-  });
+    required this.doctorId,
+  }) : super(key: key);
 
   @override
   State<PaymentDetailScreen> createState() => _PaymentDetailScreenState();
@@ -46,36 +54,48 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
     });
   }
 
-  void _uploadPayment() async {
-    if (_fileUploaded) {
-      // Show loading screen
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoadingScreen()));
+  Future<bool> uploadPaymentTransaction({
+    required int doctorId,
+    required File image,
+    required String selectedPaymentMethod,
+  }) async {
+    try {
+      await SharedPreferencesUtils.init();
+      String token = SharedPreferencesUtils.getToken();
+      String fileName = image.path.split('/').last;
+      String baseUrl = Urls.baseUrl;
 
-      try {
-        // Call the payment API
-        await PaymentAPI().createPayment(
-          paymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
-          paymentConfirmationPath: _pickedImage!.path,
-        );
-
-        // If the API call is successful, navigate to the transaction history screen
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const ConsultationHistoryScreen()));
-      } catch (e) {
-        // Handle API call error
-        // ignore: avoid_print
-        print("Error uploading payment: $e");
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to upload payment. Please try again.'),
-          ),
-        );
+      // Check if the image file exists
+      if (!image.existsSync()) {
+        throw 'Image file does not exist: ${image.path}';
       }
+
+      Response response = await Dio().post(
+        '$baseUrl${Urls.doctortransactions.replaceFirst(':doctor_id', doctorId.toString())}',
+        options: Options(
+          headers: {
+            "authorization": "Bearer $token",
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+        data: FormData.fromMap({
+          'payment_method': selectedPaymentMethod.toLowerCase(),
+          'payment_confirmation': await MultipartFile.fromFile(
+            image.path,
+            filename: fileName,
+            contentType: MediaType('image', 'jpeg'),
+          ),
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw 'Failed to upload image. Status Code: ${response.statusCode}';
+      }
+      // ignore: deprecated_member_use
+    } on DioError catch (e) {
+      throw '${e.response?.data['message']}';
     }
   }
 
@@ -116,10 +136,12 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                     'Untuk Dibayar',
                     style: ThemeTextStyle().titleSmall,
                   ),
-                  Text('Rp ${widget.totalAmount}',
-                      style: ThemeTextStyle().titleSmall.copyWith(
-                            fontWeight: FontWeight.bold,
-                          )),
+                  Text(
+                    'Rp ${widget.totalAmount}',
+                    style: ThemeTextStyle().titleSmall.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20.0),
@@ -130,6 +152,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                     'Nomor Rekening',
                     style: ThemeTextStyle().titleSmall,
                   ),
+                  // Replace the index below with the actual bank logo
                   Image.asset(
                     getBankLogo(widget.selectedPaymentMethod),
                     width: 40,
@@ -141,7 +164,10 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('1234567890', style: ThemeTextStyle().titleSmall),
+                  Text(
+                    '1234567890',
+                    style: ThemeTextStyle().titleSmall,
+                  ),
                   InkWell(
                     onTap: () {
                       _copyToClipboard(context, '1234567890');
@@ -310,16 +336,18 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 150,
-                      ),
                     ),
-                    child: Text(
-                      'Upload Sekarang',
-                      style: ThemeTextStyle().titleMedium.copyWith(
-                            color: ThemeColor().white,
-                          ),
+                    child: SizedBox(
+                      height: 50,
+                      width: 340,
+                      child: Center(
+                        child: Text(
+                          'Upload Sekarang',
+                          style: ThemeTextStyle().titleMedium.copyWith(
+                                color: ThemeColor().white,
+                              ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

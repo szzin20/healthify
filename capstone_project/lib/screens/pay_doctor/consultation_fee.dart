@@ -7,17 +7,19 @@ import 'package:capstone_project/widgets/voucher_text_field.dart';
 class ConsultationFeeScreen extends StatefulWidget {
   final String fullname;
   final int price;
+  final int doctorId; // New parameter to store the doctorId
 
+  // ignore: use_super_parameters
   const ConsultationFeeScreen({
-    super.key,
+    Key? key,
     required this.fullname,
     required this.price,
-  });
+    required this.doctorId, 
+  }) : super(key: key);
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
 }
-
 
 final List<String> paymentMethods = [
   ' Manual Transfer BCA ',
@@ -29,7 +31,6 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
   TextEditingController voucherCodeController = TextEditingController();
   int _selectedPaymentMethod = -1;
 
-
   @override
   Widget build(BuildContext context) {
     int serviceFee = 1000;
@@ -40,9 +41,9 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         title: Text(
           'Pembayaran',
           style: ThemeTextStyle().titleMedium.copyWith(
-                fontWeight: FontWeight.bold,
-                color: ThemeColor().white,
-              ),
+            fontWeight: FontWeight.bold,
+            color: ThemeColor().white,
+          ),
         ),
         backgroundColor: ThemeColor().primaryFrame,
         centerTitle: true,
@@ -61,8 +62,11 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              _buildPaymentDetails(widget.fullname, '(Konsultasi 30 menit)',
-                  'Rp ${widget.price}'),
+              _buildPaymentDetails(
+                widget.fullname,
+                '(Konsultasi 30 menit)',
+                'Rp ${widget.price}',
+              ),
               const SizedBox(height: 20),
               _buildPaymentDetails2('Biaya Layanan', 'Rp 1000'),
               const SizedBox(height: 40),
@@ -97,7 +101,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
-                       onPressed: () {
+                        onPressed: () {
                           navigateToPaymentDetail();
                         },
                         style: ElevatedButton.styleFrom(
@@ -136,6 +140,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         builder: (context) => PaymentDetailScreen(
           totalAmount: totalAmount,
           selectedPaymentMethod: selectedPaymentMethod,
+          doctorId: widget.doctorId, // Pass the doctorId to PaymentDetailScreen
         ),
       ),
     );
@@ -228,7 +233,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
           ]),
           value: index,
           groupValue: _selectedPaymentMethod,
-           onChanged: (int? value) {
+          onChanged: (int? value) {
             setState(() {
               _selectedPaymentMethod = value!;
             });
