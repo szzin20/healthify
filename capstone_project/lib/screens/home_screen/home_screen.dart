@@ -1,3 +1,4 @@
+import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
 import 'package:capstone_project/utils/utils.dart';
@@ -7,6 +8,7 @@ import 'package:capstone_project/widgets/home_search_bar_widget.dart';
 import 'package:capstone_project/widgets/list_article_widget.dart';
 import 'package:capstone_project/widgets/list_doctor_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -119,7 +121,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {},),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20, right: 20),
+        child: FloatingActionButton(
+          shape: const StadiumBorder(),
+          backgroundColor: ThemeColor().primaryButtonActive,
+          foregroundColor: ThemeColor().white,
+          onPressed: () {
+            Navigator.pushNamed(context, '/chatbot');
+          },
+          child: SvgPicture.asset(
+              'assets/icons/all_icon/customer_service_icon.svg'),
+        ),
+      ),
       bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 0),
     );
   }

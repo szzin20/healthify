@@ -145,6 +145,7 @@ class MyApp extends StatelessWidget {
         '/consultHistory': (BuildContext context) =>
             const ConsultationHistoryScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
+        '/chatbot': (BuildContext context) => const ChatBotScreen(),
       },
       initialRoute: '/splash',
     );
