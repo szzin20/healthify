@@ -1,8 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
-import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
-import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:capstone_project/widgets/bottom_bar.dart';
 import 'package:flutter/gestures.dart';

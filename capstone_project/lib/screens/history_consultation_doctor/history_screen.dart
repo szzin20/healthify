@@ -2,7 +2,6 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});

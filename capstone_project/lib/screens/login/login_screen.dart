@@ -2,7 +2,6 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
-import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
