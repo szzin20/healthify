@@ -5,6 +5,7 @@ import 'package:capstone_project/widgets/detail_article_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailArticleScreen extends StatefulWidget {
@@ -66,6 +67,10 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
         ),
       );
     } else {
+      String formattedDate = article.articles?.results?.createdAt != null
+    ? DateFormat('yyyy-MM-dd').format(article.articles!.results!.createdAt!)
+    : '';
+
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -92,6 +97,7 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
                 DetailArticleHeaderWidget(
                   title: article.articles?.results?.title ?? '',
                   name: article.articles?.results?.fullname ?? '',
+                  date: formattedDate,
                 ),
                 const SizedBox(
                   height: 18,

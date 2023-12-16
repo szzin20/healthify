@@ -1,15 +1,15 @@
-import 'package:capstone_project/constants/color_theme.dart';
-import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
-class OutlineButtonWidget extends StatelessWidget {
+class ButtonNewWidget extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
+  final Color buttonColor;
 
-  const OutlineButtonWidget({
+  const ButtonNewWidget({
     super.key,
     required this.title,
     this.onPressed,
+    this.buttonColor = const Color(0XFF008772), 
   });
 
   @override
@@ -20,7 +20,12 @@ class OutlineButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         fixedSize: const Size.fromHeight(42.0),
-        side: BorderSide(color: ThemeColor().primaryFrame, width: 2),
+      ).copyWith(
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            return buttonColor; 
+          },
+        ),
       ),
       onPressed: onPressed,
       child: Row(
@@ -28,14 +33,7 @@ class OutlineButtonWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: ThemeTextStyle().titleMedium.copyWith(
-                  color: ThemeColor().primaryFrame,
-                ),
-          ),
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 20,
-            color: ThemeColor().primaryFrame,
+            style: TextStyle(color: Colors.white),
           ),
         ],
       ),

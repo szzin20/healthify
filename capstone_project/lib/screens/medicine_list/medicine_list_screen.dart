@@ -1,4 +1,4 @@
-import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
+import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -22,11 +22,14 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<AllMedicineProvider>(context, listen: false).fetchMedicine();
     });
+    Future.delayed(Duration.zero, () {
+      Provider.of<CartDatabaseProvider>(context, listen: false).getCartItems();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartDatabaseProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +45,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
         actions: [
           IconButton(
             icon: Badge(
-              label: Text(cartProvider.cartList.length.toString()),
+              label: Text(cartProvider.cartItems.length.toString()),
               child: SvgPicture.asset(
                 'assets/icons/all_icon/shopping_cart_icon.svg',
               ),

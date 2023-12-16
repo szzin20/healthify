@@ -25,6 +25,23 @@ class Result {
     required this.quantity, // Add this line
   });
 
+  Result copyWith({int? id, int? quantity}) {
+    return Result(
+      id: id ?? this.id,
+      code: code,
+      name: name,
+      merk: merk,
+      category: category,
+      type: type,
+      price: price,
+      stock: stock,
+      details: details,
+      image: image,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+
+
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         id: json["id"],
         code: json["code"],

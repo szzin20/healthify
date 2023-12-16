@@ -1,7 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
-import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';
@@ -43,7 +42,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final menuProvider = Provider.of<MenuProvider>(context, listen: false);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -61,6 +59,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
