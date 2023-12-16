@@ -1,4 +1,5 @@
 import 'package:capstone_project/models/api/payment_api.dart';
+import 'package:capstone_project/screens/status_payment_doctor/status_payment_doctor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/services.dart';
@@ -50,57 +51,109 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
     });
   }
 
+  // Future<void> _uploadPayment() async {
+  //   if (_fileUploaded) {
+  //     // Show loading screen
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => const LoadingScreen()),
+  //     );
+
+  //     try {
+  //       // Call the uploadProfileImage function
+  //       bool success = await uploadPaymentTransaction(
+  //         doctorId: widget.doctorId,
+  //         image: File(_pickedImage!.path),
+  //         selectedPaymentMethod:
+  //             getPaymentMethodName(widget.selectedPaymentMethod),
+  //       );
+
+  //       // ignore: avoid_print
+  //       print("Upload Payment Response: $success");
+
+  //       if (success) {
+  //         // If the upload is successful, navigate to the transaction history screen
+  //         // ignore: use_build_context_synchronously
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => StatusPaymentDoctorScreen(
+  //               doctorId: widget.doctorId,
+  //               selectedPaymentMethod: widget.selectedPaymentMethod.toString(),
+  //             ),
+  //           ),
+  //         );
+  //       } else {
+  //         // Handle failure
+  //         // ignore: use_build_context_synchronously
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             content: Text('Failed to upload payment. Please try again.'),
+  //           ),
+  //         );
+  //       }
+  //     } catch (e) {
+  //       // Handle API call error
+  //       // ignore: avoid_print
+  //       print("Error uploading payment: $e");
+  //       // ignore: use_build_context_synchronously
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('Failed to upload payment. Please try again.'),
+  //         ),
+  //       );
+  //     }
+  //   }
+  // }
   Future<void> _uploadPayment() async {
-    if (_fileUploaded) {
+  if (_fileUploaded) {
+    try {
       // Show loading screen
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const LoadingScreen()),
       );
 
-      try {
-        // Call the uploadProfileImage function
-        bool success = await uploadPaymentTransaction(
-          doctorId: widget.doctorId,
-          image: File(_pickedImage!.path),
-          selectedPaymentMethod:
-              getPaymentMethodName(widget.selectedPaymentMethod),
+      // Call the uploadPaymentTransaction function
+      bool success = await uploadPaymentTransaction(
+        doctorId: widget.doctorId,
+        image: File(_pickedImage!.path),
+        selectedPaymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
+      );
+
+      // Log success status
+      print("Upload Payment Response: $success");
+
+      if (success) {
+        // If the upload is successful, navigate to the transaction history screen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StatusPaymentDoctorScreen(
+              doctorId: widget.doctorId,
+              selectedPaymentMethod: widget.selectedPaymentMethod.toString(),
+            ),
+          ),
         );
-
-        // ignore: avoid_print
-        print("Upload Payment Response: $success");
-
-        if (success) {
-          // If the upload is successful, navigate to the transaction history screen
-          // ignore: use_build_context_synchronously
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ConsultationHistoryScreen(),
-            ),
-          );
-        } else {
-          // Handle failure
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Failed to upload payment. Please try again.'),
-            ),
-          );
-        }
-      } catch (e) {
-        // Handle API call error
-        // ignore: avoid_print
-        print("Error uploading payment: $e");
-        // ignore: use_build_context_synchronously
+      } else {
+        // Handle failure
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Failed to upload payment. Please try again.'),
           ),
         );
       }
+    } catch (e) {
+      // Handle API call error
+      print("Error uploading payment: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to upload payment. Please try again.'),
+        ),
+      );
     }
   }
+}
 
   String getPaymentMethodName(int index) {
     List<String> paymentMethods = [

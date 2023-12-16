@@ -12,6 +12,7 @@ import 'package:capstone_project/provider/login_provider/check_user_password_pro
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
+import 'package:capstone_project/provider/status_payment_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
@@ -25,6 +26,7 @@ import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart
 import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
+import 'package:capstone_project/screens/status_payment_doctor/status_payment_doctor_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +80,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ArticleByIdProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => StatusPaymentProvider(),
       ),
     ],
     child: const MyApp(),
