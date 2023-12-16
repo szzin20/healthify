@@ -10,7 +10,7 @@ class OtpApi {
    Future<bool> createOTP(String email) async {
     try {
       Response response = await _dio.post(
-        'https://www.healthify.my.id/users/get-otp',
+        'https://dev.healthify.my.id/users/get-otp',
         data: {'email': email},
       );
       return response.data['success'] ?? false;
@@ -23,7 +23,7 @@ class OtpApi {
   Future<bool> verifyOTP(String email, String otp) async {
     try {
       Response response = await _dio.post(
-        'https://www.healthify.my.id/users/verify-otp',
+        'https://dev.healthify.my.id/users/verify-otp',
         data: {'email': email, 'otp': otp},
       );
       return response.data['success'] ?? false;
