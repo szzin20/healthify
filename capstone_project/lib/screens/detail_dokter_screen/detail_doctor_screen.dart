@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailDoctorScreen extends StatefulWidget {
-  const DetailDoctorScreen({Key? key}) : super(key: key);
+  const DetailDoctorScreen({super.key});
 
   @override
   State<DetailDoctorScreen> createState() => _DetailDoctorScreenState();
@@ -22,15 +22,19 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
   bool _dataFetched = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+void didChangeDependencies() {
+  super.didChangeDependencies();
 
-    if (!_dataFetched) {
-      doctorId = ModalRoute.of(context)?.settings.arguments as int;
+  if (!_dataFetched) {
+    final routeArgs = ModalRoute.of(context)?.settings.arguments;
+    
+    if (routeArgs is int) {
+      doctorId = routeArgs;
       Provider.of<DoctorByIdProvider>(context, listen: false).fetchDoctorData(doctorId);
       _dataFetched = true;
     }
   }
+}
 
 
   @override
@@ -44,7 +48,8 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
     } else {
       String formattedPrice =
           NumberFormat.currency(locale: 'id_IDR', symbol: 'Rp ')
-              .format(double.parse(doctor.price.toString()));
+              .format(double.parse(doctor.price?.toString() ?? '0'));
+
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -194,18 +199,21 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                 ),
                 child: ButtonWidget(
                   title: 'Chat Sekarang',
-                  onPressed: (doctor == null )? null
-                  :() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ConsultationFeeScreen(
-                          fullname: doctor.fullname ?? '',
-                          price: doctor.price ?? 0
-                        ),
-                      ),
-                    );
-                  },
+                  // ignore: unnecessary_null_comparison
+                  onPressed: (doctor == null)
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConsultationFeeScreen(
+                                fullname: doctor.fullname ?? '',
+                                price: doctor.price ?? 0,
+                                doctorId: doctor.id ?? 0,
+                              ),
+                            ),
+                          );
+                        },
                 ),
               ),
             ],
