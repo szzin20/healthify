@@ -35,7 +35,7 @@ class DetailArticleHeaderWidget extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'data',
+                'Kesehatan',
                 style: ThemeTextStyle().titleSmallWhite,
               ),
             ),
@@ -56,7 +56,7 @@ class DetailArticleHeaderWidget extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'data',
+                'Artikel',
                 style: ThemeTextStyle().titleSmallWhite,
               ),
             ),
