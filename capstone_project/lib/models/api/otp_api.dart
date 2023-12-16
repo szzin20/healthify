@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
+import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class OtpApi {
   Future<bool> verifyOTP(String email, String otp) async {
     try {
       Response response = await _dio.post(
-        'https://dev.healthify.my.id/users/verify-otp',
+        'https://dev.healthify.my.id/users/',
         data: {'email': email, 'otp': otp},
       );
       return response.data['success'] ?? false;
@@ -39,7 +40,7 @@ class OtpApi {
     print(email);
     try {
       Response response = await _dio.post(
-        '${Urls.baseUrl}/users/verify-otp',
+        '${Urls.baseUrl}/users/OTP-verification',
         data: {'email': email, 'otp': otp},
       );
 
@@ -47,15 +48,13 @@ class OtpApi {
         // Registration successful, navigate to the home screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       } else {
         print('Registration failed. Server response: ${response.data}');
       }
     } on DioException catch (error) {
       print(error);
-      // print('anjay');
-      // print('Error registering user: $error');
     }
   }
 }
