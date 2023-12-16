@@ -15,7 +15,8 @@ class RegisterProvider extends ChangeNotifier {
     _setupTextControllers();
   }
 
-  void disposeControllers() {
+  @override
+  void dispose() {
     emailController.dispose();
     fullnameController.dispose();
     passwordController.dispose();
@@ -25,7 +26,6 @@ class RegisterProvider extends ChangeNotifier {
     fullnameController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-
     super.dispose();
   }
 
