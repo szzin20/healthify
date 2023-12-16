@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProvider extends ChangeNotifier {
-  static const String baseUrl = "https://www.healthify.my.id/users/doctors";
+  static const String baseUrl = "https://dev.healthify.my.id/users/doctors";
   static const String availableDoctorsUrl = "$baseUrl/available";
   static const String filteredDoctorsUrl = "$baseUrl?limit=5&offset=0";
 

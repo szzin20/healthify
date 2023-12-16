@@ -114,6 +114,13 @@ class ThemeTextStyle {
     fontSize: 11,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
+    color: Colors.black
+  );
+  TextStyle labelSmallGrey =  TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+    color: ThemeColor().disableNavigationBar,
   );
   TextStyle labelSmallWhite = TextStyle(
       fontSize: 11,

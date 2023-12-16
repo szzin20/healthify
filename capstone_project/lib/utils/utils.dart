@@ -21,7 +21,7 @@ class Urls {
   static const String medicinebyid = "/users/medicines/:medicine_id";
   static const String chatbots = "/customerservice";
   static const String allarticles = "/users/articles?limit=5&offset=0";
-  static const String articles = "/users/articles?limit=1000&offset=0";
+  static const String articles = "/users/articles?limit=100&offset=0";
   static const String doctortransactions = "/users/doctor-payments/:doctor_id";
   static const String doctortransactionsbyid =
       "/users/doctor-payments/:transaction_id";

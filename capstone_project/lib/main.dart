@@ -1,3 +1,5 @@
+import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
+import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
@@ -11,7 +13,11 @@ import 'package:capstone_project/provider/medicine_provider/medicine_provider.da
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
+import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
+import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
+import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
+import 'package:capstone_project/screens/history_consultation_doctor/history_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/cart/cart_screen.dart';
@@ -67,6 +73,12 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => CartProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => AllArticlesProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ArticleByIdProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -93,18 +105,20 @@ class MyApp extends StatelessWidget {
         '/doctorList': (BuildContext context) => const DoctorScreen(),
         '/articleList': (BuildContext context) => const Center(),
         '/findMed': (BuildContext context) => const MedicineListScreen(),
-        '/history': (BuildContext context) => const Center(),
+        '/history': (BuildContext context) => const HistoryScreen(),
         '/account': (BuildContext context) => const AccountScreen(),
         '/detailMed': (BuildContext context) => const AccountScreen(),
-        '/detailArticle': (BuildContext context) => const AccountScreen(),
+        '/detailArticle': (BuildContext context) => const DetailArticleScreen(),
         '/detailDoctor': (BuildContext context) => const DetailDoctorScreen(),
         '/notif': (BuildContext context) => const AccountScreen(),
-        '/contactUs': (BuildContext context) => const AccountScreen(),
-        '/consultHistory': (BuildContext context) => const AccountScreen(),
+        '/contactUs': (BuildContext context) => const ContactUsScreen(),
+        '/consultHistory': (BuildContext context) =>
+            const ConsultationHistoryScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
         '/cart': (BuildContext context) => const CartScreen(),
       },
       // initialRoute: '/splash',
+      initialRoute: '/splash',
       home: const SplashScreen(),
     );
   }
