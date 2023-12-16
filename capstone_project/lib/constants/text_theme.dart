@@ -111,12 +111,11 @@ class ThemeTextStyle {
     fontFamily: 'FontRoboto',
   );
   TextStyle labelSmall = const TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w400,
-    fontFamily: 'FontRoboto',
-    color: Colors.black
-  );
-  TextStyle labelSmallGrey =  TextStyle(
+      fontSize: 11,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'FontRoboto',
+      color: Colors.black);
+  TextStyle labelSmallGrey = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
@@ -176,6 +175,28 @@ class ThemeTextStyle {
 
   TextStyle bodySmall2 = const TextStyle(
     fontSize: 10,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle textInputChat = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+    letterSpacing: 0.25,
+    height: 1.4,
+  );
+
+  TextStyle textIncomingBubbleChat = const TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'FontRoboto',
+  );
+
+  TextStyle textOutgoingBubbleChat = const TextStyle(
+    color: Colors.white,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     fontFamily: 'FontRoboto',
   );
