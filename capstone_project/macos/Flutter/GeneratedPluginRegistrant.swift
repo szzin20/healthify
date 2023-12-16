@@ -10,6 +10,7 @@ import emoji_picker_flutter
 import file_selector_macos
 import shared_preferences_foundation
 import sqflite
+import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   ConnectivityPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlugin"))
