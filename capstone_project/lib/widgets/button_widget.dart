@@ -1,15 +1,15 @@
-import 'package:capstone_project/constants/color_theme.dart';
-import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
+  final Color buttonColor;
 
   const ButtonWidget({
     Key? key,
     required this.title,
     this.onPressed,
+    this.buttonColor = const Color(0XFF008772), 
   }) : super(key: key);
 
   @override
@@ -23,14 +23,14 @@ class ButtonWidget extends StatelessWidget {
       ).copyWith(
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
-            return ThemeColor().primaryButtonActive;
+            return buttonColor; 
           },
         ),
       ),
       onPressed: onPressed,
       child: Text(
         title,
-        style: ThemeTextStyle().titleMedium.copyWith(color: Colors.white),
+        style: TextStyle(color: Colors.white),
       ),
     );
   }
