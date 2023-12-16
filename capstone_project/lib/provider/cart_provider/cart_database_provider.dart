@@ -38,10 +38,18 @@ class CartDatabaseProvider extends ChangeNotifier {
     _updateCart();
   }
 
-  Future<void> removeQuantity(int id) async {
-    await _databaseHelper.removeQuantity(id);
+Future<void> removeQuantity(int id) async {
+    List<Result> cartItems = await _databaseHelper.getCartItems();
+
+    Result cartProduct = cartItems.firstWhere((item) => item.id == id);
+
+    await _databaseHelper.updateCartItem(
+      cartProduct.copyWith(quantity: cartProduct.quantity - 1),
+    );
+
     _updateCart();
   }
+
 
   Future<void> removeAllQuantity(int id) async {
     await _databaseHelper.removeAllQuantity(id);

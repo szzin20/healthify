@@ -1,5 +1,6 @@
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
+import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
@@ -84,7 +85,13 @@ void main() async {
         create: (context) => ArticleByIdProvider(),
       ),
       ChangeNotifierProvider(
+        create: (context) => MedicineByIdProvider(),
+      ),
+      ChangeNotifierProvider(
         create: (context) => RegisterProcessProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => CartDatabaseProvider(),
       ),
     ],
     child: const MyApp(),

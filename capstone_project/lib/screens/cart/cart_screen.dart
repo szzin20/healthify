@@ -5,9 +5,24 @@ import 'package:capstone_project/widgets/med_cart_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  bool _dataFetched = false;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_dataFetched) {
+      Provider.of<CartDatabaseProvider>(context, listen: false).getCartItems();
+      _dataFetched = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

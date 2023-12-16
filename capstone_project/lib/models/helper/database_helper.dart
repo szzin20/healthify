@@ -46,9 +46,39 @@ class DatabaseHelper {
   }
 
   Future<void> insertToCart(Result medicine) async {
-    final Database db = await database;
-    await db.insert(_tableNameCart, medicine.toJson());
+  final Database db = await database;
+  final existingMedicine = await getCartItemById(medicine.id);
+
+  if (existingMedicine != null) {
+    // Medicine with the same id already exists, update its quantity
+    final updatedMedicine = existingMedicine.copyWith(
+      quantity: existingMedicine.quantity + 1,
+    );
+    await updateCartItem(updatedMedicine);
+  } else {
+    // Medicine with the id doesn't exist, insert a new record
+    await db.insert(
+      _tableNameCart,
+      medicine.toJson()..remove('id'),
+    );
   }
+}
+
+Future<Result?> getCartItemById(int id) async {
+  final Database db = await database;
+  List<Map<String, dynamic>> results = await db.query(
+    _tableNameCart,
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+
+  if (results.isNotEmpty) {
+    return Result.fromJson(results.first);
+  } else {
+    return null;
+  }
+}
+
 
   Future<List<Result>> getCartItems() async {
     final Database db = await database;

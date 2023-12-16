@@ -26,6 +26,12 @@ class DetailProductHeaderWidget extends StatelessWidget {
             image: NetworkImage(
               image,
             ),
+            errorBuilder:
+                (BuildContext context, Object error, StackTrace? stackTrace) {
+              return const Center(
+                child: Text('No Image'),
+              );
+            },
             fit: BoxFit.cover,
           ),
         ),

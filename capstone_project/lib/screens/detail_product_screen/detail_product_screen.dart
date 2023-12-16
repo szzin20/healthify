@@ -1,12 +1,13 @@
 import 'package:capstone_project/constants/color_theme.dart';
-import 'package:capstone_project/models/medicine_model.dart';
-import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
+import 'package:capstone_project/models/cart_model.dart';
+import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_by_id_provider.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/detail_product_description.dart';
 import 'package:capstone_project/widgets/detail_product_header_widget.dart';
 import 'package:capstone_project/widgets/keranjang_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartDatabaseProvider>(context);
     final medicineProvider = Provider.of<MedicineByIdProvider>(context);
     final dataMed = medicineProvider;
     return Scaffold(
@@ -49,13 +50,15 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/cart');
-            },
-            icon: Icon(
-              Icons.shopping_cart_checkout,
-              color: ThemeColor().textChat,
+            icon: Badge(
+              label: Text(cartProvider.cartItems.length.toString()),
+              child: SvgPicture.asset(
+                'assets/icons/all_icon/shopping_cart_icon.svg',
+              ),
             ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/cart');
+            },
           ),
         ],
       ),
@@ -109,12 +112,25 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: OutlineButtonWidget(
-                      title: 'Tambah',
-                      onPressed: () {
-                      cartProvider.cartList.add(dataMed.medicines!.results as Result);
-                            cartProvider.addMedToCart();
-                      }
-                    ),
+                        title: 'Tambah',
+                        onPressed: () {
+                          final Result medicine = Result(
+                            id: dataMed.medicines?.results?.id ?? 0,
+                            code: dataMed.medicines?.results?.code ?? '',
+                            name: dataMed.medicines?.results?.name ?? '',
+                            merk: dataMed.medicines?.results?.merk ?? '',
+                            category:
+                                dataMed.medicines?.results?.category ?? '',
+                            type: dataMed.medicines?.results?.type ?? '',
+                            price: dataMed.medicines?.results?.price ?? 0,
+                            stock: dataMed.medicines?.results?.stock ?? 0,
+                            details: dataMed.medicines?.results?.details ?? '',
+                            image: dataMed.medicines?.results?.image ?? '',
+                            quantity: 1,
+                          );
+                          cartProvider.addToCart(medicine);
+                          Navigator.of(context).pushNamed('/cart');
+                        }),
                   ),
                 ),
                 Expanded(
