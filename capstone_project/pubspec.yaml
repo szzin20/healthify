@@ -55,6 +55,7 @@ dependencies:
   intl: ^0.18.1
   shared_preferences: ^2.2.2
   animated_overflow: ^2.0.0
+  flutter_speed_dial: ^7.0.0
  
 
 dev_dependencies:

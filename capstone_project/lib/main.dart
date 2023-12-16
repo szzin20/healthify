@@ -1,4 +1,5 @@
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
+import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
@@ -75,6 +76,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => AllArticlesProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => ArticleByIdProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -104,7 +108,7 @@ class MyApp extends StatelessWidget {
         '/history': (BuildContext context) => const HistoryScreen(),
         '/account': (BuildContext context) => const AccountScreen(),
         '/detailMed': (BuildContext context) => const AccountScreen(),
-        '/detailArticle': (BuildContext context) => const AccountScreen(),
+        '/detailArticle': (BuildContext context) => const DetailArticleScreen(),
         '/detailDoctor': (BuildContext context) => const DetailDoctorScreen(),
         '/notif': (BuildContext context) => const AccountScreen(),
         '/contactUs': (BuildContext context) => const ContactUsScreen(),
@@ -113,7 +117,6 @@ class MyApp extends StatelessWidget {
         '/cart': (BuildContext context) => const CartScreen(),
       },
       initialRoute: '/splash',
-      // initialRoute: '/splash',
       // home: DetailArticleScreen(),
     );
   }
