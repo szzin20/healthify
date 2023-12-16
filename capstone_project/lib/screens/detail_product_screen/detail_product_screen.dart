@@ -129,7 +129,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                             quantity: 1,
                           );
                           cartProvider.addToCart(medicine);
-                          Navigator.of(context).pushNamed('/cart');
+                          Navigator.of(context).pushNamed('/cartMed');
                         }),
                   ),
                 ),

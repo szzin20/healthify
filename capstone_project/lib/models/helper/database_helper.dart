@@ -1,4 +1,5 @@
 import 'package:capstone_project/models/cart_model.dart';
+import 'package:capstone_project/models/order_med_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -45,40 +46,53 @@ class DatabaseHelper {
     return db;
   }
 
+  Future<List<MedicineDetail>> getAllMedicineDetails() async {
+    final Database db = await database;
+    List<Map<String, dynamic>> result = await db
+        .query(_tableNameCart, columns: ['id', 'quantity', 'total_price']);
+
+    return result.map((map) {
+      return MedicineDetail(
+        medicineId: map['id'],
+        quantity: map['quantity'],
+        totalPriceMedicine: map['total_price'],
+      );
+    }).toList();
+  }
+
   Future<void> insertToCart(Result medicine) async {
-  final Database db = await database;
-  final existingMedicine = await getCartItemById(medicine.id);
+    final Database db = await database;
+    final existingMedicine = await getCartItemById(medicine.id);
 
-  if (existingMedicine != null) {
-    // Medicine with the same id already exists, update its quantity
-    final updatedMedicine = existingMedicine.copyWith(
-      quantity: existingMedicine.quantity + 1,
-    );
-    await updateCartItem(updatedMedicine);
-  } else {
-    // Medicine with the id doesn't exist, insert a new record
-    await db.insert(
+    if (existingMedicine != null) {
+      // Medicine with the same id already exists, update its quantity
+      final updatedMedicine = existingMedicine.copyWith(
+        quantity: existingMedicine.quantity + 1,
+      );
+      await updateCartItem(updatedMedicine);
+    } else {
+      // Medicine with the id doesn't exist, insert a new record
+      await db.insert(
+        _tableNameCart,
+        medicine.toJson()..remove('id'),
+      );
+    }
+  }
+
+  Future<Result?> getCartItemById(int id) async {
+    final Database db = await database;
+    List<Map<String, dynamic>> results = await db.query(
       _tableNameCart,
-      medicine.toJson()..remove('id'),
+      where: 'id = ?',
+      whereArgs: [id],
     );
+
+    if (results.isNotEmpty) {
+      return Result.fromJson(results.first);
+    } else {
+      return null;
+    }
   }
-}
-
-Future<Result?> getCartItemById(int id) async {
-  final Database db = await database;
-  List<Map<String, dynamic>> results = await db.query(
-    _tableNameCart,
-    where: 'id = ?',
-    whereArgs: [id],
-  );
-
-  if (results.isNotEmpty) {
-    return Result.fromJson(results.first);
-  } else {
-    return null;
-  }
-}
-
 
   Future<List<Result>> getCartItems() async {
     final Database db = await database;

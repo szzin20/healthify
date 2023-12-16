@@ -1,9 +1,12 @@
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
+import 'package:capstone_project/provider/chatbot_provider/chatbot_provider.dart';
 import 'package:capstone_project/provider/doctor_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/check_payment_info_provider.dart';
+import 'package:capstone_project/provider/medicine_provider/med_payment_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_by_id_provider.dart';
 import 'package:capstone_project/provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
@@ -17,7 +20,9 @@ import 'package:capstone_project/provider/register_provider/register_process_pro
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
+import 'package:capstone_project/screens/buy_med_screen/buy_med_screen.dart';
 import 'package:capstone_project/screens/cart/cart_screen.dart';
+import 'package:capstone_project/screens/chatbot/chatbot_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/detail_product_screen/detail_product_screen.dart';
@@ -88,10 +93,19 @@ void main() async {
         create: (context) => MedicineByIdProvider(),
       ),
       ChangeNotifierProvider(
-        create: (context) => RegisterProcessProvider(),
+        create: (context) => MedicineByIdProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ChatBotProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => CartDatabaseProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => MedPaymentProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => CheckPaymentInfoProvider(),
       ),
     ],
     child: const MyApp(),
@@ -114,7 +128,6 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/splash': (BuildContext context) => const SplashScreen(),
         '/register': (BuildContext context) => const RegisterScreen(),
-        '/otp': (BuildContext context) => const ConfirmationCodeScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomeScreen(),
         '/doctorList': (BuildContext context) => const DoctorScreen(),
@@ -129,12 +142,11 @@ class MyApp extends StatelessWidget {
         '/buyMed': (BuildContext context) => const CartScreen(),
         '/notif': (BuildContext context) => const NotificationScreen(),
         '/contactUs': (BuildContext context) => const ContactUsScreen(),
-        '/consultHistory': (BuildContext context) => const ConsultationHistoryScreen(),
+        '/consultHistory': (BuildContext context) =>
+            const ConsultationHistoryScreen(),
         '/medHistory': (BuildContext context) => const AccountScreen(),
-        '/cart': (BuildContext context) => const CartScreen(),
       },
       initialRoute: '/splash',
-      // home: DetailProductScreen(),
     );
   }
 }

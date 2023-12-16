@@ -1,10 +1,12 @@
 import 'package:capstone_project/models/cart_model.dart';
 import 'package:capstone_project/models/helper/database_helper.dart';
+import 'package:capstone_project/models/order_med_model.dart';
 import 'package:flutter/material.dart';
 
 class CartDatabaseProvider extends ChangeNotifier {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   List<Result> _cartItems = [];
+  List<MedicineDetail> _cartDetail = [];
 
   List<Result> get cartItems => _cartItems;
 
@@ -16,6 +18,9 @@ class CartDatabaseProvider extends ChangeNotifier {
   Future<void> getCartItems() async {
     _cartItems = await _databaseHelper.getCartItems();
     notifyListeners();
+  }
+  Future<List<MedicineDetail>> getMedicineDetail() async {
+    return _cartDetail = await _databaseHelper.getAllMedicineDetails();
   }
 
   Future<void> updateCartItem(Result medicine) async {
