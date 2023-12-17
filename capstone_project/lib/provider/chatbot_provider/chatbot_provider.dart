@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:capstone_project/models/api/chatbot_api.dart';
 import 'package:capstone_project/models/chatbot_model.dart';
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:chatview/chatview.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,13 @@ class ChatBotProvider extends ChangeNotifier {
   Map<String, String> get mapUser => _mapUser;
   List get listUser => _mapUser.entries.toList();
 
+  @override
+  void dispose() {
+    _chatController.dispose();
+
+    super.dispose();
+  }
+
   ChatUser currentUser({
     required String activeUserId,
     required String activeUserName,
@@ -39,6 +49,13 @@ class ChatBotProvider extends ChangeNotifier {
 
   late ChatController _chatController;
   ChatController? get chatController => _chatController;
+
+  void showHideTypingIndicator() {
+    Future.delayed(
+        const Duration(milliseconds: 1300),
+        () => _chatController.setTypingIndicator =
+            !_chatController.showTypingIndicator);
+  }
 
   ChatController setChatController({
     required List<Message> initialMessageList,
@@ -54,26 +71,16 @@ class ChatBotProvider extends ChangeNotifier {
     return _chatController;
   }
 
-  @override
-  void dispose() {
-    _chatController.dispose();
-    super.dispose();
-  }
-
   void onQuestionPressed(String message) async {
     final user =
         currentUser(activeUserId: _userId!, activeUserName: _userName!);
     final userId = user.id;
 
     try {
-      final chatbot = await ChatBotApi.postChatBot(message);
-      botAnswer = chatbot.results;
+      final chatbotcs = await ChatBotApi.postChatBotCS(message);
+      botAnswer = chatbotcs.results;
     } on DioException catch (e) {
-      final error = e as ChatBotModel;
-      if (error.meta.success == false) {
-        botAnswer = 'Maaf, saya tidak tahu jawabannya';
-        debugPrint('${e.response?.statusCode} ${e.response?.statusMessage}');
-      }
+      botAnswer = e.message;
     }
 
     _chatController.addMessage(
@@ -84,9 +91,15 @@ class ChatBotProvider extends ChangeNotifier {
         sendBy: userId,
         replyMessage: const ReplyMessage(),
         messageType: MessageType.text,
-        status: MessageStatus.delivered,
       ),
     );
+
+    _chatController.initialMessageList.last.setStatus =
+        MessageStatus.undelivered;
+    Future.delayed(const Duration(seconds: 1), () {
+      _chatController.initialMessageList.last.setStatus =
+          MessageStatus.delivered;
+    });
 
     _idMessage++;
     debugPrint(_idMessage.toString());
@@ -94,8 +107,43 @@ class ChatBotProvider extends ChangeNotifier {
     generateBotAnswer(botAnswer!);
   }
 
-  void showHideTypingIndicator() {
-    _chatController.setTypingIndicator = !_chatController.showTypingIndicator;
+  void onSendTap(
+    String message,
+    ReplyMessage replyMessage,
+    MessageType messageType,
+  ) async {
+    final user =
+        currentUser(activeUserId: _userId!, activeUserName: _userName!);
+    final userId = user.id;
+
+    try {
+      final chatbot = await ChatBotApi.postChatBot(message);
+      botAnswer = chatbot.results;
+    } on DioException catch (e) {
+      botAnswer = e.message;
+    }
+
+    _chatController.addMessage(
+      Message(
+        id: _idMessage.toString(),
+        createdAt: DateTime.now(),
+        message: message,
+        sendBy: userId,
+        replyMessage: replyMessage,
+        messageType: messageType,
+      ),
+    );
+
+    _chatController.initialMessageList.last.setStatus =
+        MessageStatus.undelivered;
+    Future.delayed(const Duration(seconds: 1), () {
+      _chatController.initialMessageList.last.setStatus = MessageStatus.read;
+    });
+
+    _idMessage++;
+    debugPrint(_idMessage.toString());
+    showHideTypingIndicator();
+    generateBotAnswer(botAnswer!);
   }
 
   void generateBotAnswer(String message) {
@@ -115,29 +163,5 @@ class ChatBotProvider extends ChangeNotifier {
       showHideTypingIndicator();
       debugPrint(_idMessage.toString());
     });
-  }
-
-  void onSendTap(
-    String message,
-    ReplyMessage replyMessage,
-    MessageType messageType,
-  ) {
-    final user =
-        currentUser(activeUserId: _userId!, activeUserName: _userName!);
-    final userId = user.id;
-
-    _chatController.addMessage(
-      Message(
-        id: _idMessage.toString(),
-        createdAt: DateTime.now(),
-        message: message,
-        sendBy: userId,
-        replyMessage: replyMessage,
-        messageType: messageType,
-        status: MessageStatus.delivered,
-      ),
-    );
-
-    _idMessage++;
   }
 }
