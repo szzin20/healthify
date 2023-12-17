@@ -45,15 +45,12 @@ class AccountScreen extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Colors.grey,
                 shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/profile_pic.jpg'),
-                  fit: BoxFit.cover,
-                ),
               ),
+              child: const Icon(Icons.person,),
             ),
             const SizedBox(height: 12),
             Text(
-              'Mulawarman Suhendra',
+              SharedPreferencesUtils.getNama(),
               style: ThemeTextStyle().titleMedium,
             ),
             const SizedBox(height: 16),

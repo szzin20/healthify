@@ -54,48 +54,55 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
     });
   }
 
-  Future<bool> uploadPaymentTransaction({
-    required int doctorId,
-    required File image,
-    required String selectedPaymentMethod,
-  }) async {
-    try {
-      await SharedPreferencesUtils.init();
-      String token = SharedPreferencesUtils.getToken();
-      String fileName = image.path.split('/').last;
-      String baseUrl = Urls.baseUrl;
-
-      // Check if the image file exists
-      if (!image.existsSync()) {
-        throw 'Image file does not exist: ${image.path}';
-      }
-
-      Response response = await Dio().post(
-        '$baseUrl${Urls.doctortransactions.replaceFirst(':doctor_id', doctorId.toString())}',
-        options: Options(
-          headers: {
-            "authorization": "Bearer $token",
-            'Content-Type': 'multipart/form-data',
-          },
-        ),
-        data: FormData.fromMap({
-          'payment_method': selectedPaymentMethod.toLowerCase(),
-          'payment_confirmation': await MultipartFile.fromFile(
-            image.path,
-            filename: fileName,
-            contentType: MediaType('image', 'jpeg'),
-          ),
-        }),
+  Future<void> _uploadPayment() async {
+    if (_fileUploaded) {
+      // Show loading screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoadingScreen()),
       );
 
-      if (response.statusCode == 201) {
-        return true;
-      } else {
-        throw 'Failed to upload image. Status Code: ${response.statusCode}';
+      try {
+        // Call the uploadProfileImage function
+        bool success = await uploadPaymentTransaction(
+          doctorId: widget.doctorId,
+          image: File(_pickedImage!.path),
+          selectedPaymentMethod:
+              getPaymentMethodName(widget.selectedPaymentMethod),
+        );
+
+        // ignore: avoid_print
+        print("Upload Payment Response: $success");
+
+        if (success) {
+          // If the upload is successful, navigate to the transaction history screen
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ConsultationHistoryScreen(),
+            ),
+          );
+        } else {
+          // Handle failure
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to upload payment. Please try again.'),
+            ),
+          );
+        }
+      } catch (e) {
+        // Handle API call error
+        // ignore: avoid_print
+        print("Error uploading payment: $e");
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to upload payment. Please try again.'),
+          ),
+        );
       }
-      // ignore: deprecated_member_use
-    } on DioError catch (e) {
-      throw '${e.response?.data['message']}';
     }
   }
 

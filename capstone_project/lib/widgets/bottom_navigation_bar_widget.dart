@@ -1,6 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/artikel/artikel.dart';
+import 'package:capstone_project/screens/history_consultation_doctor/history_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
     final List<Widget> pages = [
       const HomeScreen(),
       const DoctorScreen(),
-      Container(color: Colors.orange, child: const Center(child: Text('Riwayat'))),
+      const HistoryScreen(),
       const ArtikelScreen(),
       const AccountScreen(),
     ];

@@ -100,6 +100,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => ChatBotProvider(),
       ),
+      ChangeNotifierProvider(
         create: (context) => CartDatabaseProvider(),
       ),
       ChangeNotifierProvider(
