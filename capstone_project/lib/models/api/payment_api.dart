@@ -38,12 +38,15 @@ Future<bool> uploadPaymentTransaction({
     );
 
     if (response.statusCode == 201) {
-      return true;
+      return true; // Return true on success
     } else {
-      throw 'Failed to upload image. Status Code: ${response.statusCode}';
+      return false; // Return false on failure
     }
-  // ignore: deprecated_member_use
   } on DioError catch (e) {
-    throw '${e.response?.data['message']}';
+    print("Error uploading payment: $e");
+    return false; // Return false in case of DioError
+  } catch (e) {
+    print("Error uploading payment: $e");
+    return false; // Return false for other exceptions
   }
 }
