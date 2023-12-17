@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class PaymentDetailScreen extends StatefulWidget {
+  final int doctorId;
   final int totalAmount;
   final int selectedPaymentMethod;
 
@@ -16,6 +17,7 @@ class PaymentDetailScreen extends StatefulWidget {
     super.key,
     required this.totalAmount,
     required this.selectedPaymentMethod,
+    required this.doctorId,
   });
 
   @override
@@ -57,6 +59,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
         await PaymentAPI().createPayment(
           paymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
           paymentConfirmationPath: _pickedImage!.path,
+          doctorId: widget.doctorId,
         );
 
         // If the API call is successful, navigate to the transaction history screen

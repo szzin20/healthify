@@ -5,18 +5,25 @@ class PaymentAPI {
   final Dio _dio = Dio();
 
   Future<void> createPayment({
+    required int doctorId,
     required String paymentMethod,
     required String paymentConfirmationPath,
   }) async {
-    const String url = 'http://34.101.122.152/users/doctor-payments/1'; 
+    final String url = '${Urls.baseUrl}/users/doctor-payments/$doctorId';
     String token = SharedPreferencesUtils.getToken();
+
+    final String fileName = paymentConfirmationPath.split('/').last;
+
+    print(doctorId);
+    print(paymentMethod);
+    print(paymentConfirmationPath);
 
     try {
       FormData formData = FormData.fromMap({
-        'payment_method': paymentMethod,
+        'payment_method': paymentMethod.toLowerCase(),
         'payment_confirmation': await MultipartFile.fromFile(
           paymentConfirmationPath,
-          filename: 'payment_confirmation.jpg', 
+          filename: fileName,
         ),
       });
 
@@ -26,6 +33,7 @@ class PaymentAPI {
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
+            'Content-Type': 'multipart/form-data',
           },
         ),
       );
@@ -34,6 +42,7 @@ class PaymentAPI {
       // ignore: avoid_print
       print(response.data);
     } catch (e) {
+      print(e);
       throw Exception('Failed to make payment $e');
     }
   }

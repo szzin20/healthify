@@ -5,6 +5,7 @@ import 'package:capstone_project/screens/payment_detail/payment_detail_screen.da
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
+  final int doctorId;
   final String fullname;
   final int price;
 
@@ -12,12 +13,12 @@ class ConsultationFeeScreen extends StatefulWidget {
     super.key,
     required this.fullname,
     required this.price,
+    required this.doctorId,
   });
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
 }
-
 
 final List<String> paymentMethods = [
   ' Manual Transfer BCA ',
@@ -28,7 +29,6 @@ final List<String> paymentMethods = [
 class _ConsultationFeeState extends State<ConsultationFeeScreen> {
   TextEditingController voucherCodeController = TextEditingController();
   int _selectedPaymentMethod = -1;
-
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: ElevatedButton(
-                       onPressed: () {
+                        onPressed: () {
                           navigateToPaymentDetail();
                         },
                         style: ElevatedButton.styleFrom(
@@ -136,6 +136,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         builder: (context) => PaymentDetailScreen(
           totalAmount: totalAmount,
           selectedPaymentMethod: selectedPaymentMethod,
+          doctorId: widget.doctorId,
         ),
       ),
     );
@@ -228,7 +229,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
           ]),
           value: index,
           groupValue: _selectedPaymentMethod,
-           onChanged: (int? value) {
+          onChanged: (int? value) {
             setState(() {
               _selectedPaymentMethod = value!;
             });

@@ -27,11 +27,11 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
 
     if (!_dataFetched) {
       doctorId = ModalRoute.of(context)?.settings.arguments as int;
-      Provider.of<DoctorByIdProvider>(context, listen: false).fetchDoctorData(doctorId);
+      Provider.of<DoctorByIdProvider>(context, listen: false)
+          .fetchDoctorData(doctorId);
       _dataFetched = true;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -194,18 +194,20 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                 ),
                 child: ButtonWidget(
                   title: 'Chat Sekarang',
-                  onPressed: (doctor == null )? null
-                  :() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ConsultationFeeScreen(
-                          fullname: doctor.fullname ?? '',
-                          price: doctor.price ?? 0
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: (doctor == null)
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConsultationFeeScreen(
+                                fullname: doctor.fullname ?? '',
+                                price: doctor.price ?? 0,
+                                doctorId: doctorId,
+                              ),
+                            ),
+                          );
+                        },
                 ),
               ),
             ],
