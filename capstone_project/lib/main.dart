@@ -1,3 +1,4 @@
+import 'package:capstone_project/provider/account_provider/profile_provider/profile_provider.dart';
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
@@ -16,12 +17,9 @@ import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.d
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
-import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/provider/status_payment_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
-import 'package:capstone_project/screens/buy_med_screen/buy_med_screen.dart';
 import 'package:capstone_project/screens/cart/cart_screen.dart';
 import 'package:capstone_project/screens/chatbot/chatbot_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
@@ -33,10 +31,8 @@ import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
 import 'package:capstone_project/screens/notification/notification_screen.dart';
-import 'package:capstone_project/screens/register/confirmation_code_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
-import 'package:capstone_project/screens/status_payment_doctor/status_payment_doctor_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +105,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => CheckPaymentInfoProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => ProfileProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -150,8 +149,7 @@ class MyApp extends StatelessWidget {
         '/chatbot': (BuildContext context) => const ChatBotScreen(),
       },
 
-      // home: const BuyMedScreen(fullname: 'Jordan', price: 5000, id: 1, detailData: [],),
-      // home: CartScreen(),
+      // home: const ChatBotScreen(),
       initialRoute: '/splash',
     );
   }

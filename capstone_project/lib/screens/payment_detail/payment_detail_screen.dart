@@ -63,7 +63,6 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
       );
 
       try {
-        // Call the uploadProfileImage function
         bool success = await uploadPaymentTransaction(
           doctorId: widget.doctorId,
           image: File(_pickedImage!.path),
@@ -84,7 +83,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
             ),
           );
         } else {
-          // Handle failure
+          // Handle failure without attempting token refresh
           // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -93,9 +92,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
           );
         }
       } catch (e) {
-        // Handle API call error
-        // ignore: avoid_print
-        print("Error uploading payment: $e");
+        // Handle other exceptions without attempting token refresh
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
