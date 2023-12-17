@@ -4,6 +4,8 @@ import 'package:capstone_project/models/order_med_model.dart';
 import 'package:flutter/material.dart';
 
 class CartDatabaseProvider extends ChangeNotifier {
+  TextEditingController searchController = TextEditingController();
+
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   List<Result> _cartItems = [];
   List<MedicineDetail> _cartDetail = [];
@@ -19,6 +21,7 @@ class CartDatabaseProvider extends ChangeNotifier {
     _cartItems = await _databaseHelper.getCartItems();
     notifyListeners();
   }
+
   Future<List<MedicineDetail>> getMedicineDetail() async {
     return _cartDetail = await _databaseHelper.getAllMedicineDetails();
   }
@@ -43,7 +46,7 @@ class CartDatabaseProvider extends ChangeNotifier {
     _updateCart();
   }
 
-Future<void> removeQuantity(int id) async {
+  Future<void> removeQuantity(int id) async {
     List<Result> cartItems = await _databaseHelper.getCartItems();
 
     Result cartProduct = cartItems.firstWhere((item) => item.id == id);
@@ -55,16 +58,14 @@ Future<void> removeQuantity(int id) async {
     _updateCart();
   }
 
-
   Future<void> removeAllQuantity(int id) async {
     await _databaseHelper.removeAllQuantity(id);
     _updateCart();
   }
 
-int countMedQuantity(int id) {
+  int countMedQuantity(int id) {
     return _cartItems.firstWhere((item) => item.id == id).quantity;
   }
-
 
   void _updateCart() {
     getCartItems();

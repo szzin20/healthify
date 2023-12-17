@@ -40,6 +40,12 @@ class _DoctorScreenState extends State<DoctorScreen> {
     Provider.of<DoctorProvider>(context, listen: false).fetchDoctor();
   }
 
+  TextEditingController searchController = TextEditingController();
+
+  void _performSearch(String keyword) {
+    Provider.of<DoctorProvider>(context, listen: false).searchDoctor(keyword);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +77,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
               ),
         ),
         centerTitle: true,
-        titlePadding: const EdgeInsets.only(
-            bottom: 14.0), 
+        titlePadding: const EdgeInsets.only(bottom: 14.0),
         background: Container(
           color: ThemeColor().primaryFrame,
         ),
@@ -84,8 +89,10 @@ class _DoctorScreenState extends State<DoctorScreen> {
     return SliverToBoxAdapter(
       child: Container(
         color: ThemeColor().primaryButtonActive,
-        child: const SearchBarWidget(
+        child: SearchBarWidget(
+          onSubmitted: _performSearch,
           title: 'Cari dokter populer, kulit & kelamin, nutrisi',
+          controller: searchController,
         ),
       ),
     );
