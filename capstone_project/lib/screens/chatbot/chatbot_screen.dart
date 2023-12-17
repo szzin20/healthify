@@ -1,7 +1,9 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/api/chatbot_api.dart';
 import 'package:capstone_project/provider/chatbot_provider/chatbot_provider.dart';
 import 'package:capstone_project/screens/chatbot/widgets/question_button.dart';
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +84,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                 flashingCircleDarkColor: ThemeColor().primaryFrame,
               ),
               sendMessageConfig: SendMessageConfiguration(
-                sendButtonIcon: SvgPicture.asset('assets/icons/send_icon.svg'),
+                sendButtonIcon:
+                    SvgPicture.asset('assets/icons/all_icon/send_icon.svg'),
                 enableCameraImagePicker: false,
                 enableGalleryImagePicker: false,
                 allowRecordingVoice: false,
@@ -102,7 +105,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                  onMessageTyping: (status) {
+                  onMessageTyping: (status) async {
                     debugPrint(status.toString());
                   },
                   compositionThresholdTime: const Duration(seconds: 1),
