@@ -11,10 +11,10 @@ import 'package:capstone_project/provider/medicine_provider/medicine_provider.da
 import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
+import 'package:capstone_project/screens/cart/cart_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
-import 'package:capstone_project/screens/medicine_list/cart/cart_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
