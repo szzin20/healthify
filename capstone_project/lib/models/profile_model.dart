@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-ProfileModel profileModelFromJson(String str) =>
-    ProfileModel.fromJson(json.decode(str));
+Profile profileModelFromJson(String str) =>
+    Profile.fromJson(json.decode(str));
 
-String profileModelToJson(ProfileModel data) => json.encode(data.toJson());
+String profileModelToJson(Profile data) => json.encode(data.toJson());
 
-class ProfileModel {
-  final Meta meta;
-  final Results results;
+class Profile {
+  final ProfileMeta meta;
+  final ProfileResults results;
 
-  ProfileModel({
+  Profile({
     required this.meta,
     required this.results,
   });
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
-        meta: Meta.fromJson(json["meta"]),
-        results: Results.fromJson(json["results"]),
+  factory Profile.fromJson(Map<String, dynamic> json) => Profile(
+        meta: ProfileMeta.fromJson(json["meta"]),
+        results: ProfileResults.fromJson(json["results"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -25,16 +25,16 @@ class ProfileModel {
       };
 }
 
-class Meta {
+class ProfileMeta {
   final bool success;
   final String message;
 
-  Meta({
+  ProfileMeta({
     required this.success,
     required this.message,
   });
 
-  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+  factory ProfileMeta.fromJson(Map<String, dynamic> json) => ProfileMeta(
         success: json["success"],
         message: json["message"],
       );
@@ -45,7 +45,7 @@ class Meta {
       };
 }
 
-class Results {
+class ProfileResults {
   final String fullname;
   final String email;
   final String profilePicture;
@@ -55,7 +55,7 @@ class Results {
   final int height;
   final int weight;
 
-  Results({
+  ProfileResults({
     required this.fullname,
     required this.email,
     required this.profilePicture,
@@ -66,7 +66,7 @@ class Results {
     required this.weight,
   });
 
-  factory Results.fromJson(Map<String, dynamic> json) => Results(
+  factory ProfileResults.fromJson(Map<String, dynamic> json) => ProfileResults(
         fullname: json["fullname"],
         email: json["email"],
         profilePicture: json["profile_picture"],

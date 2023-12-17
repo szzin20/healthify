@@ -13,7 +13,7 @@ class TextFieldTbBb extends StatelessWidget {
     required this.title,
     required this.hintText,
     required this.controller,
-    this.textInputAction,
+    this.textInputAction, required Null Function(dynamic value) onChanged,
   });
 
   @override
