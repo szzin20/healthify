@@ -1,23 +1,15 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/models/api/chatbot_api.dart';
 import 'package:capstone_project/provider/chatbot_provider/chatbot_provider.dart';
 import 'package:capstone_project/screens/chatbot/widgets/question_button.dart';
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class ChatBotScreen extends StatefulWidget {
+class ChatBotScreen extends StatelessWidget {
   const ChatBotScreen({super.key});
 
-  @override
-  State<ChatBotScreen> createState() => _ChatBotScreenState();
-}
-
-class _ChatBotScreenState extends State<ChatBotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
