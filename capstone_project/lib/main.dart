@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
         '/detailMed': (BuildContext context) => const DetailProductScreen(),
         '/detailArticle': (BuildContext context) => const DetailArticleScreen(),
         '/detailDoctor': (BuildContext context) => const DetailDoctorScreen(),
-        '/cartMed': (BuildContext context) => const CartScreen(),
+        '/cart': (BuildContext context) => const CartScreen(),
         '/buyMed': (BuildContext context) => const CartScreen(),
         '/notif': (BuildContext context) => const NotificationScreen(),
         '/contactUs': (BuildContext context) => const ContactUsScreen(),
@@ -150,7 +150,8 @@ class MyApp extends StatelessWidget {
         '/chatbot': (BuildContext context) => const ChatBotScreen(),
       },
 
-      home: const ChatBotScreen(),
+      // home: const BuyMedScreen(fullname: 'Jordan', price: 5000, id: 1, detailData: [],),
+      // home: CartScreen(),
       initialRoute: '/splash',
     );
   }

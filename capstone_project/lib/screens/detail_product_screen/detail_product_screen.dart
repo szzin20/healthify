@@ -114,6 +114,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     child: OutlineButtonWidget(
                         title: 'Tambah',
                         onPressed: () {
+                          print(dataMed.medicines?.results?.id ?? 0);
                           final Result medicine = Result(
                             id: dataMed.medicines?.results?.id ?? 0,
                             code: dataMed.medicines?.results?.code ?? '',

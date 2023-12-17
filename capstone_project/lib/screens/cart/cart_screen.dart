@@ -45,89 +45,94 @@ class _CartScreenState extends State<CartScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Consumer<CartDatabaseProvider>(
-                builder: (context, cartProvider, child) {
-                  final cartItem = cartProvider.cartItems;
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(16, 22, 16, 16),
-                    itemCount: cartItem.length,
-                    itemBuilder: (context, index) {
-                      final cartProduct = cartItem[index];
-                      final quantity =
-                          cartProvider.countMedQuantity(cartProduct.id);
-                      final price = cartProduct.price * quantity;
+      body: Consumer<CartDatabaseProvider>(builder: (context, cartProvider, _) {
+        final cartItem = cartProvider.cartItems;
+        final total = cartProvider.totalPrice;
+        return Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(16, 22, 16, 16),
+                  itemCount: cartItem.length,
+                  itemBuilder: (context, index) {
+                    final cartProduct = cartItem[index];
+                    final quantity =
+                        cartProvider.countMedQuantity(cartProduct.id);
+                    final price = cartProduct.price * quantity;
 
-                      return MedCartTile(
-                        title: cartProduct.name,
-                        category: cartProduct.category,
-                        price: price.toDouble(),
-                        quantity: quantity.toString(),
-                        image: cartProduct.image,
-                        onPressedAdd: () {
-                          cartProvider.addQuantity(cartProduct.id);
-                        },
-                        onPressedRemove: () {
-                          cartProvider.removeQuantity(cartProduct.id);
-                        },
-                        onClose: () {
-                          cartProvider.removeAllQuantity(cartProduct.id);
-                          cartProvider.removeFromCart(cartProduct.id);
-                        },
-                      );
-                    },
-                  );
-                },
+                    return MedCartTile(
+                      title: cartProduct.name,
+                      category: cartProduct.category,
+                      price: price.toDouble(),
+                      quantity: quantity.toString(),
+                      image: cartProduct.image,
+                      onPressedAdd: () {
+                        cartProvider.addQuantity(cartProduct.id);
+                      },
+                      onPressedRemove: () {
+                        cartProvider.removeQuantity(cartProduct.id);
+                      },
+                      onClose: () {
+                        cartProvider.removeAllQuantity(cartProduct.id);
+                        cartProvider.removeFromCart(cartProduct.id);
+                      },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Total Pembayaran',
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Total Pembayaran',
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Rp 100.000',
-                    ),
-                  ],
-                ),
-   Consumer<CartDatabaseProvider>(
-  builder: (context, cart, _) {
-    return ButtonNewWidget(
-      title: 'Checkout',
-      onPressed: () async {
-        List<MedicineDetail> medicineDetails = await cart.getMedicineDetail();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => BuyMedScreen(
-              fullname: SharedPreferencesUtils.getNama(),
-              price: cart.cartItems.first.price,
-              id: cart.cartItems.first.id,
-              detailData: medicineDetails,
-            ),
-          ),
+                      Text(
+                        total.toString(),
+                      ),
+                    ],
+                  ),
+                  ButtonNewWidget(
+                    title: 'Checkout',
+                    onPressed: () {
+                      _handleCheckout(context, cartProvider);
+                    },
+                  )
+                ],
+              ),
+            )
+          ],
         );
-      },
+      }),
     );
-  },
-)
+  }
+}
 
-              ],
-            ),
-          )
-        ],
+Future<void> _handleCheckout(
+    BuildContext context, CartDatabaseProvider cart) async {
+  try {
+    List<MedicineDetail> medicineDetails = await cart.getMedicineDetail();
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BuyMedScreen(
+          fullname: cart.cartItems,
+          price: cart.totalPrice,
+          id: cart.cartItems.first.id,
+          detailData: medicineDetails,
+        ),
       ),
     );
+  } catch (error) {
+    // Handle errors if needed
+    print('Error: $error');
   }
 }

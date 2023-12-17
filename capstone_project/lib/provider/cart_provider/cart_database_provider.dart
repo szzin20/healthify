@@ -7,8 +7,11 @@ class CartDatabaseProvider extends ChangeNotifier {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   List<Result> _cartItems = [];
   List<MedicineDetail> _cartDetail = [];
+  int _totalPrice = 0;
 
   List<Result> get cartItems => _cartItems;
+  List<MedicineDetail> get cartDetail => _cartDetail;
+  int get totalPrice => _totalPrice;
 
   Future<void> addToCart(Result medicine) async {
     await _databaseHelper.insertToCart(medicine);
@@ -18,7 +21,9 @@ class CartDatabaseProvider extends ChangeNotifier {
   Future<void> getCartItems() async {
     _cartItems = await _databaseHelper.getCartItems();
     notifyListeners();
+    _updateTotalPrice();
   }
+
   Future<List<MedicineDetail>> getMedicineDetail() async {
     return _cartDetail = await _databaseHelper.getAllMedicineDetails();
   }
@@ -43,9 +48,8 @@ class CartDatabaseProvider extends ChangeNotifier {
     _updateCart();
   }
 
-Future<void> removeQuantity(int id) async {
+  Future<void> removeQuantity(int id) async {
     List<Result> cartItems = await _databaseHelper.getCartItems();
-
     Result cartProduct = cartItems.firstWhere((item) => item.id == id);
 
     await _databaseHelper.updateCartItem(
@@ -55,18 +59,25 @@ Future<void> removeQuantity(int id) async {
     _updateCart();
   }
 
-
   Future<void> removeAllQuantity(int id) async {
     await _databaseHelper.removeAllQuantity(id);
     _updateCart();
   }
 
-int countMedQuantity(int id) {
+  int countMedQuantity(int id) {
     return _cartItems.firstWhere((item) => item.id == id).quantity;
   }
 
-
   void _updateCart() {
     getCartItems();
+  }
+
+  void _updateTotalPrice() {
+    int total = 0;
+    for (var item in _cartItems) {
+      total += item.quantity * item.price;
+    }
+    _totalPrice = total;
+    notifyListeners();
   }
 }

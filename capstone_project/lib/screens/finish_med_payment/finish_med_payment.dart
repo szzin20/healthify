@@ -9,13 +9,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class FinishPaymentScreen extends StatefulWidget {
+  final int id;
   final int totalAmount;
   final int selectedPaymentMethod;
 
   const FinishPaymentScreen({
     super.key,
     required this.totalAmount,
-    required this.selectedPaymentMethod,
+    required this.selectedPaymentMethod, required this.id,
   });
 
   @override
@@ -55,18 +56,16 @@ class _FinishPaymentScreenState extends State<FinishPaymentScreen> {
       try {
         // Call the payment API
         await PaymentAPI().createPayment(
-          paymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
+          checkoutId: widget.id,
           paymentConfirmationPath: _pickedImage!.path,
         );
 
-        // If the API call is successful, navigate to the transaction history screen
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => const ConsultationHistoryScreen()));
       } catch (e) {
-        // Handle API call error
         // ignore: avoid_print
         print("Error uploading payment: $e");
         // ignore: use_build_context_synchronously
