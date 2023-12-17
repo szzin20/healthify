@@ -1,10 +1,11 @@
+import 'package:capstone_project/models/riwayat_transaksi_model.dart';
 import 'package:dio/dio.dart';
 import 'package:capstone_project/utils/utils.dart';
 
 class PaymentAPI {
   final Dio _dio = Dio();
 
-  Future<void> createPayment({
+  Future<RiwayatTransaksiModel> createPayment({
     required int doctorId,
     required String paymentMethod,
     required String paymentConfirmationPath,
@@ -13,10 +14,6 @@ class PaymentAPI {
     String token = SharedPreferencesUtils.getToken();
 
     final String fileName = paymentConfirmationPath.split('/').last;
-
-    print(doctorId);
-    print(paymentMethod);
-    print(paymentConfirmationPath);
 
     try {
       FormData formData = FormData.fromMap({
@@ -41,6 +38,11 @@ class PaymentAPI {
       // Handle the API response as needed
       // ignore: avoid_print
       print(response.data);
+
+      RiwayatTransaksiModel riwayatTransaksiModel =
+          RiwayatTransaksiModel.fromJson(response.data);
+
+      return riwayatTransaksiModel;
     } catch (e) {
       print(e);
       throw Exception('Failed to make payment $e');

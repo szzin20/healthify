@@ -16,17 +16,18 @@ import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/cart/cart_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
-import 'package:capstone_project/screens/pay_doctor/consultation_fee.dart';
 import 'package:capstone_project/screens/register/register_screen.dart';
 import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'provider/account_provider/contact_us_provider/contact_us_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   await SharedPreferencesUtils.init();
 
   runApp(MultiProvider(

@@ -1,10 +1,15 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/riwayat_transaksi_model.dart';
+import 'package:capstone_project/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class RiwayatTransaksiScreen extends StatefulWidget {
-  const RiwayatTransaksiScreen({Key? key}) : super(key: key);
+  final RiwayatTransaksiModel riwayatTransaksi;
+  const RiwayatTransaksiScreen({Key? key, required this.riwayatTransaksi})
+      : super(key: key);
 
   @override
   State<RiwayatTransaksiScreen> createState() => _RiwayatTransaksiScreenState();
@@ -32,6 +37,7 @@ void _copyToClipboard(BuildContext context, String text) {
 class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
   @override
   Widget build(BuildContext context) {
+    var riwayatTransaksiDetail = widget.riwayatTransaksi.results;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -63,21 +69,30 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    "assets/icons/all_icon/pending.png",
+                    riwayatTransaksiDetail.paymentStatus == "pending"
+                        ? "assets/icons/all_icon/pending.png"
+                        : "assets/icons/all_icon/check_success.png",
+                    height: 18,
+                    width: 18,
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Pending',
+                    riwayatTransaksiDetail.paymentStatus.capitalize(),
                     style: ThemeTextStyle().titleMedium.copyWith(
                           fontWeight: FontWeight.w500,
-                          color: ThemeColor().starYellow,
+                          color:
+                              riwayatTransaksiDetail.paymentStatus == "pending"
+                                  ? ThemeColor().starYellow
+                                  : const Color(0xff008772),
                         ),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
               Text(
-                '16 Oktober 2023, 18:30',
+                DateFormat('d MMMM y, HH:mm', 'id_ID').format(
+                    riwayatTransaksiDetail.createdAt
+                        .add(const Duration(hours: 7))),
                 style: ThemeTextStyle().bodyMedium.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
@@ -97,11 +112,19 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'BCA Virtual Account',
+                        riwayatTransaksiDetail.paymentMethod.capitalize(),
                         style: ThemeTextStyle().titleSmall,
                       ),
                       Image.asset(
-                        'assets/images/bca.png',
+                        riwayatTransaksiDetail.paymentMethod
+                                .toLowerCase()
+                                .contains('bca')
+                            ? 'assets/images/bca.png'
+                            : riwayatTransaksiDetail.paymentMethod
+                                    .toLowerCase()
+                                    .contains('bri')
+                                ? 'assets/images/bri.png'
+                                : 'assets/images/bni.png',
                         width: 40,
                         height: 40,
                       ),
@@ -117,10 +140,12 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                       ),
                       Row(
                         children: [
-                          Text('9106 ', style: ThemeTextStyle().titleSmall),
+                          Text('${riwayatTransaksiDetail.id} ',
+                              style: ThemeTextStyle().titleSmall),
                           InkWell(
                             onTap: () {
-                              _copyToClipboard(context, '9106');
+                              _copyToClipboard(
+                                  context, '${riwayatTransaksiDetail.id}');
                             },
                             child: Text(
                               ' SALIN',
@@ -164,7 +189,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Dr. Putu Shinta Widari Tirka Sp.D.V.E",
+                                          riwayatTransaksiDetail.fullname,
                                           style: ThemeTextStyle()
                                               .labelMedium
                                               .copyWith(
@@ -172,7 +197,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                               ),
                                         ),
                                         Text(
-                                          "Sp. Kulit & Kelamin",
+                                          riwayatTransaksiDetail.specialist,
                                           style: ThemeTextStyle()
                                               .labelMedium
                                               .copyWith(
@@ -191,17 +216,25 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                                   width: 58,
                                   height: 20,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xffFDE880),
+                                    color:
+                                        riwayatTransaksiDetail.paymentStatus ==
+                                                'pending'
+                                            ? const Color(0xffFDE880)
+                                            : const Color(0xFF199E50),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'pending',
+                                      riwayatTransaksiDetail.paymentStatus,
                                       textAlign: TextAlign.center,
                                       style: ThemeTextStyle()
                                           .labelSmall
                                           .copyWith(
-                                              color: const Color(0xff4E4E4E)),
+                                              color: riwayatTransaksiDetail
+                                                          .paymentStatus ==
+                                                      'pending'
+                                                  ? const Color(0xff4E4E4E)
+                                                  : const Color(0xFFECECEC)),
                                     ),
                                   ),
                                 ),

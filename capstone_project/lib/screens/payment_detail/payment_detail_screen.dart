@@ -1,6 +1,7 @@
 import 'package:capstone_project/models/api/payment_api.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
+import 'package:capstone_project/models/riwayat_transaksi_model.dart';
 import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
+import 'package:capstone_project/screens/riwayat_transaksi/riwayat_transaksi_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -56,7 +57,8 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
 
       try {
         // Call the payment API
-        await PaymentAPI().createPayment(
+        RiwayatTransaksiModel riwayatTransaksi =
+            await PaymentAPI().createPayment(
           paymentMethod: getPaymentMethodName(widget.selectedPaymentMethod),
           paymentConfirmationPath: _pickedImage!.path,
           doctorId: widget.doctorId,
@@ -67,7 +69,9 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const ConsultationHistoryScreen()));
+                builder: (context) => RiwayatTransaksiScreen(
+                      riwayatTransaksi: riwayatTransaksi,
+                    )));
       } catch (e) {
         // Handle API call error
         // ignore: avoid_print
