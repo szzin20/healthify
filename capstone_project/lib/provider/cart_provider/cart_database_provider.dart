@@ -4,6 +4,8 @@ import 'package:capstone_project/models/order_med_model.dart';
 import 'package:flutter/material.dart';
 
 class CartDatabaseProvider extends ChangeNotifier {
+  TextEditingController searchController = TextEditingController();
+
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   List<Result> _cartItems = [];
   List<MedicineDetail> _cartDetail = [];

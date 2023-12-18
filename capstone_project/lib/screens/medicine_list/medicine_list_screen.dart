@@ -9,13 +9,15 @@ import 'package:capstone_project/provider/medicine_provider/medicine_provider.da
 import 'package:capstone_project/widgets/elevated_card_medicine.dart';
 
 class MedicineListScreen extends StatefulWidget {
-  const MedicineListScreen({super.key});
+  const MedicineListScreen({Key? key}) : super(key: key);
 
   @override
   State<MedicineListScreen> createState() => _MedicineListScreenState();
 }
 
 class _MedicineListScreenState extends State<MedicineListScreen> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +27,13 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
     Future.delayed(Duration.zero, () {
       Provider.of<CartDatabaseProvider>(context, listen: false).getCartItems();
     });
+  }
+
+  void _performSearch() {
+    String keyword = searchController.text;
+    // Panggil fungsi pencarian menggunakan kata kunci 'keyword'
+    Provider.of<AllMedicineProvider>(context, listen: false)
+        .searchMedicine(keyword);
   }
 
   @override
@@ -64,6 +73,7 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
               color: ThemeColor().primaryFrame,
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
               child: TextField(
+                controller: searchController,
                 decoration: InputDecoration(
                   hintText: 'Cari Obat',
                   fillColor: Colors.white,
@@ -86,6 +96,9 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                     borderSide: BorderSide.none,
                   ),
                 ),
+                onSubmitted: (value) {
+                  _performSearch();
+                },
               ),
             ),
             const SizedBox(height: 40),
@@ -103,9 +116,13 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
             const SizedBox(height: 16),
             Consumer<AllMedicineProvider>(
               builder: (context, provider, child) {
-                if (provider.medicine.isEmpty) {
+                List<Result> displayedMedicine = searchController.text.isEmpty
+                    ? provider.medicine
+                    : provider.searchMedicine(searchController.text);
+
+                if (displayedMedicine.isEmpty) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Text('Tidak ada hasil pencarian'),
                   );
                 } else {
                   return GridView.builder(
@@ -115,9 +132,9 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                     ),
-                    itemCount: provider.medicine.length,
+                    itemCount: displayedMedicine.length,
                     itemBuilder: (context, index) {
-                      Result medicine = provider.medicine[index];
+                      Result medicine = displayedMedicine[index];
 
                       return Padding(
                         padding: const EdgeInsets.only(
