@@ -1,23 +1,27 @@
+import 'dart:io';
+
+import 'package:capstone_project/models/paymed_model.dart';
 import 'package:dio/dio.dart';
 import 'package:capstone_project/utils/utils.dart';
 
 class PaymentAPI {
   final Dio _dio = Dio();
 
-  Future<void> createPayment({
-    required String paymentMethod,
+  Future<PayMed> createPayment({
+    required int checkoutId,
+    required File image,
     required String paymentConfirmationPath,
-    
   }) async {
-    const String url = '/users/medicines-payments/checkout?medicine_transaction_id='; 
+    final String url = '${Urls.baseUrl}/users/medicines-payments/checkout?medicine_transaction_id=$checkoutId';
     String token = SharedPreferencesUtils.getToken();
+
+    final String fileName = paymentConfirmationPath.split('/').last;
 
     try {
       FormData formData = FormData.fromMap({
-        'payment_method': paymentMethod,
         'payment_confirmation': await MultipartFile.fromFile(
           paymentConfirmationPath,
-          filename: 'payment_confirmation.jpg', 
+          filename: fileName,
         ),
       });
 
@@ -27,6 +31,7 @@ class PaymentAPI {
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
+            'Content-Type': 'multipart/form-data',
           },
         ),
       );
@@ -34,7 +39,13 @@ class PaymentAPI {
       // Handle the API response as needed
       // ignore: avoid_print
       print(response.data);
+
+      PayMed riwayatTransaksiModel =
+          PayMed.fromJson(response.data);
+
+      return riwayatTransaksiModel;
     } catch (e) {
+      print(e);
       throw Exception('Failed to make payment $e');
     }
   }

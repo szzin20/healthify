@@ -1,10 +1,11 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
+import 'package:capstone_project/models/cart_model.dart';
 import 'package:capstone_project/models/checkout_list_model.dart';
 import 'package:capstone_project/models/order_med_model.dart';
 import 'package:capstone_project/provider/medicine_provider/check_payment_info_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/med_payment_provider.dart';
-import 'package:capstone_project/screens/finish_med_payment/finish_med_payment.dart';
+import 'package:capstone_project/screens/finish_med_payment/finish_med_payment_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class BuyMedScreen extends StatefulWidget {
-  final String fullname;
+  final List<Result> fullname;
   final int price;
   final List<MedicineDetail> detailData;
   final int id;
@@ -31,9 +32,9 @@ class BuyMedScreen extends StatefulWidget {
 }
 
 final List<String> paymentMethods = [
-  ' Manual Transfer BCA ',
-  ' Manual Transfer BRI ',
-  ' Manual Transfer BNI ',
+  'Manual Transfer BCA',
+  'Manual Transfer BRI',
+  'Manual Transfer BNI',
 ];
 
 class _ConsultationFeeState extends State<BuyMedScreen> {
@@ -238,8 +239,22 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 12),
-                            _buildPaymentDetails(widget.fullname,
-                                '(Konsultasi 30 menit)', 'Rp ${widget.price}'),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: widget.detailData.length,
+                              itemBuilder: (context, index) {
+                                final total = (widget.detailData[index]
+                                            .totalPriceMedicine ??
+                                        0) *
+                                    int.parse(widget.detailData[index].quantity
+                                        .toString());
+                                return _buildPaymentDetails(
+                                  widget.fullname[index].name.toString(),
+                                  "Total: ${widget.detailData[index].quantity}",
+                                  'Rp $total',
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -286,52 +301,42 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildPaymentDetails3('Untuk Dibayar', 'Rp $totalAmount'),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Consumer<CheckPaymentInfoProvider>(
-                      builder: (context, paymentInfo, _) {
-                    return (paymentInfo.address.isEmpty ||
-                            paymentInfo.name.isEmpty ||
-                            paymentInfo.phone.isEmpty ||
-                            _selectedPaymentMethod == -1)
-                        ? ElevatedButton(
-                            onPressed: null,
+                Consumer<MedPaymentProvider>(
+                  builder: (context, payProvider,_) {
+                    return Align(
+                      alignment: Alignment.centerRight,
+                      child: Consumer<CheckPaymentInfoProvider>(
+                        builder: (context, paymentInfo, _) {
+                          final isDataIncomplete = paymentInfo.address.isEmpty ||
+                              paymentInfo.name.isEmpty ||
+                              paymentInfo.phone.isEmpty ||
+                              _selectedPaymentMethod == -1;
+                    
+                          return ElevatedButton(
+                            onPressed: isDataIncomplete
+                                ? null
+                                : () async {
+                                  print(SharedPreferencesUtils.getToken());
+                                    final checkoutData = CheckoutItemRequest(
+                                      name: paymentInfo.name,
+                                      address: paymentInfo.address,
+                                      hp: paymentInfo.phone,
+                                      paymentMethod: paymentMethods[_selectedPaymentMethod].toLowerCase().trim(),
+                                      medicineDetails: widget.detailData,
+                                    );
+                                    await paymentProvider.sendOrderMed(
+                                      checkoutData,
+                                      SharedPreferencesUtils.getToken(),
+                                    );
+                                    if (payProvider.login?.meta?.success ??
+                                        false) {
+                                      navigateToPaymentDetail(payProvider.login?.results?.id ?? 0);
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: ThemeColor().textFieldChatBot,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                              ),
-                            ),
-                            child: Text(
-                              'Pesan Sekarang',
-                              style: ThemeTextStyle().titleMedium.copyWith(
-                                    color: ThemeColor().white,
-                                  ),
-                            ),
-                          )
-                        : ElevatedButton(
-                            onPressed: () {
-                              final checkoutData = CheckoutItemRequest(
-                                name: paymentInfo.name,
-                                address: paymentInfo.address,
-                                hp: paymentInfo.phone,
-                                paymentMethod:
-                                    paymentMethods[_selectedPaymentMethod],
-                                medicineDetails: widget.detailData,
-                              );
-                              paymentProvider.sendOrderMed(
-                                checkoutData,
-                                SharedPreferencesUtils.getToken(),
-                              );
-                              if (paymentProvider.login?.meta?.success ?? false) {
-                                navigateToPaymentDetail();
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: ThemeColor().primaryFrame,
+                              backgroundColor: isDataIncomplete
+                                  ? ThemeColor().textFieldChatBot
+                                  : ThemeColor().primaryFrame,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -346,7 +351,10 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                                   ),
                             ),
                           );
-                  }),
+                        },
+                      ),
+                    );
+                  }
                 ),
               ],
             ),
@@ -356,7 +364,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
     );
   }
 
-  void navigateToPaymentDetail() {
+  void navigateToPaymentDetail(int id) {
     int totalAmount = widget.price;
     int selectedPaymentMethod = _selectedPaymentMethod;
 
@@ -364,6 +372,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => FinishPaymentScreen(
+          id: id,
           totalAmount: totalAmount,
           selectedPaymentMethod: selectedPaymentMethod,
         ),
@@ -378,7 +387,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.fullname, style: ThemeTextStyle().titleSmall),
+            Text(line1, style: ThemeTextStyle().titleSmall),
             Text(line2, style: ThemeTextStyle().labelSmall),
           ],
         ),
@@ -386,7 +395,6 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
       ],
     );
   }
-
 
   Widget _buildPaymentDetails3(String line1, String amount) {
     return Row(

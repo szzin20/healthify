@@ -18,20 +18,22 @@ class CheckOutApi {
         data: request.toJson(),
         options: Options(
           headers: {
-            "authorization": "bearer $token",
+            "Authorization": "Bearer $token",
           },
         ),
       );
+      print(request.toJson());
       final data = orderMedFromJson(json.encode(response.data));
 
       if (response.statusCode == 200) {
+        print(response.data);
         return data;
       } else {
         if (response.statusCode == 401) {
           print("Unauthorized access: ${response.data}");
           return data;
         } else {
-          print("Error: ${response.statusCode}");
+          print("Error: ${response.data}");
           return data;
         }
       }

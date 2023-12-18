@@ -12,6 +12,7 @@ class DoctorProvider extends ChangeNotifier {
 
   final Dio _dio = Dio();
   List<Doctor> _doctors = [];
+  List<Doctor> _searchDoctors = [];
   List<Doctor> _filteredDoctors = [];
   int _selectedMenuIndex = 0;
   VoidCallback? _menuIndexChangedCallback;
@@ -24,8 +25,7 @@ class DoctorProvider extends ChangeNotifier {
       _doctors = results.map((json) => Doctor.fromJson(json)).toList();
       _filteredDoctors = List.from(_doctors);
       notifyListeners();
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   Future<void> fetchFilterDoctor(String specialization) async {
@@ -54,6 +54,24 @@ class DoctorProvider extends ChangeNotifier {
       _filteredDoctors = [];
       notifyListeners();
     }
+  }
+
+  List<Doctor> searchDoctor(String keyword) {
+    // Bersihkan hasil pencarian sebelumnya
+    _filteredDoctors.clear();
+
+    // Jika _doctors tidak null, filter dokter berdasarkan kata kunci pencarian
+    if (_doctors != null) {
+      _filteredDoctors = _doctors
+          .where((doctor) =>
+              doctor.fullname.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+    }
+
+    // Notifikasi perubahan kepada listener
+    notifyListeners();
+
+    return _filteredDoctors;
   }
 
   List<Doctor> get filteredDoctors => _filteredDoctors;

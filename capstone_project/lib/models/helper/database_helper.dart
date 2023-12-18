@@ -48,14 +48,14 @@ class DatabaseHelper {
 
   Future<List<MedicineDetail>> getAllMedicineDetails() async {
     final Database db = await database;
-    List<Map<String, dynamic>> result = await db
-        .query(_tableNameCart, columns: ['id', 'quantity', 'total_price']);
+    List<Map<String, dynamic>> result =
+        await db.query(_tableNameCart, columns: ['id', 'quantity', 'price']);
 
     return result.map((map) {
       return MedicineDetail(
         medicineId: map['id'],
         quantity: map['quantity'],
-        totalPriceMedicine: map['total_price'],
+        totalPriceMedicine: map['price'],
       );
     }).toList();
   }
@@ -74,9 +74,25 @@ class DatabaseHelper {
       // Medicine with the id doesn't exist, insert a new record
       await db.insert(
         _tableNameCart,
-        medicine.toJson()..remove('id'),
+        medicine.toJson(),
       );
     }
+  }
+
+  Future<int> getTotalPrice() async {
+    final Database db = await database;
+    List<Map<String, dynamic>> result =
+        await db.query(_tableNameCart, columns: ['price', 'quantity']);
+
+    int totalPrice = 0;
+
+    for (var item in result) {
+      int price = item['price'];
+      int quantity = item['quantity'];
+      totalPrice += price * quantity;
+    }
+
+    return totalPrice;
   }
 
   Future<Result?> getCartItemById(int id) async {
