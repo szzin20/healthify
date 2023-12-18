@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:capstone_project/models/paymed_model.dart';
 import 'package:dio/dio.dart';
 import 'package:capstone_project/utils/utils.dart';
@@ -7,6 +9,7 @@ class PaymentAPI {
 
   Future<PayMed> createPayment({
     required int checkoutId,
+    required File image,
     required String paymentConfirmationPath,
   }) async {
     final String url = '${Urls.baseUrl}/users/medicines-payments/checkout?medicine_transaction_id=$checkoutId';

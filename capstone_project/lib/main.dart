@@ -1,3 +1,4 @@
+import 'package:capstone_project/models/article_list_model.dart';
 import 'package:capstone_project/provider/account_provider/profile_provider/profile_provider.dart';
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
@@ -20,6 +21,7 @@ import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
+import 'package:capstone_project/screens/artikel/artikel.dart';
 import 'package:capstone_project/screens/cart/cart_screen.dart';
 import 'package:capstone_project/screens/chatbot/chatbot_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
@@ -132,7 +134,7 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => const LoginScreen(),
         '/home': (BuildContext context) => const HomeScreen(),
         '/doctorList': (BuildContext context) => const DoctorScreen(),
-        '/articleList': (BuildContext context) => const Center(),
+        '/articleList': (BuildContext context) => const ArtikelScreen(),
         '/findMed': (BuildContext context) => const MedicineListScreen(),
         '/history': (BuildContext context) => const HistoryScreen(),
         '/account': (BuildContext context) => const AccountScreen(),

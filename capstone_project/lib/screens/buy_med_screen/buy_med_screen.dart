@@ -5,7 +5,7 @@ import 'package:capstone_project/models/checkout_list_model.dart';
 import 'package:capstone_project/models/order_med_model.dart';
 import 'package:capstone_project/provider/medicine_provider/check_payment_info_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/med_payment_provider.dart';
-import 'package:capstone_project/screens/finish_med_payment/finish_med_payment.dart';
+import 'package:capstone_project/screens/finish_med_payment/finish_med_payment_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 import 'package:flutter/material.dart';

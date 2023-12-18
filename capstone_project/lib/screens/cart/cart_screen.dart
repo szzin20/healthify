@@ -3,7 +3,7 @@ import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/order_med_model.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/screens/buy_med_screen/buy_med_screen.dart';
-import 'package:capstone_project/screens/finish_med_payment/finish_med_payment.dart';
+import 'package:capstone_project/screens/finish_med_payment/finish_med_payment_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/button_widget_new.dart';

@@ -14,7 +14,7 @@ class CheckOutApi {
 
     try {
       final response = await dio.post(
-        'https://dev.healthify.my.id/users/medicines-payments',
+        '${Urls.baseUrl}/users/medicines-payments',
         data: request.toJson(),
         options: Options(
           headers: {

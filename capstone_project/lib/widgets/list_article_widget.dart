@@ -43,9 +43,12 @@ class ListArticleWidget extends StatelessWidget {
                   'Artikel Kesehatan',
                   style: ThemeTextStyle().titleSmall,
                 ),
-                Text(
-                  'Lihat Semua',
-                  style: ThemeTextStyle().titleSmallBlue,
+                InkWell(
+                  onTap: () {Navigator.pushNamed(context, '/articleList');},
+                  child: Text(
+                    'Lihat Semua',
+                    style: ThemeTextStyle().titleSmallBlue,
+                  ),
                 ),
               ],
             ),
