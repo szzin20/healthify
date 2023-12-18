@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:capstone_project/models/api/payment_med_api.dart';
 import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
 import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
+import 'package:capstone_project/screens/status_payment_med/status_payment_med.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -18,7 +19,8 @@ class FinishPaymentScreen extends StatefulWidget {
   const FinishPaymentScreen({
     super.key,
     required this.totalAmount,
-    required this.selectedPaymentMethod, required this.id,
+    required this.selectedPaymentMethod,
+    required this.id,
   });
 
   @override
@@ -56,18 +58,23 @@ class _FinishPaymentScreenState extends State<FinishPaymentScreen> {
           MaterialPageRoute(builder: (context) => const LoadingScreen()));
 
       try {
-        // Call the payment API
-        await PaymentAPI().createPayment(
+        final data = await PaymentAPI().createPayment(
           checkoutId: widget.id,
           image: File(_pickedImage!.path),
           paymentConfirmationPath: _pickedImage!.path,
         );
 
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
+        if (data.meta?.success ?? false) {
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const ConsultationHistoryScreen()));
+              builder: (context) => StatusPaymentMedScreen(
+                riwayatTransaksi: data,
+              ),
+            ),
+          );
+        }
       } catch (e) {
         // ignore: avoid_print
         print("Error uploading payment: $e");
@@ -166,7 +173,7 @@ class _FinishPaymentScreenState extends State<FinishPaymentScreen> {
               ),
               const SizedBox(height: 40),
               SizedBox(
-                height: 175,
+                height: 185,
                 child: DottedBorder(
                   borderType: BorderType.RRect,
                   radius: const Radius.circular(8),
@@ -314,14 +321,19 @@ class _FinishPaymentScreenState extends State<FinishPaymentScreen> {
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
-                        horizontal: 150,
+                        horizontal: 15,
                       ),
                     ),
-                    child: Text(
-                      'Upload Sekarang',
-                      style: ThemeTextStyle().titleMedium.copyWith(
-                            color: ThemeColor().white,
-                          ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Upload Sekarang',
+                          style: ThemeTextStyle().titleMedium.copyWith(
+                                color: ThemeColor().white,
+                              ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

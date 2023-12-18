@@ -10,7 +10,7 @@ class OtpApi {
   Future<bool> createOTP(String email) async {
     try {
       Response response = await _dio.post(
-        'https://dev.healthify.my.id/users/get-otp',
+        'https://api.healthify.my.id/users/get-otp',
         data: {'email': email},
       );
       return response.data['success'] ?? false;

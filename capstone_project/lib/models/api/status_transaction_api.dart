@@ -11,7 +11,7 @@ class StatusTransactionApi {
   Future<Map<String, dynamic>?> getStatusTransaction(int limit) async {
     try {
       final response = await _dio.get(
-        'https://dev.healthify.my.id${Urls.doctortransactionsbystatus}',
+        'https://api.healthify.my.id${Urls.doctortransactionsbystatus}',
         queryParameters: {'limit': limit},
       );
 

@@ -18,7 +18,9 @@ import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.d
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
 import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
+import 'package:capstone_project/provider/status_med_payment_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
 import 'package:capstone_project/screens/artikel/artikel.dart';
@@ -38,10 +40,12 @@ import 'package:capstone_project/screens/splash_screen/splash_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'provider/account_provider/contact_us_provider/contact_us_provider.dart';
 
 void main() async {
+  await initializeDateFormatting('id_ID');
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferencesUtils.init();
 
@@ -52,6 +56,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => AllMedicineProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => RegisterProcessProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => RegisterProvider(),
@@ -109,6 +116,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ProfileProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => StatusMedPaymentProvider(),
       ),
     ],
     child: const MyApp(),
