@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:capstone_project/models/pay_doc_detail.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:capstone_project/utils/utils.dart';
 
-Future<bool> uploadPaymentTransaction({
+Future<PayDoc?> uploadPaymentTransaction({
   required int doctorId,
   required File image,
   required String selectedPaymentMethod,
@@ -13,6 +15,7 @@ Future<bool> uploadPaymentTransaction({
     String token = SharedPreferencesUtils.getToken();
     String fileName = image.path.split('/').last;
     String baseUrl = Urls.baseUrl;
+    
 
     // Check if the image file exists
     if (!image.existsSync()) {
@@ -38,15 +41,13 @@ Future<bool> uploadPaymentTransaction({
     );
 
     if (response.statusCode == 201) {
-      return true; // Return true on success
+      return payDocFromJson(json.encode(response.data));// Return true on success
     } else {
-      return false; // Return false on failure
+      return payDocFromJson(json.encode(response.data)); // Return false on failure
     }
-  } on DioError catch (e) {
-    print("Error uploading payment: $e");
-    return false; // Return false in case of DioError
+
   } catch (e) {
     print("Error uploading payment: $e");
-    return false; // Return false for other exceptions
+    return null; // Return false for other exceptions
   }
 }

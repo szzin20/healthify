@@ -21,6 +21,7 @@ import 'package:capstone_project/provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/provider/status_med_payment_provider.dart';
+import 'package:capstone_project/provider/status_payment_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
 import 'package:capstone_project/screens/artikel/artikel.dart';
@@ -119,6 +120,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => StatusMedPaymentProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => StatusPaymentProvider(),
       ),
     ],
     child: const MyApp(),

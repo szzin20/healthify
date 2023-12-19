@@ -1,21 +1,22 @@
+import 'dart:convert';
+
+import 'package:capstone_project/models/pay_doc_detail.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
+
 class StatusTransactionApi {
-  final Dio _dio = Dio(); // Adjust Dio configuration as needed
-
-  StatusTransactionApi() {
-    // Example: Add authentication token to headers
-    _dio.options.headers['Authorization'] = 'Bearer your_access_token';
-  }
-
-  Future<Map<String, dynamic>?> getStatusTransaction(int limit) async {
+  
+  static Future<PayDoc?> getStatusTransaction(int id) async {
+    final Dio dio = Dio();
+    dio.options.validateStatus = (status) => true;
+    String token = SharedPreferencesUtils.getToken();
     try {
-      final response = await _dio.get(
-        'https://api.healthify.my.id${Urls.doctortransactionsbystatus}',
-        queryParameters: {'limit': limit},
-      );
-
-      return response.data as Map<String, dynamic>?; // Use nullable type
+      final response =
+          await dio.get('${Urls.baseUrl}/users/doctor-payments/$id',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
+      return payDocFromJson(json.encode(response.data));
     } catch (error) {
       print('Error loading status transaction: $error');
       return null; // Return null in case of an error

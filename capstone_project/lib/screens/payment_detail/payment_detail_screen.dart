@@ -1,4 +1,6 @@
 import 'package:capstone_project/models/api/payment_api.dart';
+import 'package:capstone_project/models/pay_doc_detail.dart';
+import 'package:capstone_project/screens/status_payment_doctor/status_payment_doctor_screen.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import 'package:http_parser/http_parser.dart';
 class PaymentDetailScreen extends StatefulWidget {
   final int totalAmount;
   final int selectedPaymentMethod;
+  final String selectedPayment;
   final int doctorId;
 
   // ignore: use_super_parameters
@@ -23,6 +26,7 @@ class PaymentDetailScreen extends StatefulWidget {
     Key? key,
     required this.totalAmount,
     required this.selectedPaymentMethod,
+    required this.selectedPayment,
     required this.doctorId,
   }) : super(key: key);
 
@@ -63,7 +67,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
       );
 
       try {
-        bool success = await uploadPaymentTransaction(
+       PayDoc? success = await uploadPaymentTransaction(
           doctorId: widget.doctorId,
           image: File(_pickedImage!.path),
           selectedPaymentMethod:
@@ -73,13 +77,14 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
         // ignore: avoid_print
         print("Upload Payment Response: $success");
 
-        if (success) {
+        if (success?.meta?.success ?? false) {
           // If the upload is successful, navigate to the transaction history screen
+           print("Upload Payment Response: $success");
           // ignore: use_build_context_synchronously
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const ConsultationHistoryScreen(),
+              builder: (context) => StatusPaymentDoctorScreen(doctorId: widget.doctorId, selectedPaymentMethod: widget.selectedPayment, idTran: success?.results?.id ?? 0,),
             ),
           );
         } else {
@@ -363,6 +368,11 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
     );
   }
 
+  List<String> payMethod= [
+    'metode pembayaran bca'
+    'metode pembayaran bni'
+    'metode pembayaran bri'
+  ];
   String getBankLogo(int index) {
     List<String> bankLogos = [
       'assets/images/bca.png',
