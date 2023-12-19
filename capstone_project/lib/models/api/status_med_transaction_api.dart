@@ -1,10 +1,12 @@
+import 'dart:convert';
+
+import 'package:capstone_project/models/med_tran_detail_model.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
 
-class StatusTransactionApi {
-  static Future<Map<String, dynamic>?> getStatusTransaction(
-    int id,
-  ) async {
+class StatusMedTransactionApi {
+  
+  static Future<MedTranDetail?> getStatusTransaction(int id) async {
     final Dio dio = Dio();
     dio.options.validateStatus = (status) => true;
     String token = SharedPreferencesUtils.getToken();
@@ -15,7 +17,7 @@ class StatusTransactionApi {
                 'Authorization': 'Bearer $token',
               }));
 
-      return response.data as Map<String, dynamic>?; // Use nullable type
+      return medTranDetailFromJson(json.encode(response.data));
     } catch (error) {
       print('Error loading status transaction: $error');
       return null; // Return null in case of an error

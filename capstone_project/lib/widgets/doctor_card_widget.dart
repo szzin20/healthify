@@ -120,13 +120,14 @@ class DoctorCardWidget extends StatelessWidget {
                     size: 10,
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    "4,4",
-                    style: ThemeTextStyle()
-                        .labelSmall
-                        .copyWith(color: ThemeColor().filter),
+                  Expanded(
+                    child: Text(
+                      "4,4",
+                      style: ThemeTextStyle()
+                          .labelSmall
+                          .copyWith(color: ThemeColor().filter),
+                    ),
                   ),
-                  const SizedBox(width: 70),
                   Text('62 ulasan',
                       textDirection: TextDirection.ltr,
                       style: ThemeTextStyle()
