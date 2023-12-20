@@ -28,7 +28,7 @@ class DetailDokterHeaderWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 18,
+          top: 30,
           left: 24,
           child: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -38,7 +38,7 @@ class DetailDokterHeaderWidget extends StatelessWidget {
           ),
         ),
         const Positioned(
-          top: 18,
+          top: 40,
           right: 24,
           child: Icon(
             Icons.share,
