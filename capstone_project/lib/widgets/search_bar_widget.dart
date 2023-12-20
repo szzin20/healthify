@@ -4,13 +4,15 @@ class SearchBarWidget extends StatelessWidget {
   final String? title;
   final TextEditingController? controller;
   final Function(String)? onSubmitted;
+  final Function(String)? onChanged;
 
-  const SearchBarWidget(
-      {Key? key,
-      required this.title,
-      this.controller,
-      this.onSubmitted})
-      : super(key: key);
+  const SearchBarWidget({
+    Key? key,
+    required this.title,
+    this.controller,
+    this.onSubmitted,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,8 @@ class SearchBarWidget extends StatelessWidget {
           padding: const EdgeInsets.all(11.0),
           child: TextField(
             controller: controller,
-            onChanged: (value) {
-              // Handle perubahan teks jika diperlukan
-            },
-            onSubmitted:
-                onSubmitted != null ? (value) => onSubmitted!(value) : null,
+            onChanged: onChanged,
+            onSubmitted: onSubmitted != null ? (value) => onSubmitted!(value) : null,
             decoration: InputDecoration(
               fillColor: const Color(0xffF5F5F5),
               labelText: title,
@@ -38,7 +37,8 @@ class SearchBarWidget extends StatelessWidget {
               prefixIcon: const Icon(Icons.search),
               suffixIcon: InkWell(
                 onTap: () {
-                  // SAAT MICROFONNYA DITEKAN..
+                  // Add functionality when the mic icon is tapped
+                  print('Mic icon tapped');
                 },
                 child: const Icon(Icons.mic_none_rounded),
               ),

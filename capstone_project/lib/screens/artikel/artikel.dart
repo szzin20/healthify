@@ -26,6 +26,11 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
     });
   }
 
+  void searchArticles(String query) {
+    Provider.of<AllArticlesProvider>(context, listen: false)
+        .fetchArticlesByTitle(query);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +57,18 @@ class _ArtikelScreenState extends State<ArtikelScreen> {
           SliverToBoxAdapter(
             child: Container(
               color: ThemeColor().primaryFrame,
-              child: const SearchBarWidget(
+              child: SearchBarWidget(
+                onChanged: (String query) {
+                  if (query.isEmpty) {
+                    Provider.of<AllArticlesProvider>(context, listen: false)
+                        .clearSearch();
+                  } else {
+                    Provider.of<AllArticlesProvider>(context, listen: false)
+                        .fetchArticlesByTitle(query);
+                  }
+                },
                 title: 'Cari Artikel',
+                onSubmitted: searchArticles,
               ),
             ),
           ),

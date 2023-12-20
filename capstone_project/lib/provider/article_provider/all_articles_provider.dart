@@ -20,4 +20,37 @@ class AllArticlesProvider with ChangeNotifier {
       print('Error fetching articles: $e');
     }
   }
+
+  Future<void> fetchArticlesByTitle(String query) async{
+    try {
+      _loading = true;
+      notifyListeners();
+
+      _articles = await AllArticleListAPI.getArticlesByTitle(query);
+      _loading = false;
+      notifyListeners();
+    } catch (e) {
+      _loading = false;
+      notifyListeners();
+      print('Error fetching articles by title : $e');
+      
+    }
+  }
+
+  Future<void> clearSearch() async {
+    try {
+      _loading = true;
+      notifyListeners();
+
+      // Fetch all articles without any title query
+      _articles = await AllArticleListAPI.getArticles();
+      _loading = false;
+      notifyListeners();
+    } catch (e) {
+      _loading = false;
+      notifyListeners();
+      print('Error clearing search: $e');
+    }
+  }
+  
 }
