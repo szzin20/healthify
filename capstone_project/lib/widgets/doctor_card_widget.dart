@@ -1,4 +1,3 @@
-
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class DoctorCardWidget extends StatelessWidget {
               spreadRadius: 2,
               blurRadius: 5,
               offset: const Offset(2, 2),
-            ),                                                                                 
+            ),
           ],
         ),
         child: Column(
@@ -102,9 +101,10 @@ class DoctorCardWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 specialty,
-                style: ThemeTextStyle()
-                    .bodySmall
-                    .copyWith(color: ThemeColor().filter),
+                style: ThemeTextStyle().bodySmall.copyWith(
+                      color: ThemeColor().filter,
+                      overflow: TextOverflow.ellipsis,
+                    ),
               ),
             ),
             const SizedBox(
@@ -120,13 +120,14 @@ class DoctorCardWidget extends StatelessWidget {
                     size: 10,
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    "4,4",
-                    style: ThemeTextStyle()
-                        .labelSmall
-                        .copyWith(color: ThemeColor().filter),
+                  Expanded(
+                    child: Text(
+                      "4,4",
+                      style: ThemeTextStyle()
+                          .labelSmall
+                          .copyWith(color: ThemeColor().filter),
+                    ),
                   ),
-                  const SizedBox(width: 70),
                   Text('62 ulasan',
                       textDirection: TextDirection.ltr,
                       style: ThemeTextStyle()

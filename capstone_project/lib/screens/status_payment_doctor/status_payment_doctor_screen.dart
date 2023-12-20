@@ -4,22 +4,41 @@ import 'package:capstone_project/provider/status_payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StatusPaymentDoctorScreen extends StatelessWidget {
+class StatusPaymentDoctorScreen extends StatefulWidget {
   final int doctorId;
   final String selectedPaymentMethod;
+  final int idTran;
 
   const StatusPaymentDoctorScreen({
-    Key? key,
+    super.key,
     required this.doctorId,
     required this.selectedPaymentMethod,
-  }) : super(key: key);
+    required this.idTran,
+  });
+
+  @override
+  State<StatusPaymentDoctorScreen> createState() =>
+      _StatusPaymentDoctorScreenState();
+}
+
+class _StatusPaymentDoctorScreenState extends State<StatusPaymentDoctorScreen> {
+  bool _dataFetched = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_dataFetched) {
+      Provider.of<StatusPaymentProvider>(context, listen: false)
+          .fetchStatusData(widget.idTran);
+      _dataFetched = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final statusProvider = Provider.of<StatusPaymentProvider>(context);
-    
     return Scaffold(
-     appBar: AppBar(
+      appBar: AppBar(
         title: Text(
           'Riwayat Transaksi',
           style: ThemeTextStyle().titleMedium.copyWith(
@@ -30,40 +49,41 @@ class StatusPaymentDoctorScreen extends StatelessWidget {
         backgroundColor: ThemeColor().primaryFrame,
         centerTitle: true,
       ),
-      body: FutureBuilder(
-        future: statusProvider.fetchStatusData(1),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError || statusProvider.statusData == null) {
-            // Log error details
-            print('Error: ${snapshot.error}');
-            return Center(child: Text('Failed to load status transaction'));
+      body: Consumer<StatusPaymentProvider>(
+        builder: (context, snapshot, _) {
+          final statusData = snapshot.statusData;
+          if (snapshot.statusData == null) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.statusData?.meta?.success == false) {
+            return const Center(
+                child: Text('Failed to load status transaction'));
           } else {
-            final statusData = statusProvider.statusData!; // Non-null assertion
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                  Text('Status Pembayaran: ${statusData["payment_status"]}'),
-                Text('Metode Pembayaran: ${statusData["selectedPaymentMethod"] ?? "Unknown"}'),
-                  Text('Status Pembayaran: ${statusData["payment_status"]}'),
+                Text(
+                    'Status Pembayaran: ${statusData?.results?.paymentStatus}'),
+                Text(
+                    'Metode Pembayaran: ${statusData?.results?.paymentMethod}'),
+                Text(
+                    'Status Pembayaran: ${statusData?.results?.paymentStatus}'),
                 const SizedBox(height: 20),
-                Text('Transaksi Pembayaran: ${statusData["payment_status"]}'),
-                Text('Metode Pembayaran: $selectedPaymentMethod'),
-                Image.asset(getBankLogo(statusData["selectedPaymentMethod"])),
-                Text('Nama Dokter: ${statusData["fullname"]}'),
-                Text('Spesialisasi: ${statusData["specialist"]}'),
+                Text(
+                    'Transaksi Pembayaran: ${statusData?.results?.paymentConfirmation}'),
+                Text('Metode Pembayaran: ${widget.selectedPaymentMethod}'),
+                // Image.asset(getBankLogo(statusData?.results?)),
+                Text('Nama Dokter: ${statusData?.results?.fullname}'),
+                Text('Spesialisasi: ${statusData?.results?.specialist}'),
                 // Tambahkan informasi lain sesuai kebutuhan
                 ElevatedButton(
-                  onPressed: (statusData["payment_status"] == "success")
+                  onPressed: (statusData?.results?.paymentStatus == "success")
                       ? () {
                           // Tambahkan logika untuk memulai konsultasi
                         }
                       : null,
-                  child: Text('Mulai Konsultasi'),
+                  child: const Text('Mulai Konsultasi'),
                   style: ElevatedButton.styleFrom(
-                    primary: (statusData["payment_status"] == "success")
+                    primary: (statusData?.results?.paymentStatus == "success")
                         ? Colors.green
                         : Colors.grey,
                   ),

@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProvider extends ChangeNotifier {
-  static const String baseUrl = "https://dev.healthify.my.id/users/doctors";
+  static const String baseUrl = "https://api.healthify.my.id/users/doctors";
   static const String availableDoctorsUrl = "$baseUrl/available";
   static const String filteredDoctorsUrl = "$baseUrl?limit=5&offset=0";
 
@@ -85,13 +85,13 @@ class DoctorProvider extends ChangeNotifier {
   }
 
   final List<String> filterSpecializations = [
-    'Umum',
-    'Anak',
-    'Kulit',
-    'Klinis',
-    'Kandungan',
+    'Kardiovaskular',
+    'Jantung', 
+    'Pulmonologis',
+    'Imunologi',
+    'Infeksiologis',
+    'Oftalmologis',
     'Gigi',
-    'Seksologi'
   ];
 
   int get selectedMenuIndex => _selectedMenuIndex;

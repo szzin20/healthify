@@ -8,7 +8,6 @@ class AllMedicineProvider with ChangeNotifier {
   List<Result> _medicine = [];
   List<Result> _searchResults = [];
 
-
   List<Result> get medicine => _medicine;
 
   Future<void> fetchMedicine() async {
@@ -20,18 +19,22 @@ class AllMedicineProvider with ChangeNotifier {
       print('Error fetching articles: $e');
     }
   }
-  
- // Metode untuk mengambil daftar obat hasil pencarian
+
+  // Metode untuk mengambil daftar obat hasil pencarian
   List<Result> searchMedicine(String keyword) {
     // Bersihkan hasil pencarian sebelumnya
     _searchResults.clear();
 
     // Filter obat berdasarkan kata kunci pencarian
-    _searchResults = _medicine.where((med) =>
-        med.name.toLowerCase().contains(keyword.toLowerCase())).toList();
+    _searchResults = _medicine
+        .where((med) => med.name.toLowerCase().contains(keyword.toLowerCase()))
+        .toList();
 
-    // Notifikasi perubahan kepada listener
-    notifyListeners();
+    // Schedule the notifyListeners() call to be executed after the frame is painted
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // Notifikasi perubahan kepada listener
+      notifyListeners();
+    });
 
     return _searchResults;
   }

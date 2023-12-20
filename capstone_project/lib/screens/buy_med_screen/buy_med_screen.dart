@@ -11,7 +11,9 @@ import 'package:capstone_project/widgets/voucher_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
 
 class BuyMedScreen extends StatefulWidget {
   final List<Result> fullname;
@@ -91,7 +93,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                               builder: (context, checkPayment, _) {
                             return (checkPayment.delivery)
                                 ? Container(
-                                    height: 52,
+                                    height: 51,
                                     padding: const EdgeInsets.all(18),
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -118,7 +120,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                                     ),
                                   )
                                 : Container(
-                                    height: 52,
+                                    height: 51,
                                     padding: const EdgeInsets.all(18),
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -330,7 +332,8 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                                     );
                                     if (payProvider.login?.meta?.success ??
                                         false) {
-                                      navigateToPaymentDetail(payProvider.login?.results?.id ?? 0);
+                                      // ignore: use_build_context_synchronously
+                                      navigateToPaymentDetail(payProvider.login?.results?.id ?? 0, context);
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
@@ -364,7 +367,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
     );
   }
 
-  void navigateToPaymentDetail(int id) {
+  void navigateToPaymentDetail(int id, BuildContext context) {
     int totalAmount = widget.price;
     int selectedPaymentMethod = _selectedPaymentMethod;
 
@@ -448,7 +451,7 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
               height: 40,
             ),
             const SizedBox(width: 6),
-            Text(paymentMethods[index]),
+            Text(paymentMethods[index], style: ThemeTextStyle().labelLarge),
           ]),
           value: index,
           groupValue: _selectedPaymentMethod,

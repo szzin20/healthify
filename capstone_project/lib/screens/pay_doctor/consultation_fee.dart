@@ -135,6 +135,7 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
       MaterialPageRoute(
         builder: (context) => PaymentDetailScreen(
           totalAmount: totalAmount,
+          selectedPayment: paymentMethods[_selectedPaymentMethod],
           selectedPaymentMethod: selectedPaymentMethod,
           doctorId: widget.doctorId,
         ),

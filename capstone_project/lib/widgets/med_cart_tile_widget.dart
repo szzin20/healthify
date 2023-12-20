@@ -117,46 +117,43 @@ class MedCartTile extends StatelessWidget {
                           flex: 2,
                           child: Text("Rp. $price"),
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Material(
-                                borderRadius: BorderRadius.circular(50),
-                                color: ThemeColor().cartTileButton,
-                                child: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * .068,
-                                  height:
-                                      MediaQuery.of(context).size.height * .033,
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: onPressedRemove,
-                                    icon: const Icon(Icons.remove),
-                                  ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Material(
+                              borderRadius: BorderRadius.circular(50),
+                              color: ThemeColor().cartTileButton,
+                              child: SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * .068,
+                                height:
+                                    MediaQuery.of(context).size.height * .033,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: onPressedRemove,
+                                  icon: const Icon(Icons.remove),
                                 ),
                               ),
-                              const SizedBox(width: 9),
-                              Text(quantity),
-                              const SizedBox(width: 9),
-                              Material(
-                                borderRadius: BorderRadius.circular(50),
-                                color: ThemeColor().cartTileButton,
-                                child: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * .068,
-                                  height:
-                                      MediaQuery.of(context).size.height * .033,
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: onPressedAdd,
-                                    icon: const Icon(Icons.add),
-                                  ),
+                            ),
+                            const SizedBox(width: 9),
+                            Text(quantity),
+                            const SizedBox(width: 9),
+                            Material(
+                              borderRadius: BorderRadius.circular(50),
+                              color: ThemeColor().cartTileButton,
+                              child: SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * .068,
+                                height:
+                                    MediaQuery.of(context).size.height * .033,
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: onPressedAdd,
+                                  icon: const Icon(Icons.add),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -1,20 +1,23 @@
+import 'dart:convert';
+
+import 'package:capstone_project/models/med_tran_detail_model.dart';
 import 'package:capstone_project/utils/utils.dart';
 import 'package:dio/dio.dart';
 
-class StatusTransactionApi {
+class StatusMedTransactionApi {
   
-  static Future<Map<String, dynamic>?> getStatusTransaction(int id,) async {
+  static Future<MedTranDetail?> getStatusTransaction(int id) async {
     final Dio dio = Dio();
     dio.options.validateStatus = (status) => true;
     String token = SharedPreferencesUtils.getToken();
     try {
-      final response = await dio.get(
-          '${Urls.baseUrl}/users/medicines-payments/checkout/$id',
-          options: Options(headers: {
-            'Authorization': 'Bearer $token',
-          }));
+      final response =
+          await dio.get('${Urls.baseUrl}/users/medicines-payments/checkout/$id',
+              options: Options(headers: {
+                'Authorization': 'Bearer $token',
+              }));
 
-      return response.data as Map<String, dynamic>?; // Use nullable type
+      return medTranDetailFromJson(json.encode(response.data));
     } catch (error) {
       print('Error loading status transaction: $error');
       return null; // Return null in case of an error
