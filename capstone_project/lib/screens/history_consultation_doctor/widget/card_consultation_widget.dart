@@ -1,4 +1,3 @@
-
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/screens/history_consultation_doctor/history_chat_screen.dart';
@@ -33,8 +32,7 @@ class CardConsultationFinish extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 23,
-                    backgroundImage:
-                        AssetImage('assets/images/doctor.png'),
+                    backgroundImage: AssetImage('assets/images/doctor.png'),
                   ),
                   const SizedBox(width: 12),
                   SizedBox(
@@ -92,24 +90,21 @@ class CardConsultationFinish extends StatelessWidget {
                             const SizedBox(width: 12),
                             SizedBox(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "1 Sep 2023",
-                                    style: ThemeTextStyle()
-                                        .labelMedium
-                                        .copyWith(
-                                          color: const Color(0xff757575),
-                                        ),
+                                    style:
+                                        ThemeTextStyle().labelMedium.copyWith(
+                                              color: const Color(0xff757575),
+                                            ),
                                   ),
                                   Text(
                                     "07:00",
-                                    style: ThemeTextStyle()
-                                        .labelMedium
-                                        .copyWith(
-                                          color: const Color(0xff757575),
-                                        ),
+                                    style:
+                                        ThemeTextStyle().labelMedium.copyWith(
+                                              color: const Color(0xff757575),
+                                            ),
                                   ),
                                 ],
                               ),
@@ -133,10 +128,9 @@ class CardConsultationFinish extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      fixedSize: const Size.fromWidth(175.0),
+                      fixedSize: const Size.fromWidth(150.0),
                     ).copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color>(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                           return ThemeColor().primaryButtonActive;
                         },
@@ -164,7 +158,7 @@ class CardConsultationFinish extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                           side: BorderSide(
                               color: ThemeColor().primaryButtonActive)),
-                      fixedSize: const Size.fromWidth(175.0),
+                      fixedSize: const Size.fromWidth(150.0),
                     ).copyWith(),
                     child: Text(
                       'Riwayat Chat',

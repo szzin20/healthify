@@ -3,6 +3,7 @@ import 'package:capstone_project/constants/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
+import 'package:capstone_project/widgets/button_widget.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
   final int doctorId;
@@ -31,6 +32,13 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
   int _selectedPaymentMethod = -1;
 
   @override
+  void dispose() {
+    // Dispose of the controller when the state is disposed.
+    voucherCodeController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     int serviceFee = 1000;
     int totalAmount = widget.price + serviceFee;
@@ -47,81 +55,77 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         backgroundColor: ThemeColor().primaryFrame,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Text(
-                'Rincian Pembayaran',
-                style: ThemeTextStyle()
-                    .titleMedium
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              _buildPaymentDetails(widget.fullname, '(Konsultasi 30 menit)',
-                  'Rp ${widget.price}'),
-              const SizedBox(height: 20),
-              _buildPaymentDetails2('Biaya Layanan', 'Rp 1000'),
-              const SizedBox(height: 40),
-              Text(
-                'Kode Voucher',
-                style: ThemeTextStyle().titleMedium.copyWith(
-                      fontWeight: FontWeight.bold,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 20),
+                    Text(
+                      'Rincian Pembayaran',
+                      style: ThemeTextStyle()
+                          .titleMedium
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
-              ),
-              VoucherTextField(
-                hintText: 'Masukkan kode voucher',
-                controller: voucherCodeController,
-              ),
-              const SizedBox(height: 38),
-              Text(
-                'Metode Pembayaran',
-                style: ThemeTextStyle().titleMedium.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 14),
-              _buildPaymentMethodContainer(),
-              const SizedBox(height: 140),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 120,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildPaymentDetails3('Untuk Dibayar', 'Rp $totalAmount'),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          navigateToPaymentDetail();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ThemeColor().primaryFrame,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                    const SizedBox(height: 20),
+                    _buildPaymentDetails(widget.fullname,
+                        '(Konsultasi 30 menit)', 'Rp ${widget.price}'),
+                    const SizedBox(height: 20),
+                    _buildPaymentDetails2('Biaya Layanan', 'Rp 1000'),
+                    const SizedBox(height: 40),
+                    Text(
+                      'Kode Voucher',
+                      style: ThemeTextStyle().titleMedium.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20,
-                            horizontal: 20,
-                          ),
-                        ),
-                        child: Text('Pesan Sekarang',
-                            style: ThemeTextStyle().titleMedium.copyWith(
-                                  color: ThemeColor().white,
-                                )),
-                      ),
                     ),
+                    VoucherTextField(
+                      hintText: 'Masukkan kode voucher',
+                      controller: voucherCodeController,
+                    ),
+                    const SizedBox(height: 38),
+                    Text(
+                      'Metode Pembayaran',
+                      style: ThemeTextStyle().titleMedium.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 14),
+                    _buildPaymentMethodContainer(),
+                    const SizedBox(height: 20), // Add some spacing
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _buildPaymentDetails3('Untuk Dibayar', 'Rp $totalAmount'),
+                ButtonWidget(
+                  title: "Pesan Sekarang",
+                  buttonColor: _selectedPaymentMethod != -1
+                      ? ThemeColor().primaryButtonActive
+                      : ThemeColor().primaryButton,
+                  onPressed: _selectedPaymentMethod != -1
+                      ? () {
+                          navigateToPaymentDetail();
+                        }
+                      : null,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
       ),
     );
   }

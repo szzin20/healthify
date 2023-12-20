@@ -49,9 +49,14 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              DetailDokterHeaderWidget(
-                image: doctor.profilePicture ?? '',
-                status: doctor.status ?? false,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: DetailDokterHeaderWidget(
+                  image: doctor.profilePicture ?? '',
+                  status: doctor.status ?? false,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(

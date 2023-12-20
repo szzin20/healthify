@@ -1,6 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
+import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -113,6 +114,7 @@ class HistoryScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const BottomNavigationBarWidget(currentIndex: 2),
     );
   }
 }

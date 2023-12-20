@@ -12,7 +12,7 @@ class DetailDokterHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: 210,
           width: double.infinity,
           child: Image(

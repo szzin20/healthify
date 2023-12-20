@@ -2,6 +2,7 @@ import 'package:capstone_project/models/api/payment_api.dart';
 import 'package:capstone_project/models/riwayat_transaksi_model.dart';
 import 'package:capstone_project/screens/loading_screen/loading_screen.dart';
 import 'package:capstone_project/screens/riwayat_transaksi/riwayat_transaksi_screen.dart';
+import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
@@ -52,8 +53,10 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
   void _uploadPayment() async {
     if (_fileUploaded) {
       // Show loading screen
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoadingScreen()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoadingScreen()),
+      );
 
       try {
         // Call the payment API
@@ -67,11 +70,13 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
         // If the API call is successful, navigate to the transaction history screen
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RiwayatTransaksiScreen(
-                      riwayatTransaksi: riwayatTransaksi,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => RiwayatTransaksiScreen(
+              riwayatTransaksi: riwayatTransaksi,
+            ),
+          ),
+        );
       } catch (e) {
         // Handle API call error
         // ignore: avoid_print
@@ -304,35 +309,26 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 180),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 220,
-                ),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: _fileUploaded ? _uploadPayment : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ThemeColor().primaryFrame,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 150,
-                      ),
-                    ),
-                    child: Text(
-                      'Upload Sekarang',
-                      style: ThemeTextStyle().titleMedium.copyWith(
-                            color: ThemeColor().white,
-                          ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: ButtonWidget(
+          title: "Upload Sekarang",
+          buttonColor: _fileUploaded
+              ? ThemeColor().primaryButtonActive
+              : ThemeColor().primaryButton,
+          onPressed: _fileUploaded ? _uploadPayment : null,
         ),
       ),
     );
