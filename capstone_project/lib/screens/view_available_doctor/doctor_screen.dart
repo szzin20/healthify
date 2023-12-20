@@ -20,13 +20,13 @@ class _DoctorScreenState extends State<DoctorScreen> {
   // Example in _DoctorScreenState
 
   final List<String> displayedSpecializations = [
-    'Dokter Umum',
-    'Spesialis Anak',
-    'Spesialis Kulit',
-    'Psikolog Klinis',
-    'Kandungan',
+    'Bedah Kardiovaskular',
+    'Jantung',
+    'Pulmonologis',
+    'Imunologi',
+    'Infeksiologis',
+    'Oftalmologis',
     'Dokter Gigi',
-    'Seksologi'
   ];
 
   @override
@@ -65,7 +65,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   SliverAppBar _buildSliverAppBar() {
     return SliverAppBar(
-      automaticallyImplyLeading: false,
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
@@ -100,8 +99,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
 
   SliverAppBar _buildMenuDoctor() {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
-      toolbarHeight: 40,
+      toolbarHeight: 21,
       floating: false,
       pinned: true,
       expandedHeight: 0,

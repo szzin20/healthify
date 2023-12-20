@@ -85,13 +85,13 @@ class DoctorProvider extends ChangeNotifier {
   }
 
   final List<String> filterSpecializations = [
-    'Umum',
-    'Anak',
-    'Kulit',
-    'Klinis',
-    'Kandungan',
+    'Kardiovaskular',
+    'Jantung', 
+    'Pulmonologis',
+    'Imunologi',
+    'Infeksiologis',
+    'Oftalmologis',
     'Gigi',
-    'Seksologi'
   ];
 
   int get selectedMenuIndex => _selectedMenuIndex;
