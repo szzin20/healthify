@@ -9,7 +9,7 @@ import 'package:capstone_project/provider/medicine_provider/medicine_provider.da
 import 'package:capstone_project/widgets/elevated_card_medicine.dart';
 
 class MedicineListScreen extends StatefulWidget {
-  const MedicineListScreen({Key? key}) : super(key: key);
+  const MedicineListScreen({super.key});
 
   @override
   State<MedicineListScreen> createState() => _MedicineListScreenState();

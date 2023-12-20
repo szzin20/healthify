@@ -10,12 +10,11 @@ class OtpApi {
   Future<bool> createOTP(String email) async {
     try {
       Response response = await _dio.post(
-        'https://api.healthify.my.id/users/get-otp',
+        '${Urls.baseUrl}/users/get-otp',
         data: {'email': email},
       );
       return response.data['success'] ?? false;
     } catch (error) {
-      print('Error creating OTP: $error');
       return false;
     }
   }
@@ -23,19 +22,17 @@ class OtpApi {
   Future<bool> verifyOTP(String email, String otp) async {
     try {
       Response response = await _dio.post(
-        'https://dev.healthify.my.id/users/',
+        '${Urls.baseUrl}/users/',
         data: {'email': email, 'otp': otp},
       );
       return response.data['success'] ?? false;
     } catch (error) {
-      print('Error verifying OTP: $error');
       return false;
     }
   }
 
   Future<void> registerUser(
       BuildContext context, String email, String otp) async {
-    print(email);
     try {
       Response response = await _dio.post(
         '${Urls.baseUrl}/users/OTP-verification',
@@ -49,10 +46,10 @@ class OtpApi {
           MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       } else {
-        print('Registration failed. Server response: ${response.data}');
+        return;
       }
-    } on DioException catch (error) {
-      print(error);
+    } on DioException {
+      return;
     }
   }
 }

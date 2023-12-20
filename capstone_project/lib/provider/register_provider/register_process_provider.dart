@@ -12,7 +12,7 @@ class RegisterProcessProvider extends ChangeNotifier {
       _dataRegister = registerData;
       notifyListeners();
     } catch (e) {
-      print('Error fetching register data: $e');
+      rethrow;
     }   
   }
 }

@@ -231,10 +231,10 @@ class HistoryChatScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(
+                      const Icon(
                         Icons.file_download_outlined,
                         color: Colors.white,
                       )

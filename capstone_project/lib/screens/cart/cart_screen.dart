@@ -3,15 +3,10 @@ import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/order_med_model.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/screens/buy_med_screen/buy_med_screen.dart';
-import 'package:capstone_project/screens/finish_med_payment/finish_med_payment_screen.dart';
-import 'package:capstone_project/utils/utils.dart';
-import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/button_widget_new.dart';
-import 'package:capstone_project/widgets/keranjang_button_widget.dart';
 import 'package:capstone_project/widgets/med_cart_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -34,7 +29,6 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dataProv = Provider.of<CartDatabaseProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeColor().primaryFrame,
@@ -90,7 +84,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Text(
                           'Total Pembayaran',
                         ),
@@ -121,6 +115,7 @@ Future<void> _handleCheckout(
   try {
     List<MedicineDetail> medicineDetails = await cart.getMedicineDetail();
 
+    // ignore: use_build_context_synchronously
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => BuyMedScreen(
@@ -133,6 +128,19 @@ Future<void> _handleCheckout(
     );
   } catch (error) {
     // Handle errors if needed
-    print('Error: $error');
+    rethrow;
   }
+}
+
+void goToBuyScreen(BuildContext context, CartDatabaseProvider cart, List<MedicineDetail> medicineDetails){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BuyMedScreen(
+          fullname: cart.cartItems,
+          price: cart.totalPrice,
+          id: cart.cartItems.first.id,
+          detailData: medicineDetails,
+        ),
+      ),
+    );
 }

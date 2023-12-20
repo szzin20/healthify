@@ -16,7 +16,7 @@ class MedicineByIdProvider with ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      print('Error fetching Medicines: $e');
+      rethrow;
     }
   }
 }

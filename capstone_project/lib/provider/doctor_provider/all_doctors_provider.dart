@@ -12,7 +12,7 @@ class DoctorsListProvider extends ChangeNotifier {
       _doctorsList = await AllListDoctorsAPI.getSearchData();
       notifyListeners();
     } catch (e) {
-      print('Error fetching doctors list: $e');
+      rethrow;
     }
   }
 }

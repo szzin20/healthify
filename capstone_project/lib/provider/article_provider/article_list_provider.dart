@@ -16,8 +16,7 @@ class ArticlesListProvider with ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      // Handle error as needed
-      print('Error fetching articles: $e');
+      rethrow;
     }
   }
 }

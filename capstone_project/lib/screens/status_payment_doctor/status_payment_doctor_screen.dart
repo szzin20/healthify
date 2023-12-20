@@ -81,12 +81,12 @@ class _StatusPaymentDoctorScreenState extends State<StatusPaymentDoctorScreen> {
                           // Tambahkan logika untuk memulai konsultasi
                         }
                       : null,
-                  child: const Text('Mulai Konsultasi'),
                   style: ElevatedButton.styleFrom(
-                    primary: (statusData?.results?.paymentStatus == "success")
+                    backgroundColor: (statusData?.results?.paymentStatus == "success")
                         ? Colors.green
                         : Colors.grey,
                   ),
+                  child: const Text('Mulai Konsultasi'),
                 ),
               ],
             );

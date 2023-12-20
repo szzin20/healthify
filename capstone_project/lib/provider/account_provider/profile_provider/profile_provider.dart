@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cool_dropdown/cool_dropdown.dart';
 import 'package:cool_dropdown/models/cool_dropdown_item.dart';
 import 'package:flutter/material.dart';
-import 'package:group_button/group_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileProvider extends ChangeNotifier {
@@ -16,7 +15,7 @@ class ProfileProvider extends ChangeNotifier {
   final DropdownController _jenisKelaminController = DropdownController();
   DropdownController get jenisKelaminController => _jenisKelaminController;
 
-  late ImageProvider<Object> _profileImage = AssetImage('assets/images/profile_pic.jpg');
+  late ImageProvider<Object> _profileImage = const AssetImage('assets/images/profile_pic.jpg');
 
   ImageProvider<Object> get profileImage => _profileImage;
 

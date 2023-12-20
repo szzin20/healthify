@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DoctorScreen extends StatefulWidget {
-  const DoctorScreen({Key? key}) : super(key: key);
+  const DoctorScreen({super.key});
 
   @override
   State<DoctorScreen> createState() => _DoctorScreenState();

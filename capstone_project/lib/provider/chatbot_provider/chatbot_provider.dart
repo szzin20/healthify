@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:capstone_project/models/api/chatbot_api.dart';
-import 'package:capstone_project/models/chatbot_model.dart';
 import 'package:chatview/chatview.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

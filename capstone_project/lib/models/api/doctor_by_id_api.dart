@@ -7,16 +7,13 @@ class DoctorAPI {
   static Future<Results?> getDoctorData(int doctorId) async {
     Results? doctorData;
     try {
-      print('halo');
       final response =
           await Dio().get('${Urls.baseUrl}/users/doctors/$doctorId');
       final data = doctorFromJson(json.encode(response.data));
       doctorData = data.results;
     } catch (e) {
-      print(e);
       rethrow;
     }
-    print('gacor');
     return doctorData;
   }
 }

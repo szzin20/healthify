@@ -13,7 +13,7 @@ class StatusMedPaymentProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       // Log error details
-      print('Error fetching status data: $e');
+      rethrow;
     }
   }
 }

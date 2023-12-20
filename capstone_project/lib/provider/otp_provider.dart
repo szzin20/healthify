@@ -14,16 +14,13 @@ class OtpProvider extends ChangeNotifier {
   }
 
   TextEditingController otp1Controller = TextEditingController();
-  TextEditingController get _otp1Controller => otp1Controller;
   TextEditingController otp2Controller = TextEditingController();
-  TextEditingController get _otp2Controller => otp2Controller;
   TextEditingController otp3Controller = TextEditingController();
-  TextEditingController get _otp3Controller => otp3Controller;
   TextEditingController otp4Controller = TextEditingController();
-  TextEditingController get _otp4Controller => otp4Controller;
 
   bool isButtonEnabled = false;
 
+  // ignore: non_constant_identifier_names
   OTPProvider() {
     _setupTextControllers();
   }
@@ -61,9 +58,9 @@ class OtpProvider extends ChangeNotifier {
       registerProvider.emailController.text,
     );
     if (result) {
-      print("OTP sent successfully");
+      return;
     } else {
-      print("Failed to send OTP");
+      return;
     }
   }
 

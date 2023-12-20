@@ -15,7 +15,7 @@ class ArticleByIdProvider with ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      print('Error fetching articles: $e');
+      rethrow;
     }
   }
 }

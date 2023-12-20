@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailDoctorScreen extends StatefulWidget {
-  const DetailDoctorScreen({Key? key}) : super(key: key);
+  const DetailDoctorScreen({super.key});
 
   @override
   State<DetailDoctorScreen> createState() => _DetailDoctorScreenState();
@@ -194,9 +194,7 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                 ),
                 child: ButtonWidget(
                   title: 'Chat Sekarang',
-                  onPressed: (doctor == null)
-                      ? null
-                      : () {
+                  onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

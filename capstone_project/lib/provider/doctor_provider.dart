@@ -61,13 +61,11 @@ class DoctorProvider extends ChangeNotifier {
     _filteredDoctors.clear();
 
     // Jika _doctors tidak null, filter dokter berdasarkan kata kunci pencarian
-    if (_doctors != null) {
-      _filteredDoctors = _doctors
-          .where((doctor) =>
-              doctor.fullname.toLowerCase().contains(keyword.toLowerCase()))
-          .toList();
-    }
-
+    _filteredDoctors = _doctors
+        .where((doctor) =>
+            doctor.fullname.toLowerCase().contains(keyword.toLowerCase()))
+        .toList();
+  
     // Notifikasi perubahan kepada listener
     notifyListeners();
 

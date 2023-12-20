@@ -4,9 +4,9 @@ class InheritedDataProvider extends InheritedWidget {
   final ScrollController scrollController;
   const InheritedDataProvider({
     super.key,
-    required Widget child,
+    required super.child,
     required this.scrollController,
-  }) : super(child: child);
+  });
   @override
   bool updateShouldNotify(InheritedDataProvider oldWidget) =>
       scrollController != oldWidget.scrollController;

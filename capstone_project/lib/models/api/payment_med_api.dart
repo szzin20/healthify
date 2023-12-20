@@ -45,7 +45,6 @@ class PaymentAPI {
 
       return riwayatTransaksiModel;
     } catch (e) {
-      print(e);
       throw Exception('Failed to make payment $e');
     }
   }

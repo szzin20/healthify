@@ -18,7 +18,6 @@ class StatusTransactionApi {
               }));
       return payDocFromJson(json.encode(response.data));
     } catch (error) {
-      print('Error loading status transaction: $error');
       return null; // Return null in case of an error
     }
   }

@@ -23,6 +23,34 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void showLogoutAlert(String message) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Apakah Anda Ingin Keluar?'),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  SharedPreferencesUtils.clear();
+                  SharedPreferencesUtils.unsetLoggedIn();
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: const Text('Iya'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Tidak'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ThemeColor().primaryFrame,
@@ -46,7 +74,9 @@ class AccountScreen extends StatelessWidget {
                 color: Colors.grey,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.person,),
+              child: const Icon(
+                Icons.person,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
@@ -98,9 +128,7 @@ class AccountScreen extends StatelessWidget {
                   'assets/icons/account_screen/logout_icon.svg'),
               title: 'Keluar',
               onTap: () {
-                SharedPreferencesUtils.clear();
-                SharedPreferencesUtils.unsetLoggedIn();
-                Navigator.pushReplacementNamed(context, '/login');
+                showLogoutAlert('Silakan tekan tombol iya');
               },
             ),
           ],

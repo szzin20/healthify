@@ -1,7 +1,9 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/models/cart_model.dart';
+import 'package:capstone_project/models/order_med_model.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_by_id_provider.dart';
+import 'package:capstone_project/screens/buy_med_screen/buy_med_screen.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/detail_product_description.dart';
 import 'package:capstone_project/widgets/detail_product_header_widget.dart';
@@ -114,7 +116,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     child: OutlineButtonWidget(
                         title: 'Tambah',
                         onPressed: () {
-                          print(dataMed.medicines?.results?.id ?? 0);
                           final Result medicine = Result(
                             id: dataMed.medicines?.results?.id ?? 0,
                             code: dataMed.medicines?.results?.code ?? '',
@@ -139,7 +140,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     padding: const EdgeInsets.all(4.0),
                     child: ButtonWidget(
                       title: 'Beli Sekarang',
-                      onPressed: () {},
+                      onPressed: () {
+                        _handleCheckout(context, dataMed);
+                      },
                     ),
                   ),
                 ),
@@ -149,5 +152,44 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
         ],
       ),
     );
+  }
+}
+
+Future<void> _handleCheckout(
+    BuildContext context, MedicineByIdProvider cart) async {
+  try {
+    List<MedicineDetail> medicineDetails = [
+      MedicineDetail(
+          medicineId: cart.medicines?.results?.id,
+          quantity: 1,
+          totalPriceMedicine: cart.medicines?.results?.price)
+    ];
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BuyMedScreen(
+          fullname: [
+            Result(
+              id: cart.medicines?.results?.id ?? 0,
+              code: cart.medicines?.results?.code ?? '',
+              name: cart.medicines?.results?.name ?? '',
+              merk: cart.medicines?.results?.merk ?? '',
+              category: cart.medicines?.results?.category ?? '',
+              type: cart.medicines?.results?.type ?? '',
+              price: cart.medicines?.results?.price ?? 0,
+              stock: cart.medicines?.results?.stock ?? 0,
+              details: cart.medicines?.results?.details ?? '',
+              image: cart.medicines?.results?.image ?? '',
+              quantity: 1,
+            ),
+          ],
+          price: cart.medicines?.results?.price ?? 0,
+          id: cart.medicines?.results?.id ?? 0,
+          detailData: medicineDetails,
+        ),
+      ),
+    );
+  } catch (error) {
+    rethrow;
   }
 }

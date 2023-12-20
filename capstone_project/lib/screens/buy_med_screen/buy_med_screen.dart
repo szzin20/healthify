@@ -9,9 +9,7 @@ import 'package:capstone_project/screens/finish_med_payment/finish_med_payment_s
 import 'package:capstone_project/utils/utils.dart';
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone_project/screens/payment_detail/payment_detail_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 
@@ -318,7 +316,6 @@ class _ConsultationFeeState extends State<BuyMedScreen> {
                             onPressed: isDataIncomplete
                                 ? null
                                 : () async {
-                                  print(SharedPreferencesUtils.getToken());
                                     final checkoutData = CheckoutItemRequest(
                                       name: paymentInfo.name,
                                       address: paymentInfo.address,

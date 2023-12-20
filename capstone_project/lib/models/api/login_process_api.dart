@@ -25,17 +25,13 @@ class GetLoginData {
       } else {
         // Handle other cases, including 401
         if (response.statusCode == 401) {
-          print("Unauthorized access: ${response.data}");
           return data;
         } else {
-          print("Error: ${response.statusCode}");
           return data;
         }
       }
     } catch (error) {
-      print("Error: $error");
+      rethrow;
     }
-
-    return null;
   }
 }

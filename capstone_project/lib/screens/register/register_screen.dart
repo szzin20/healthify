@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -105,7 +105,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : ThemeColor().primaryButton,
                       onPressed: (providerRegister.isButtonEnabled)
                           ? () {
-                              print(providerRegister.emailController.text);
                               providerRegister.registerUser(context);
                             }
                           : null,

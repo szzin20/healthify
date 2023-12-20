@@ -17,7 +17,7 @@ class AllArticlesProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       // Handle error as needed
-      print('Error fetching articles: $e');
+      rethrow;
     }
   }
 
@@ -32,7 +32,6 @@ class AllArticlesProvider with ChangeNotifier {
     } catch (e) {
       _loading = false;
       notifyListeners();
-      print('Error fetching articles by title : $e');
       
     }
   }
@@ -49,7 +48,6 @@ class AllArticlesProvider with ChangeNotifier {
     } catch (e) {
       _loading = false;
       notifyListeners();
-      print('Error clearing search: $e');
     }
   }
   

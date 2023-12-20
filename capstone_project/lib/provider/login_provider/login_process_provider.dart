@@ -13,7 +13,7 @@ class LoginProcessProvider extends ChangeNotifier {
       _dataLogin = loginData;
       notifyListeners();
     } catch (e) {
-      print('Error fetching doctor data: $e');
+      rethrow;
     }
   }
 }

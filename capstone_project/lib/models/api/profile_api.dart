@@ -22,7 +22,7 @@ class ProfileApi {
       );
 
       userData = Profile.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       final errorModel = profileModelFromJson(jsonEncode(e.response?.data));
 
       if (e.response?.statusCode == 401) {
@@ -78,7 +78,7 @@ class ProfileApi {
       );
 
       userData = Profile.fromJson(response.data);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       final errorModel = profileModelFromJson(jsonEncode(e.response?.data));
 
       if (e.response?.statusCode == 401) {

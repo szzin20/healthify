@@ -107,7 +107,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     controller: profileProvider.tbController,
                     textInputAction: TextInputAction.next,
                     onChanged: (value) {
-                      print(value);
                     },
                   ),
                   const SizedBox(width: 12),
@@ -117,7 +116,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     controller: profileProvider.bbController,
                     textInputAction: TextInputAction.done,
                     onChanged: (value) {
-                      print(value);
                     },
                   ),
                 ],

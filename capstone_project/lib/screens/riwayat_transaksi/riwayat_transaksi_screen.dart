@@ -8,8 +8,7 @@ import 'package:intl/intl.dart';
 
 class RiwayatTransaksiScreen extends StatefulWidget {
   final RiwayatTransaksiModel riwayatTransaksi;
-  const RiwayatTransaksiScreen({Key? key, required this.riwayatTransaksi})
-      : super(key: key);
+  const RiwayatTransaksiScreen({super.key, required this.riwayatTransaksi});
 
   @override
   State<RiwayatTransaksiScreen> createState() => _RiwayatTransaksiScreenState();

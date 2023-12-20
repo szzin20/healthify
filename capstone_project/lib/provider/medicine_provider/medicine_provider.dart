@@ -16,7 +16,7 @@ class AllMedicineProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       // Handle error as needed
-      print('Error fetching articles: $e');
+      rethrow;
     }
   }
 
@@ -31,7 +31,7 @@ class AllMedicineProvider with ChangeNotifier {
         .toList();
 
     // Schedule the notifyListeners() call to be executed after the frame is painted
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // Notifikasi perubahan kepada listener
       notifyListeners();
     });

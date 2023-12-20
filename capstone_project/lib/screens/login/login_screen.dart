@@ -149,7 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               SharedPreferencesUtils.setNama(
                                   loginResult?.results?.fullname ?? '');
                               SharedPreferencesUtils.setLoggedIn(true);
-                              print(loginResult?.results?.token);
                               changePage();
                             }
                           },

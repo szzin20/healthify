@@ -14,7 +14,7 @@ class ContactUsProvider extends ChangeNotifier {
   get namaValue => _namaValue;
   String _emailValue = "";
   get emailValue => _emailValue;
-  String _pesanValue = "";
+  final String _pesanValue = "";
   get pesanValue => _pesanValue;
 
   final _namaController = TextEditingController();

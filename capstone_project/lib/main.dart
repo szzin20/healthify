@@ -1,4 +1,3 @@
-import 'package:capstone_project/models/article_list_model.dart';
 import 'package:capstone_project/provider/account_provider/profile_provider/profile_provider.dart';
 import 'package:capstone_project/provider/article_provider/all_articles_provider.dart';
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';

@@ -1,6 +1,5 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/models/med_tran_detail_model.dart';
 import 'package:capstone_project/models/paymed_model.dart';
 import 'package:capstone_project/provider/status_med_payment_provider.dart';
 

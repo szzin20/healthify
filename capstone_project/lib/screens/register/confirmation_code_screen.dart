@@ -113,7 +113,6 @@ class _ConfirmationCodeScreenState extends State<ConfirmationCodeScreen> {
                         ? () async {
                             String enteredOtp =
                                 '${otpProvider.otp1Controller.text}${otpProvider.otp2Controller.text}${otpProvider.otp3Controller.text}${otpProvider.otp4Controller.text}';
-                            print(enteredOtp);
                             await OtpApi().registerUser(
                                 context,
                                 registerProvider.emailController.text,

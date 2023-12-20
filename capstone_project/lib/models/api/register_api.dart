@@ -19,13 +19,9 @@ class GetRegisterData {
         },
       );
 
-      print('${Urls.baseUrl}${Urls.register}');
-      print("Server Response: ${response.statusCode} - ${response.data}");
-
       final data = jsonDecode(jsonEncode(response.data));
       return RegisterData.fromJson(data);
-    } on DioException catch (error) {
-      print(error);
+    } on DioException {
       return null;
     }
   }

@@ -176,7 +176,6 @@ class RegisterProvider extends ChangeNotifier {
 
   void registerUser(BuildContext context) async {
     try {
-      print("Start registration process");
       checkIfAllFieldsFilled();
 
       // Continue with registration process
@@ -192,7 +191,6 @@ class RegisterProvider extends ChangeNotifier {
       final regisResult = processRegisterProvider.dataRegister;
 
       if (regisResult != null) {
-        print("Registration result: $regisResult");
 
         if (regisResult.meta?.success == false) {
           showRegistrationError(
@@ -205,7 +203,7 @@ class RegisterProvider extends ChangeNotifier {
         }
       }
     } catch (e) {
-      print("Error in registerUser: $e");
+      rethrow;
     }
 
     notifyListeners(); // Notify listeners after updating state
