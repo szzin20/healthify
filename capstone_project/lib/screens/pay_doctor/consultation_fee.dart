@@ -5,17 +5,16 @@ import 'package:capstone_project/screens/payment_detail/payment_detail_screen.da
 import 'package:capstone_project/widgets/voucher_text_field.dart';
 
 class ConsultationFeeScreen extends StatefulWidget {
+  final int doctorId;
   final String fullname;
   final int price;
-  final int doctorId; // New parameter to store the doctorId
 
-  // ignore: use_super_parameters
   const ConsultationFeeScreen({
-    Key? key,
+    super.key,
     required this.fullname,
     required this.price,
-    required this.doctorId, 
-  }) : super(key: key);
+    required this.doctorId,
+  });
 
   @override
   State<ConsultationFeeScreen> createState() => _ConsultationFeeState();
@@ -41,9 +40,9 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
         title: Text(
           'Pembayaran',
           style: ThemeTextStyle().titleMedium.copyWith(
-            fontWeight: FontWeight.bold,
-            color: ThemeColor().white,
-          ),
+                fontWeight: FontWeight.bold,
+                color: ThemeColor().white,
+              ),
         ),
         backgroundColor: ThemeColor().primaryFrame,
         centerTitle: true,
@@ -62,11 +61,8 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
                     .copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              _buildPaymentDetails(
-                widget.fullname,
-                '(Konsultasi 30 menit)',
-                'Rp ${widget.price}',
-              ),
+              _buildPaymentDetails(widget.fullname, '(Konsultasi 30 menit)',
+                  'Rp ${widget.price}'),
               const SizedBox(height: 20),
               _buildPaymentDetails2('Biaya Layanan', 'Rp 1000'),
               const SizedBox(height: 40),
@@ -139,9 +135,8 @@ class _ConsultationFeeState extends State<ConsultationFeeScreen> {
       MaterialPageRoute(
         builder: (context) => PaymentDetailScreen(
           totalAmount: totalAmount,
-          selectedPayment: paymentMethods[_selectedPaymentMethod],
           selectedPaymentMethod: selectedPaymentMethod,
-          doctorId: widget.doctorId, // Pass the doctorId to PaymentDetailScreen
+          doctorId: widget.doctorId,
         ),
       ),
     );

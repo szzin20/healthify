@@ -1,53 +1,51 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:capstone_project/models/pay_doc_detail.dart';
+import 'package:capstone_project/models/riwayat_transaksi_model.dart';
 import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:capstone_project/utils/utils.dart';
 
-Future<PayDoc?> uploadPaymentTransaction({
-  required int doctorId,
-  required File image,
-  required String selectedPaymentMethod,
-}) async {
-  try {
-    await SharedPreferencesUtils.init();
+class PaymentAPI {
+  final Dio _dio = Dio();
+
+  Future<RiwayatTransaksiModel> createPayment({
+    required int doctorId,
+    required String paymentMethod,
+    required String paymentConfirmationPath,
+  }) async {
+    final String url = '${Urls.baseUrl}/users/doctor-payments/$doctorId';
     String token = SharedPreferencesUtils.getToken();
-    String fileName = image.path.split('/').last;
-    String baseUrl = Urls.baseUrl;
-    
 
-    // Check if the image file exists
-    if (!image.existsSync()) {
-      throw 'Image file does not exist: ${image.path}';
-    }
+    final String fileName = paymentConfirmationPath.split('/').last;
 
-    Response response = await Dio().post(
-      '$baseUrl${Urls.doctortransactions.replaceFirst(':doctor_id', doctorId.toString())}',
-      options: Options(
-        headers: {
-          "authorization": "Bearer $token",
-          'Content-Type': 'multipart/form-data',
-        },
-      ),
-      data: FormData.fromMap({
-        'payment_method': selectedPaymentMethod.toLowerCase(),
+    try {
+      FormData formData = FormData.fromMap({
+        'payment_method': paymentMethod.toLowerCase(),
         'payment_confirmation': await MultipartFile.fromFile(
-          image.path,
+          paymentConfirmationPath,
           filename: fileName,
-          contentType: MediaType('image', 'jpeg'),
         ),
-      }),
-    );
+      });
 
-    if (response.statusCode == 201) {
-      return payDocFromJson(json.encode(response.data));// Return true on success
-    } else {
-      return payDocFromJson(json.encode(response.data)); // Return false on failure
+      final response = await _dio.post(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+
+      // Handle the API response as needed
+      // ignore: avoid_print
+      print(response.data);
+
+      RiwayatTransaksiModel riwayatTransaksiModel =
+          RiwayatTransaksiModel.fromJson(response.data);
+
+      return riwayatTransaksiModel;
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to make payment $e');
     }
-
-  } catch (e) {
-    print("Error uploading payment: $e");
-    return null; // Return false for other exceptions
   }
 }
