@@ -1,7 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/artikel/artikel.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/history_screen.dart';
+import 'package:capstone_project/screens/history_list_screen/history_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/view_available_doctor/doctor_screen.dart';
 import 'package:flutter/material.dart';

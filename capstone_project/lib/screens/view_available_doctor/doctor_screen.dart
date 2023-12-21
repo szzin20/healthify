@@ -1,6 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/doctor_provider.dart';
+import 'package:capstone_project/provider/doctor_provider/doctor_provider.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:capstone_project/widgets/doctor_card_widget.dart';
 import 'package:capstone_project/widgets/menu_doctor_widget.dart';

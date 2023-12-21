@@ -1,7 +1,7 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/models/api/otp_api.dart';
-import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
 import 'package:capstone_project/widgets/button_widget.dart';
 import 'package:capstone_project/widgets/input_box_widget.dart';

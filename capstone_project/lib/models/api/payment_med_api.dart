@@ -36,10 +36,6 @@ class PaymentAPI {
         ),
       );
 
-      // Handle the API response as needed
-      // ignore: avoid_print
-      print(response.data);
-
       PayMed riwayatTransaksiModel =
           PayMed.fromJson(response.data);
 

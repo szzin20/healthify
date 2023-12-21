@@ -1,6 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/history_chat_screen.dart';
+import 'package:capstone_project/screens/history_list_screen/history_chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class CardConsultationFinish extends StatelessWidget {

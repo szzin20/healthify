@@ -1,5 +1,5 @@
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/otp_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

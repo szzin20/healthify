@@ -3,24 +3,25 @@ import 'package:capstone_project/provider/article_provider/all_articles_provider
 import 'package:capstone_project/provider/article_provider/article_byid_provider.dart';
 import 'package:capstone_project/provider/cart_provider/cart_database_provider.dart';
 import 'package:capstone_project/provider/chatbot_provider/chatbot_provider.dart';
-import 'package:capstone_project/provider/doctor_provider.dart';
+import 'package:capstone_project/provider/doctor_provider/doctor_provider.dart';
+import 'package:capstone_project/provider/history_pay_provider/history_pay_provider.dart';
 import 'package:capstone_project/provider/login_provider/login_process_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/cart_provider/cart_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/check_payment_info_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/med_payment_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_by_id_provider.dart';
-import 'package:capstone_project/provider/menu_doctor_provider.dart';
+import 'package:capstone_project/provider/doctor_provider/menu_doctor_provider.dart';
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/provider/article_provider/article_list_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_by_id_provider.dart';
 import 'package:capstone_project/provider/doctor_provider/doctor_list_provider.dart';
 import 'package:capstone_project/provider/login_provider/check_user_password_provider.dart';
 import 'package:capstone_project/provider/medicine_provider/medicine_provider.dart';
-import 'package:capstone_project/provider/otp_provider.dart';
+import 'package:capstone_project/provider/register_provider/otp_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_process_provider.dart';
 import 'package:capstone_project/provider/register_provider/register_provider.dart';
-import 'package:capstone_project/provider/status_med_payment_provider.dart';
-import 'package:capstone_project/provider/status_payment_provider.dart';
+import 'package:capstone_project/provider/status_payment_provider/status_med_payment_provider.dart';
+import 'package:capstone_project/provider/status_payment_provider/status_payment_provider.dart';
 import 'package:capstone_project/screens/account/account_screen.dart';
 import 'package:capstone_project/screens/account/contact_us/contact_us_screen.dart';
 import 'package:capstone_project/screens/artikel/artikel.dart';
@@ -29,8 +30,9 @@ import 'package:capstone_project/screens/chatbot/chatbot_screen.dart';
 import 'package:capstone_project/screens/detail_articles_screen/detail_articles_screen.dart';
 import 'package:capstone_project/screens/detail_dokter_screen/detail_doctor_screen.dart';
 import 'package:capstone_project/screens/detail_product_screen/detail_product_screen.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/consultation_history_screen.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/history_screen.dart';
+import 'package:capstone_project/screens/history_list_screen/consultation_history_screen.dart';
+import 'package:capstone_project/screens/history_list_screen/history_pay_screen.dart';
+import 'package:capstone_project/screens/history_list_screen/history_screen.dart';
 import 'package:capstone_project/screens/home_screen/home_screen.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/screens/medicine_list/medicine_list_screen.dart';
@@ -123,6 +125,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => StatusPaymentProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => FetchPayDataProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
@@ -160,12 +165,12 @@ class MyApp extends StatelessWidget {
         '/contactUs': (BuildContext context) => const ContactUsScreen(),
        '/consultHistory': (BuildContext context) =>
             const ConsultationHistoryScreen(),
-        '/medHistory': (BuildContext context) => const AccountScreen(),
+        '/medHistory': (BuildContext context) => const HistoryMedScreen(),
         '/chatbot': (BuildContext context) => const ChatBotScreen(),
       },
 
-      // home: const ChatBotScreen(),
-      initialRoute: '/splash',
+      home: const HistoryMedScreen(),
+      // initialRoute: '/splash',
     );
   }
 }

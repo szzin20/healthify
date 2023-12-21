@@ -1,7 +1,6 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/models/riwayat_transaksi_model.dart';
-import 'package:capstone_project/provider/status_payment_provider.dart';
+import 'package:capstone_project/provider/status_payment_provider/status_payment_provider.dart';
 import 'package:capstone_project/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,7 +62,12 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
           ),
           backgroundColor: ThemeColor().primaryFrame,
           centerTitle: true,
-          leading: ,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).popAndPushNamed('/home');
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(

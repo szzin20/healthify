@@ -1,8 +1,8 @@
 import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/widget/card_consultation_progress.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/widget/card_consultation_widget.dart';
-import 'package:capstone_project/screens/history_consultation_doctor/widget/month_year_widget.dart';
+import 'package:capstone_project/screens/history_list_screen/widget/card_consultation_progress.dart';
+import 'package:capstone_project/screens/history_list_screen/widget/card_consultation_widget.dart';
+import 'package:capstone_project/screens/history_list_screen/widget/month_year_widget.dart';
 import 'package:capstone_project/widgets/searchbar_with_filter_widget.dart';
 import 'package:flutter/material.dart';
 
