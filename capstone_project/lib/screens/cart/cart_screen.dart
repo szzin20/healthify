@@ -133,7 +133,8 @@ Future<void> _handleCheckout(
 }
 
 void goToBuyScreen(BuildContext context, CartDatabaseProvider cart, List<MedicineDetail> medicineDetails){
-    Navigator.of(context).push(
+  Provider.of<CartDatabaseProvider>(context, listen: false).clearCart();
+    Navigator.of(context).push(     
       MaterialPageRoute(
         builder: (context) => BuyMedScreen(
           fullname: cart.cartItems,
