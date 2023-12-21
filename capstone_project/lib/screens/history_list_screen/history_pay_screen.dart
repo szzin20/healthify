@@ -2,8 +2,10 @@ import 'package:capstone_project/constants/color_theme.dart';
 import 'package:capstone_project/constants/text_theme.dart';
 import 'package:capstone_project/provider/history_pay_provider/history_pay_provider.dart';
 import 'package:capstone_project/screens/riwayat_transaksi/riwayat_transaksi_screen.dart';
+import 'package:capstone_project/screens/status_payment_med/status_payment_med.dart';
 import 'package:capstone_project/widgets/bottom_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HistoryMedScreen extends StatefulWidget {
@@ -111,15 +113,16 @@ class _HistoryMedScreenState extends State<HistoryMedScreen> {
                         shrinkWrap: true,
                         itemCount: payHistory.payMedData?.results?.length ?? 0,
                         itemBuilder: (context, index) {
+                          String formattedDateTime = DateFormat('dd MMM yyyy')
+                              .format(payHistory
+                                  .payMedData!.results![index].createdAt!);
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  payHistory
-                                      .payMedData!.results![index].createdAt
-                                      .toString(),
+                                  formattedDateTime,
                                 ),
                                 Container(
                                   height: 60,
@@ -158,7 +161,19 @@ class _HistoryMedScreenState extends State<HistoryMedScreen> {
                                           ),
                                         ),
                                         GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  StatusPaymentMedScreen(
+                                                idRiwayatTransaksi: payHistory
+                                                        .payMedData
+                                                        ?.results?[index]
+                                                        .id ??
+                                                    0,
+                                              ),
+                                            ));
+                                          },
                                           child: Image.asset(
                                             "assets/icons/all_icon/chevron-right.png",
                                             width: 26,

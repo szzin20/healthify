@@ -18,7 +18,6 @@ class HistoryDocTransactionApi {
           },
         ),
       );
-      print(response.data);
       return payDocHistoryFromJson(json.encode(response.data));
     } catch (error) {
       return null;

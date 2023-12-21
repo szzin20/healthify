@@ -120,6 +120,7 @@ class _DetailDoctorScreenState extends State<DetailDoctorScreen> {
                                     const CircleAvatar(
                                       backgroundColor: Colors.blue,
                                       maxRadius: 30,
+                                      child: Icon(Icons.person),
                                     ),
                                     const SizedBox(
                                       width: 10,

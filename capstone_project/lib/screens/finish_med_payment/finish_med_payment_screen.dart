@@ -69,7 +69,7 @@ class _FinishPaymentScreenState extends State<FinishPaymentScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => StatusPaymentMedScreen(
-                riwayatTransaksi: data,
+                idRiwayatTransaksi: data.results?.id ?? 0,
               ),
             ),
           );
