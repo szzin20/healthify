@@ -6,11 +6,11 @@ class ButtonWidget extends StatelessWidget {
   final Color buttonColor;
 
   const ButtonWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.onPressed,
     this.buttonColor = const Color(0XFF008772), 
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         title,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

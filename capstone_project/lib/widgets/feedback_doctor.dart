@@ -163,12 +163,12 @@ class FeedBackDoctor extends StatelessWidget {
                   'Penilaian Berhasil di Kirim!',
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   'Terima kasih telah memberikan penilaian. Ini akan membantu kami terus memperbaiki untuk kepuasan Anda.',
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 ButtonWidget(
                   title: "Lihat Riwayat",
                   onPressed: (){

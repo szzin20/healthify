@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class SearchBarFilterWidget extends StatelessWidget {
   final String? title;
   final VoidCallback? onTap;
-  const SearchBarFilterWidget({Key? key, required this.title, this.onTap})
-      : super(key: key);
+  const SearchBarFilterWidget({super.key, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {

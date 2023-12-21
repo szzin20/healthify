@@ -10,13 +10,13 @@ class VoucherTextField extends StatefulWidget {
   final Function(String)? onChanged;
 
   const VoucherTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<VoucherTextField> createState() => _VoucherTextFieldState();

@@ -79,7 +79,7 @@ class ListDoctorWidget extends StatelessWidget {
                                       result[index].profilePicture),
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
-                                    return Center(
+                                    return const Center(
                                       child: Text('No Image'),
                                     );
                                   },

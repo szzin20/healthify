@@ -73,7 +73,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => RiwayatTransaksiScreen(
-              riwayatTransaksi: riwayatTransaksi,
+              idRiwayatTransaksi: riwayatTransaksi.results.id,
             ),
           ),
         );

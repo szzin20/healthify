@@ -17,7 +17,7 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
       children: [
         Container(
           width: 80,
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             right: 8,
             bottom: 6,
             top: 6,
@@ -44,11 +44,13 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
           ),
         ),
         Positioned(
+          top: 8,
+          right: 0,
           child: Container(
             decoration: BoxDecoration(
                 color: ThemeColor().notActiveCategory,
                 borderRadius: BorderRadius.circular(100)),
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               bottom: 2,
               right: 2,
               left: 2,
@@ -58,8 +60,6 @@ class NotActiveHomeScreenCategoryWidget extends StatelessWidget {
               style: ThemeTextStyle().labelExtraSmall,
             ),
           ),
-          top: 8,
-          right: 0,
         )
       ],
     );

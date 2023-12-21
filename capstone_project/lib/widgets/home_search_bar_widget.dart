@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomeSearchBarWidget extends StatelessWidget {
   final String? title;
-  const HomeSearchBarWidget({Key? key, required this.title}) : super(key: key);
+  const HomeSearchBarWidget({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

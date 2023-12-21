@@ -9,7 +9,7 @@ class MenuDoctor extends StatelessWidget {
   final Function(int) onMenuChanged;
   final List<String> doctorItems;
 
-  MenuDoctor({
+  const MenuDoctor({super.key, 
     required this.selectedMenuIndex,
     required this.onMenuChanged,
     required this.doctorItems,

@@ -5,14 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StatusPaymentDoctorScreen extends StatefulWidget {
-  final int doctorId;
-  final String selectedPaymentMethod;
   final int idTran;
 
   const StatusPaymentDoctorScreen({
     super.key,
-    required this.doctorId,
-    required this.selectedPaymentMethod,
     required this.idTran,
   });
 
@@ -70,7 +66,7 @@ class _StatusPaymentDoctorScreenState extends State<StatusPaymentDoctorScreen> {
                 const SizedBox(height: 20),
                 Text(
                     'Transaksi Pembayaran: ${statusData?.results?.paymentConfirmation}'),
-                Text('Metode Pembayaran: ${widget.selectedPaymentMethod}'),
+                Text('Metode Pembayaran: ${statusData?.results?.paymentMethod}'),
                 // Image.asset(getBankLogo(statusData?.results?)),
                 Text('Nama Dokter: ${statusData?.results?.fullname}'),
                 Text('Spesialisasi: ${statusData?.results?.specialist}'),

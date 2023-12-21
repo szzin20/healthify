@@ -7,12 +7,12 @@ class SearchBarWidget extends StatelessWidget {
   final Function(String)? onChanged;
 
   const SearchBarWidget({
-    Key? key,
+    super.key,
     required this.title,
     this.controller,
     this.onSubmitted,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class SearchBarWidget extends StatelessWidget {
               suffixIcon: InkWell(
                 onTap: () {
                   // Add functionality when the mic icon is tapped
-                  print('Mic icon tapped');
                 },
                 child: const Icon(Icons.mic_none_rounded),
               ),
