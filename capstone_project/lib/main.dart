@@ -52,7 +52,7 @@ void main() async {
   await SharedPreferencesUtils.init();
 
   runApp(MultiProvider(
-    providers: [
+    providers: [  
       ChangeNotifierProvider(
         create: (context) => DoctorByIdProvider(),
       ),
@@ -169,7 +169,7 @@ class MyApp extends StatelessWidget {
         '/chatbot': (BuildContext context) => const ChatBotScreen(),
       },
 
-      home: const HistoryMedScreen(),
+      home: const SplashScreen(),
       // initialRoute: '/splash',
     );
   }

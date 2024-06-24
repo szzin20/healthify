@@ -10,7 +10,7 @@ class PaymentAPI {
     required String paymentMethod,
     required String paymentConfirmationPath,
   }) async {
-    final String url = '${Urls.baseUrl}/users/doctor-payments/$doctorId';
+    final String url = 'https://backend-golang-5ekljgp7fq-uc.a.run.app/api/v1/users/doctor-payments/$doctorId';
     String token = SharedPreferencesUtils.getToken();
 
     final String fileName = paymentConfirmationPath.split('/').last;

@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Urls {
-  static const String baseUrl = "https://api.healthify.my.id";
+  static const String baseUrl = "https://backend-golang-5ekljgp7fq-uc.a.run.app/api/v1";
   static const String register = "/users/register";
   static const String signIn = "/users/login";
   static const String getotp = "/users/get-otp";

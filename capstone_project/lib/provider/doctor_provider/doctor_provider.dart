@@ -6,9 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProvider extends ChangeNotifier {
-  static const String baseUrl = "https://api.healthify.my.id/users/doctors";
+  static const String baseUrl = "https://backend-golang-5ekljgp7fq-uc.a.run.app/api/v1/doctors";
   static const String availableDoctorsUrl = "$baseUrl/available";
-  static const String filteredDoctorsUrl = "$baseUrl?limit=5&offset=0";
+  static const String filteredDoctorsUrl = "https://backend-golang-5ekljgp7fq-uc.a.run.app/api/v1/users/doctors?limit=5&offset=0";
 
   final Dio _dio = Dio();
   List<Doctor> _doctors = [];
